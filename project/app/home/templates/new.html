@@ -1,0 +1,278 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-secondary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+ <!--          <div class="row align-items-center py-4">
+
+          </div> -->
+          <!-- Card stats -->
+
+			<br>
+			<div class="accordion" id="accordionExample">
+				<div class="card">
+					<div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<h3 class="mb-0">Project Parameters</h3>
+					</div>
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+<!-- 							<div class="row">
+								<h5 class="mb-0">Please set train and data prefixes.</h5>
+								<br>
+							</div> -->
+							<div class="row">
+								<div class="col-lg-1" style="vertical-align: middle;">
+							    <label>
+									Project:
+								</label>
+								</div>
+								<div class="col-lg-5" style="vertical-align: middle;">
+<!-- 								<div class="custom-file">
+									<label class="custom-file-label" for="train-input">
+										<p id="train"></p><input type="file" id="train-input" class="custom-file-input" style="display:none;" webkitdirectory directory>
+									</label>
+								</div> -->
+									<input class="form-control" placeholder="" id="project">
+								</div>
+								<div class="col-lg-1" style="vertical-align: middle;">
+									<label>
+										Data prefix:
+									</label>
+								</div>
+								<div class="col-lg-5" style="vertical-align: middle;">
+									<input class="form-control" placeholder="" id="prefix">
+								</div>
+							</div>
+						</div>
+					</div>
+			  </div>
+				<div class="card">
+					<div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						<h3 class="mb-0">Training Parameters</h3>
+					</div>
+					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+						<div class="card-body" style="height:16rem;">
+							<div class="row" >
+								<div class="col-lg-1" style="vertical-align: middle;">
+									<label>Data:</label>
+								</div>
+								<div class="col-lg-3" style="vertical-align: middle;">
+									<!-- <input class="form-control" placeholder=""> -->
+<!-- 								<div class="custom-file">
+									<label class="custom-file-label" for="train-input" id="trainpath">
+										
+										<p id="train"></p><input type="file" id="train-input" class="custom-file-input" style="display:none;" onclick="setFolder(myVar1)" webkitdirectory directory>
+									</label>
+								</div> -->
+									<input class="form-control" placeholder="" id="train">
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+									<label for="trainingmode">Mode:</label>
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+<!-- 									<div class="dropdown">
+									  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Train on chunks
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+										<a class="dropdown-item" href="#">True</a>
+										<a class="dropdown-item" href="#">False</a>
+										
+									  </div>
+									</div> -->
+									<select class="form-control" id="trainingmode">
+									  <option>True</option>
+									  <option>False</option>
+									</select>
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+									<label for="algorithm">Algorithm:</label>
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+<!-- 									<div class="dropdown">
+									  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Aggregator type
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+										<a class="dropdown-item" href="#">GCN</a>
+										<a class="dropdown-item" href="#">Mean</a>
+										<a class="dropdown-item" href="#">MeanPool</a>
+										<a class="dropdown-item" href="#">MaxPool</a>
+										<a class="dropdown-item" href="#">LSTM</a>
+									  </div>
+									</div> -->
+									<select class="form-control" id="algorithm">
+									  <option>GCN</option>
+									  <option>Mean</option>
+									  <option>MeanPool</option>
+									  <option>MaxPool</option>
+									  <option>LSTM</option>
+									</select>									
+								</div>								
+
+							</div>
+							<div class="row" style="height:4rem;">
+							</div>
+							<div class="row">
+								<div class="col-lg-1" style="vertical-align: middle;">
+									<label for="spanscale1">Rate:&nbsp;</label>
+<!-- 									<text id="spanscale1" style="inline" type="number" 
+										min="0.001" max="0.1" oninput="scale1.value=spanscale1.value" contenteditable>0.01</text> -->
+										
+								</div>
+								<div class="col-lg-1" style="vertical-align: middle;">
+									<input class="form-control" id="spanscale1" style="inline" type="number" 
+										min="0.001" max="0.1" value="0.01" oninput="scale1.value=spanscale1.value">
+								</div>
+								<div class="col-lg-2">
+									<input class="form-control" type="range" min="0.001" max="0.1" step="0.001" value="0.01" id="scale1" 
+									oninput="spanscale1.value=scale1.value">
+<!-- 									<div class="input-slider-container">
+									  <div id="input-slider1" class="input-slider" data-range-value-min="0.001" data-range-value-max="0.1"></div>
+									  <div class="row mt-3 d-none">
+										<div class="col-3">
+										  <span id="input-slider-value" class="range-slider-value" data-range-value-low="0.01"></span>
+										</div>
+									  </div>
+									</div> -->
+
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+									<label>Episodes:</label>
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+									<input class="form-control" type="number" id="epochs" name="epochs" min="10" max="100" value="10">
+<!-- 								<div class="col-lg-2">
+									<div class="input-slider-container">
+									  <div id="input-slider2" class="input-slider" data-range-value-min="10" data-range-value-max="100"></div>
+									  <div class="row mt-3 d-none">
+										<div class="col-2">
+										  <span id="input-slider-value" class="range-slider-value" data-range-value-low="10"></span>
+										</div>
+									  </div>
+									</div>							
+								</div> -->
+								</div>
+								<div class="col-lg-1" style="vertical-align: middle;">
+									<label for="spanscale2">Percentage:&nbsp;</label>
+									
+									<!-- <text class="text_project" id="spanscale2" style="inline" contenteditable>0.7</text> -->
+								</div>
+								<div class="col-lg-1" style="vertical-align: middle;">
+									<input class="form-control" type="number" min="0.7" max="0.95" step="0.05" value="0.7" id="spanscale2" 
+										oninput="scale2.value=spanscale2.value">
+								</div>
+								<div class="col-lg-2" style="vertical-align: middle;">
+										<input class="form-control" type="range" min="0.7" max="0.95" step="0.05" value="0.7" id="scale2"
+											oninput="spanscale2.value=scale2.value">
+<!-- 									<div class="input-slider-container">
+									  <div id="input-slider3" class="input-slider" data-range-value-min="0.7" data-range-value-max="0.9"></div>
+									  <div class="row mt-3 d-none">
+										<div class="col-2">
+										  <span id="input-slider-value" class="range-slider-value" data-range-value-low="0.8"></span>
+										</div>
+									  </div>
+									</div> -->							
+																
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						<h3 class="mb-0">Graphs Parameters</h3>
+					</div>
+					<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+						<div class="card-body" style="height:12rem;">
+						<div class="row">
+							<div class="col-lg-1" style="vertical-align: middle;">
+								<label for="spanscale3" >Max degree:&nbsp;</label>
+								<!-- <text id="spanscale3" style="inline" contenteditable>10</text> -->
+							</div>
+							<div class="col-lg-1" style="vertical-align: middle;">
+								<input class="form-control" type="number" min="2" max="200" step="1" value="10" id="spanscale3" 
+									oninput="scale3.value=spanscale3.value">
+							</div>
+							<div class="col-lg-2" style="vertical-align: middle;">
+								<input class="form-control" type="range" min="2" max="200" step="1" value="10" id="scale3" 
+									oninput="spanscale3.value=scale3.value">
+							</div>
+							<div class="col-lg-1" style="vertical-align: middle;">
+								<label for="spanscale4" >Max nodes:&nbsp;</label>
+								<!-- <text id="spanscale4" style="inline" contenteditable>700</text> -->
+							</div>
+							<div class="col-lg-1" style="vertical-align: middle;">
+								<input class="form-control" type="number" min="10" max="5000" step="1" value="700" id="spanscale4"
+									oninput="scale4.value=spanscale4.value">
+							</div>
+							<div class="col-lg-2" style="vertical-align: middle;">
+								<input class="form-control" type="range" min="10" max="5000" step="1" value="700" id="scale4"
+									oninput="spanscale4.value=scale4.value">
+							</div>
+						</div>
+						<div class="row" style="height:4rem;">
+							
+						</div>
+<!-- 						<script type="text/javascript">
+							
+						function saveFile(projs) {
+							
+							alert(projs);
+							let project = { 
+								name: '',
+								prefix: '', 
+								path: '',
+								mode: '',
+								algorithm: '',
+								rate: 0.01,
+								epochs: 30,
+								percentage: 0.8,
+								max_degree: 100,
+								max_nodes: 1000
+							}; 
+
+							 let d = JSON.stringify(project); 
+							 alert(d);
+
+						}
+						</script> -->
+						<script src="/static/assets/js/parameters.js"></script>
+						<button type="button" class="btn btn-success" id="save" style="float: right;" onclick="saveFile(myVar,myVar1)">Save Project</button>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+
+		  
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}
