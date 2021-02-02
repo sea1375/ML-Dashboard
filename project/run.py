@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from os import environ
 from sys import exit
 from decouple import config
+from livereload import Server
 
 from config import config_dict
 from app import create_app, db
@@ -29,4 +30,6 @@ app = create_app( app_config )
 Migrate(app, db)
 
 if __name__ == "__main__":
-    app.run()
+    server = Server(app.wsgi_app)
+    server.serve()
+    # app.run()

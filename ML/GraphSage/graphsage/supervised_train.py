@@ -7,7 +7,8 @@ import tensorflow as tf
 import numpy as np
 import sklearn
 from sklearn import metrics
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 import pickle
 
 from graphsage.supervised_models import SupervisedGraphsage,SupervisedGraphsagePlus

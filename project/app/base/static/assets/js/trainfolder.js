@@ -9,18 +9,18 @@ $('#train-input').change(handleFolderSelect(data));
 function handleFolderSelect (e,data) {
     var files = e.target.files;
     if (files.length < 1) {
-        alert('select a file...');
+        // alert('select a file...');
         return;
     }
     var file = files[0];
-/*     var reader = new FileReader();
+    var reader = new FileReader();
     reader.onload = onFileLoaded;
     reader.readAsDataURL(file);
 	reader.addEventListener("load", e => {
-		console.log(e.target.result, JSON.parse(reader.result)) 
-		alert(reader.result)
+		var dataFromChunkG = JSON.parse(reader.result);
+		// alert(dataFromChunkG.nodes);
 	});	
-	reader.readAsText(file); */
+	reader.readAsText(file);
 	
 	var fullPath = document.getElementById('train-input').value;
 	document.getElementById("trainpath").innerHTML = fullPath
@@ -30,15 +30,14 @@ function handleFolderSelect (e,data) {
 		if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
 			filename = filename.substring(1);
 		}
-    
 	}
 	
 }
 
 
-/* $(function () {
+$(function () {
 	
     $('#train-input').click();
 
     $('#train-input').change(handleFileSelect);
-}); */
+});

@@ -15,7 +15,6 @@ document.querySelector('#selectBtn').addEventListener('click', function (event) 
 function handleFileSelect (e) {
     var files = e.target.files;
     if (files.length < 1) {
-        alert('select a file...');
         return;
     }
     var file = files[0];
@@ -23,12 +22,39 @@ function handleFileSelect (e) {
     /* reader.onload = onFileLoaded; */
     /* reader.readAsDataURL(file); */
 	reader.addEventListener("load", e => {
-		/* console.log(e.target.result, JSON.parse(reader.result)) */
-		alert(reader.result)
+        /* console.log(e.target.result, JSON.parse(reader.result)) */
+        var dataFromChunkG = JSON.parse(reader.result);
+        var numberOfNodes = 0, numberOfServices = 0, numberOfPods = 0,
+            numberOfExternalIPs = 0, nubmerOfWorkers = 0, numberOfManagement = 0;
+
+        numberOfNodes = dataFromChunkG.nodes.length;
+        for(let i = 0; i < numberOfNodes; i++) {
+            switch(dataFromChunkG.nodes[i].typ) {
+                case 'SVC':
+                    numberOfServices ++;
+                    break;
+                case 'POD':
+                    numberOfPods ++;
+                    break;
+                case 'EXT':
+                    numberOfExternalIPs ++;
+                    break;
+                case 'WHOST':
+                    nubmerOfWorkers ++;
+                    break;
+                case 'MHOST':
+                    numberOfManagement ++;
+                    break;
+            }
+        }
+        document.getElementById('nodes').innerHTML = numberOfNodes;
+        document.getElementById('servs').innerHTML = numberOfServices;
+        document.getElementById('pods').innerHTML = numberOfPods;
+        document.getElementById('ips').innerHTML = numberOfExternalIPs;
+        document.getElementById('workers').innerHTML = nubmerOfWorkers;
+        document.getElementById('man').innerHTML = numberOfManagement;
 	});	
 	reader.readAsText(file);
-	
-
 	
 	var fullPath = document.getElementById('file-input').value;
 	if (fullPath) {
@@ -37,9 +63,8 @@ function handleFileSelect (e) {
 		if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
 			filename = filename.substring(1);
 		}
-    document.getElementById("path").innerHTML = "$Home/"+filename;
-}
-	
+        document.getElementById("path").innerHTML = "$Home/"+filename;
+    }
 }
 
 /* function onFileLoaded (e) {

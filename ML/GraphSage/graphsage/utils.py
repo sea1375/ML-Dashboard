@@ -10,7 +10,8 @@ import networkx as nx
 from networkx.readwrite import json_graph
 import time
 from sklearn.preprocessing import StandardScaler
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 #version_info = list(map(int, nx.__version__.split('.')))
 #major = version_info[0]
 #minor = version_info[1]
