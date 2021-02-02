@@ -14,73 +14,70 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script>
-      var myVar = "C:\\Users\\eaminbo\\Documents\\production\\ETS\\code\\Visualizer\\project\\app\\projects";
-	  var myVar1 = "C:\\Users\\eaminbo\\Documents\\production\\ETS\\code\\Visualizer\\project\\app\\data";
-  </script>  
-  <title>
-    Graph Neural Networks - {% block title %} {% endblock %} | ER Sec Montreal
-  </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>
+        var myVar = "C:\\Users\\eaminbo\\Documents\\production\\ETS\\code\\Visualizer\\project\\app\\projects";
+        var myVar1 = "C:\\Users\\eaminbo\\Documents\\production\\ETS\\code\\Visualizer\\project\\app\\data";
+    </script>
+    <title>
+        Graph Neural Networks - {% block title %} {% endblock %} | ER Sec Montreal
+    </title>
 
-  <!-- Favicon - loaded as static -->
-  <link rel="icon" href="/static/assets/img/brand/logo_reduced.jpg" type="image/jpg">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
-  <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
-  <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-  <link rel="stylesheet" href="/static/assets/vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css">
-  <!-- Page plugins -->
-  <link rel="stylesheet" href="/static/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="/static/assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
-  <link rel="stylesheet" href="/static/assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+    <!-- Favicon - loaded as static -->
+    <link rel="icon" href="/static/assets/img/brand/logo_reduced.jpg" type="image/jpg">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="/static/assets/vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <!-- Page plugins -->
+    <link rel="stylesheet" href="/static/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/static/assets/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/static/assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
 
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
-  <!-- <link rel="stylesheet" href="/static/assets/css/argon.test.css" type="text/css"> -->
-  <!-- <link rel="stylesheet" href="/static/assets/css/argon.comp.css" type="text/css"> -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+    <!-- <link rel="stylesheet" href="/static/assets/css/argon.test.css" type="text/css"> -->
+    <!-- <link rel="stylesheet" href="/static/assets/css/argon.comp.css" type="text/css"> -->
 
-  <!-- Specific CSS goes HERE -->
-  {% block stylesheets %}{% endblock stylesheets %}
+    <!-- Specific CSS goes HERE -->
+    {% block stylesheets %}{% endblock stylesheets %}
 
 </head>
 
 <body class="">
 
-  {% include "includes/sidenav.html" %}
+    {% include "includes/sidenav.html" %}
 
-  <div class="main-content" id="panel">
+    <div class="main-content" id="panel">
 
-    {% include "includes/navigation.html" %}
+        {% include "includes/navigation.html" %} {% block content %}{% endblock content %}
 
-    {% block content %}{% endblock content %}
+    </div>
 
-  </div>
+    {% include "includes/scripts.html" %}
 
-  {% include "includes/scripts.html" %}
+    <!-- Specific JS goes HERE -->
+    {% block javascripts %}{% endblock javascripts %}
+    <!-- <script src="/static/assets/js/require.js"></script> -->
+    <script src="/static/assets/js/argon.js?v=1.2.0"></script>
+    <!-- <script src="/static/assets/js/parameters.js"></script> -->
+    <script src="/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/static/assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+    <script src="/static/assets/vendor/nouislider/distribute/nouislider.min.js"></script>
+    <!-- Antchart -->
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-graph.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-data-adapter.min.js"></script>
 
-  <!-- Specific JS goes HERE --> 
-  {% block javascripts %}{% endblock javascripts %}
-  <!-- <script src="/static/assets/js/require.js"></script> -->
-  <script src="/static/assets/js/argon.js?v=1.2.0"></script>
-  <!-- <script src="/static/assets/js/parameters.js"></script> -->
-  <script src="/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-  <script src="/static/assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-  <script src="/static/assets/vendor/nouislider/distribute/nouislider.min.js"></script>
-  <!-- Antchart -->
-  <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-graph.min.js"></script>
-  <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-data-adapter.min.js"></script>
-
-  <script src="/static/assets/js/antchart.js"></script>
 </body>
 
 </html>

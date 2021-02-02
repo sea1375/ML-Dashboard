@@ -95,13 +95,14 @@ function handleFileSelect(e) {
 
         var anychartData = createAnychartData(dataFromChunkG);
 
-        // create a chart and set the data
         var chart = anychart.graph(anychartData);
 
-        // set the container id
         chart.container("wait1");
+        var nodes = chart.nodes();
+        nodes.normal().height(5);
+        nodes.normal().fill("#ffa000");
+        nodes.normal().stroke(null);
 
-        // initiate drawing the chart
         chart.draw();
     });
     reader.readAsText(file);
