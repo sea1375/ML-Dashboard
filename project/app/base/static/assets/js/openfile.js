@@ -9,6 +9,43 @@ document.querySelector('#selectBtn').addEventListener('click', function (event) 
         }
     });
 }); */
+function createAnychartData(dataFromChunkG) {
+    var anychartData = {
+        nodes: [],
+        edges: [],
+    }
+    for (let i = 0; i < dataFromChunkG.nodes.length; i++) {
+        anychartData.nodes.push({
+            id: dataFromChunkG.nodes[i].id.toString()
+        });
+    }
+    for (let i = 0; i < dataFromChunkG.links.length; i++) {
+        if (dataFromChunkG.links[i].source.toString() == dataFromChunkG.links[i].target.toString()) {
+            continue;
+        }
+        anychartData.edges.push({
+            from: dataFromChunkG.links[i].source.toString(),
+            to: dataFromChunkG.links[i].target.toString()
+        });
+    }
+
+    for (let i = anychartData.nodes.length - 1; i >= 0; i--) {
+        var node = anychartData.nodes[i].id,
+            hasLink = false;
+        for (let j = 0; j < anychartData.edges.length; j++) {
+            var source = anychartData.edges[j].from,
+                target = anychartData.edges[j].to;
+            if (node == source || node == target) {
+                hasLink = true;
+                break;
+            }
+        }
+        if (!hasLink) {
+            anychartData.nodes.splice(i, 1);
+        }
+    }
+    return anychartData;
+}
 
 function handleFileSelect(e) {
     var files = e.target.files;
@@ -55,6 +92,17 @@ function handleFileSelect(e) {
         document.getElementById('ips').innerHTML = numberOfExternalIPs;
         document.getElementById('workers').innerHTML = nubmerOfWorkers;
         document.getElementById('man').innerHTML = numberOfManagement;
+
+        var anychartData = createAnychartData(dataFromChunkG);
+
+        // create a chart and set the data
+        var chart = anychart.graph(anychartData);
+
+        // set the container id
+        chart.container("wait1");
+
+        // initiate drawing the chart
+        chart.draw();
     });
     reader.readAsText(file);
 
