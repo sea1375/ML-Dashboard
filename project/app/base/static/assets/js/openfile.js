@@ -16,6 +16,9 @@ function createAnychartData(dataFromChunkG) {
     for (let i = 0; i < dataFromChunkG.nodes.length; i++) {
         anychartData.nodes.push({
             id: dataFromChunkG.nodes[i].id.toString(),
+            group: dataFromChunkG.nodes[i].group,
+            feature: dataFromChunkG.nodes[i].feature,
+            type: dataFromChunkG.nodes[i].typ,
             normal: {
                 fill: dataFromChunkG.nodes[i].color.toString(),
                 stroke: null,
@@ -75,8 +78,8 @@ async function visualize_graphs() {
                 numberOfManagement = 0;
 
             numberOfNodes = dataFromChunkG.nodes.length;
-            for (let i = 0; i < numberOfNodes; i++) {
-                switch (dataFromChunkG.nodes[i].typ) {
+            for (let j = 0; j < numberOfNodes; j++) {
+                switch (dataFromChunkG.nodes[j].typ) {
                     case 'SVC':
                         numberOfServices++;
                         break;
@@ -116,16 +119,22 @@ async function visualize_graphs() {
             nodes.hovered().height(10);
             nodes.selected().height(10);
 
-            // nodes.normal().fill("#00bfa5");
-            // nodes.hovered().fill("white");
-            // nodes.selected().fill("#00bfa5");
-
-            // nodes.normal().stroke(null);
-            // nodes.hovered().stroke("#00bfa5", 3);
-            // nodes.selected().stroke("#333333", 3);
-
             chart.tooltip().useHtml(true);
-
+            chart.tooltip().positionMode("chart");
+            chart.tooltip().anchor("left-top");
+            chart.tooltip().position("left-top");
+            chart.tooltip().format(function() {
+                if (this.type == 'node') {
+                    let tooltip_id = "<span style='font-weight: bold'" + this.getData("id") + "</span><br>";
+                    let tooltip_group = "group: " + this.getData("group") + "<br>";
+                    let tooltip_type = "type: " + this.getData("type") + "<br>";
+                    let tooltip_feature = 'feature: <br>';
+                    for (let index = 0; index < this.getData("feature").length; index++) {
+                        tooltip_feature += index + " : " + this.getData("feature")[index] + "<br>";
+                    }
+                    return tooltip_id + tooltip_group + tooltip_type + tooltip_feature;
+                }
+            });
             chart.draw();
 
             await sleep(3000);
