@@ -54,10 +54,8 @@ function handleFileSelect(e) {
     }
     var file = files[0];
     var reader = new FileReader();
-    /* reader.onload = onFileLoaded; */
-    /* reader.readAsDataURL(file); */
+
     reader.addEventListener("load", e => {
-        /* console.log(e.target.result, JSON.parse(reader.result)) */
         var dataFromChunkG = JSON.parse(reader.result);
         var numberOfNodes = 0,
             numberOfServices = 0,
