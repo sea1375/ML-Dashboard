@@ -52,56 +52,72 @@ function sleep(ms) {
 
 async function visualize_graphs() {
 
-    for (let i = 0; i < graphs.length; i++) {
-        var dataFromChunkG = graphs[i];
-        var numberOfNodes = 0,
-            numberOfServices = 0,
-            numberOfPods = 0,
-            numberOfExternalIPs = 0,
-            nubmerOfWorkers = 0,
-            numberOfManagement = 0;
+    try {
+        for (let i = 0; i < graphs.length; i++) {
+            var dataFromChunkG = graphs[i];
+            var numberOfNodes = 0,
+                numberOfServices = 0,
+                numberOfPods = 0,
+                numberOfExternalIPs = 0,
+                nubmerOfWorkers = 0,
+                numberOfManagement = 0;
 
-        numberOfNodes = dataFromChunkG.nodes.length;
-        for (let i = 0; i < numberOfNodes; i++) {
-            switch (dataFromChunkG.nodes[i].typ) {
-                case 'SVC':
-                    numberOfServices++;
-                    break;
-                case 'POD':
-                    numberOfPods++;
-                    break;
-                case 'EXT':
-                    numberOfExternalIPs++;
-                    break;
-                case 'WHOST':
-                    nubmerOfWorkers++;
-                    break;
-                case 'MHOST':
-                    numberOfManagement++;
-                    break;
+            numberOfNodes = dataFromChunkG.nodes.length;
+            for (let i = 0; i < numberOfNodes; i++) {
+                switch (dataFromChunkG.nodes[i].typ) {
+                    case 'SVC':
+                        numberOfServices++;
+                        break;
+                    case 'POD':
+                        numberOfPods++;
+                        break;
+                    case 'EXT':
+                        numberOfExternalIPs++;
+                        break;
+                    case 'WHOST':
+                        nubmerOfWorkers++;
+                        break;
+                    case 'MHOST':
+                        numberOfManagement++;
+                        break;
+                }
             }
+            document.getElementById('nodes').innerHTML = numberOfNodes;
+            document.getElementById('servs').innerHTML = numberOfServices;
+            document.getElementById('pods').innerHTML = numberOfPods;
+            document.getElementById('ips').innerHTML = numberOfExternalIPs;
+            document.getElementById('workers').innerHTML = nubmerOfWorkers;
+            document.getElementById('man').innerHTML = numberOfManagement;
+
+            var anychartData = createAnychartData(dataFromChunkG);
+
+            document.getElementById('wait1').innerHTML = '';
+
+            var chart = anychart.graph(anychartData);
+            chart.container("wait1");
+
+            var nodes = chart.nodes();
+
+            nodes.normal().shape("diamond");
+
+            nodes.normal().height(7);
+            nodes.hovered().height(10);
+            nodes.selected().height(10);
+
+            nodes.normal().fill("#00bfa5");
+            nodes.hovered().fill("white");
+            nodes.selected().fill("#00bfa5");
+
+            nodes.normal().stroke(null);
+            nodes.hovered().stroke("#00bfa5", 3);
+            nodes.selected().stroke("#333333", 3);
+
+            chart.draw();
+
+            await sleep(3000);
         }
-        document.getElementById('nodes').innerHTML = numberOfNodes;
-        document.getElementById('servs').innerHTML = numberOfServices;
-        document.getElementById('pods').innerHTML = numberOfPods;
-        document.getElementById('ips').innerHTML = numberOfExternalIPs;
-        document.getElementById('workers').innerHTML = nubmerOfWorkers;
-        document.getElementById('man').innerHTML = numberOfManagement;
-
-        var anychartData = createAnychartData(dataFromChunkG);
-
-        document.getElementById('wait1').innerHTML = '';
-
-        var chart = anychart.graph(anychartData);
-        chart.container("wait1");
-        var nodes = chart.nodes();
-        nodes.normal().height(5);
-        nodes.normal().fill("#ffa000");
-        nodes.normal().stroke(null);
-
-        chart.draw();
-
-        await sleep(3000);
+    } catch (e) {
+        console.log(e);
     }
 }
 
