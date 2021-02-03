@@ -6,13 +6,12 @@ Copyright (c) 2019 - present AppSeed.us
 from app.home import blueprint
 from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
-from app import login_manager
+from app import login_manager, graph_json_data
 from jinja2 import TemplateNotFound
 
 @blueprint.route('/index')
 @login_required
 def index():
-
     return render_template('index.html', segment='index')
 
 @blueprint.route('/<template>')
@@ -26,9 +25,12 @@ def route_template(template):
 
         # Detect the current page
         segment = get_segment( request )
-
         # Serve the file (if exists) from app/templates/FILE.html
-        return render_template( template, segment=segment )
+        if template == 'open.html':
+            print(len(graph_json_data))
+            return render_template( template, segment=segment, graph_json_data = graph_json_data , number_of_graphs = len(graph_json_data))
+        else:
+            return render_template( template, segment=segment )
         # if segment == 'new':
             # data={'projects': 'C:\\Users\\eaminbo\\Documents\\production\\ETS\\code\\Visualizer\\project\\app\\projects'}			
 

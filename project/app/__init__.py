@@ -17,10 +17,10 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
-# from os import path
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+graph_json_data  = []
 
 def register_extensions(app):
     db.init_app(app)
@@ -43,17 +43,19 @@ def configure_database(app):
 
 def read_chunks():
     SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    NUMBER_OF_GRAPH = 20
+    NUMBER_OF_GRAPH = 1000
     PADDING_SIZE = 3
     try:
         for index in range(NUMBER_OF_GRAPH):
             url_string = str(index)
             url_string = 'chunk' + '0'*(PADDING_SIZE - len(url_string)) + url_string
             json_url = os.path.join(SITE_ROOT, 'graphs', url_string, 'adpcicd-G.json')
+
             if os.path.exists(json_url) == False:
                 break
+
             data = json.load(open(json_url))
-            print(data)
+            graph_json_data.append(data)
     except:
         print('except')
 

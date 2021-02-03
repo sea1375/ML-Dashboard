@@ -1,14 +1,13 @@
-/* const {dialog} = require('electron').remote;
+var train_prefix = './graphs/',
+    data_prefix = 'adpcicd',
+    model = 'gcn',
+    max_degree = 10,
+    epochs = 30,
+    train_chunks = true,
+    train_percentage = 0.8,
+    validata_batch_size = -1,
+    nodes_max = 1000;
 
-document.querySelector('#selectBtn').addEventListener('click', function (event) {
-    dialog.showOpenDialog({
-        properties: ['openFile', 'multiSelections']
-    }, function (files) {
-        if (files !== undefined) {
-            // handle files
-        }
-    });
-}); */
 function createAnychartData(dataFromChunkG) {
     var anychartData = {
         nodes: [],
@@ -47,16 +46,14 @@ function createAnychartData(dataFromChunkG) {
     return anychartData;
 }
 
-function handleFileSelect(e) {
-    var files = e.target.files;
-    if (files.length < 1) {
-        return;
-    }
-    var file = files[0];
-    var reader = new FileReader();
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    reader.addEventListener("load", e => {
-        var dataFromChunkG = JSON.parse(reader.result);
+async function visualize_graphs() {
+
+    for (let i = 0; i < graphs.length; i++) {
+        var dataFromChunkG = graphs[i];
         var numberOfNodes = 0,
             numberOfServices = 0,
             numberOfPods = 0,
@@ -93,8 +90,9 @@ function handleFileSelect(e) {
 
         var anychartData = createAnychartData(dataFromChunkG);
 
-        var chart = anychart.graph(anychartData);
+        document.getElementById('wait1').innerHTML = '';
 
+        var chart = anychart.graph(anychartData);
         chart.container("wait1");
         var nodes = chart.nodes();
         nodes.normal().height(5);
@@ -102,42 +100,50 @@ function handleFileSelect(e) {
         nodes.normal().stroke(null);
 
         chart.draw();
-    });
-    reader.readAsText(file);
 
-    var fullPath = document.getElementById('file-input').value;
-    if (fullPath) {
-        var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
-        var filename = fullPath.substring(startIndex);
-        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
-            filename = filename.substring(1);
-        }
-        document.getElementById("path").innerHTML = "$Home/" + filename;
+        await sleep(3000);
     }
 }
 
-/* function onFileLoaded (e) {
-var match = /^data:(.*);base64,(.*)$/.exec(e.target.result);
-    if (match == null) {
-        throw 'Could not parse result'; // should not happen
-    }
-    var mimeType = match[1];
-    var content = match[2];
-	if (mimeType === "application/json") {
-		alert(mimeType);
-		alert(content);
-	}
-} */
+function handleFileSelect(e) {
 
-/* $(function () {
-    $('#import-pfx-button').click(function(e) {
-        $('#file-input').click();
-    });
-    $('#file-input').change(handleFileSelect);
-}); */
+    var files = e.target.files;
+    if (files.length < 1) {
+        return;
+    }
+    var file = files[0];
+    var reader = new FileReader();
+    try {
+        reader.addEventListener("load", e => {
+            // save the project parameters
+            var projectData = JSON.parse(reader.result);
+            model = projectData.algorithm;
+            max_degree = projectData.max_degree;
+            epochs = projectData.epochs;
+            train_chunks = projectData.mode;
+            train_percentage = projectData.percentage;
+            nodes_max = projectData.max_nodes;
+            // visualize the graphs
+        });
+        reader.readAsText(file);
+
+        var fullPath = document.getElementById('file-input').value;
+        if (fullPath) {
+            var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+            var filename = fullPath.substring(startIndex);
+            if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                filename = filename.substring(1);
+            }
+            document.getElementById("path").innerHTML = "$Home/" + filename;
+        }
+        alert('visualize');
+        visualize_graphs();
+    } catch (e) {
+        alert('Please select right json file.');
+    }
+}
 
 $(function() {
-
     $('#file-input').click();
 
     $('#file-input').change(handleFileSelect);
