@@ -120,19 +120,21 @@ async function visualize_graphs() {
             nodes.selected().height(10);
 
             chart.tooltip().useHtml(true);
+            chart.tooltip().width(150);
             chart.tooltip().positionMode("chart");
             chart.tooltip().anchor("left-top");
             chart.tooltip().position("left-top");
+            chart.tooltip().titleFormat("{%x}");
             chart.tooltip().format(function() {
                 if (this.type == 'node') {
-                    let tooltip_id = "<span style='font-weight: bold'" + this.getData("id") + "</span><br>";
+                    let tooltip_id = "<span style='font-weight: bold;font-size: 16px;'>ID: " + this.id + "</span><br>";
                     let tooltip_group = "group: " + this.getData("group") + "<br>";
                     let tooltip_type = "type: " + this.getData("type") + "<br>";
                     let tooltip_feature = 'feature: <br>';
                     for (let index = 0; index < this.getData("feature").length; index++) {
                         tooltip_feature += index + " : " + this.getData("feature")[index] + "<br>";
                     }
-                    return tooltip_id + tooltip_group + tooltip_type + tooltip_feature;
+                    return "<div style='text-align: left'>" + tooltip_id + tooltip_group + tooltip_type + tooltip_feature + "</div>";
                 }
             });
             chart.draw();
