@@ -7,6 +7,7 @@ var train_prefix = './graphs/',
     train_percentage = 0.8,
     validata_batch_size = -1,
     nodes_max = 1000;
+var visualize_state = 'none';
 
 function createAnychartData(dataFromChunkG) {
     var anychartData = {
@@ -66,7 +67,6 @@ function sleep(ms) {
 }
 
 async function visualize_graphs() {
-
     try {
         for (let i = 0; i < graphs.length; i++) {
             var dataFromChunkG = graphs[i];
@@ -138,11 +138,38 @@ async function visualize_graphs() {
                 }
             });
             chart.draw();
-
-            await sleep(3000);
+            let time = 0;
+            while (true) {
+                if (time >= 3 && visualize_state == 'play') {
+                    break;
+                }
+                await sleep(1000);
+                time++;
+            }
         }
     } catch (e) {
         console.log(e);
+    }
+}
+
+function visualize() {
+    switch (visualize_state) {
+        case 'none':
+            visualize_state = 'play';
+            document.getElementsByClassName('start')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('play')[0].style.visibility = 'visible';
+            visualize_graphs();
+            break;
+        case 'play':
+            visualize_state = 'stop';
+            document.getElementsByClassName('play')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('stop')[0].style.visibility = 'visible';
+            break;
+        case 'stop':
+            visualize_state = 'play';
+            document.getElementsByClassName('stop')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('play')[0].style.visibility = 'visible';
+            break;
     }
 }
 
@@ -177,7 +204,6 @@ function handleFileSelect(e) {
             }
             document.getElementById("path").innerHTML = "$Home/" + filename;
         }
-        visualize_graphs();
     } catch (e) {
         alert('Please select right json file.');
     }
@@ -185,6 +211,5 @@ function handleFileSelect(e) {
 
 $(function() {
     $('#file-input').click();
-
     $('#file-input').change(handleFileSelect);
 });
