@@ -254,3 +254,13 @@ function decreaseSpeed() {
     if (animation_speed > 1) animation_speed--;
     $('#speed')[0].value = animation_speed;
 }
+
+function goToTrain() {
+    $("#tabs-icons-text-1-tab").removeClass("active");
+    $("#tabs-icons-text-2-tab").addClass("active");
+}
+
+function goToAnalysis() {
+    $("#tabs-icons-text-2-tab").removeClass("active");
+    $("#tabs-icons-text-3-tab").addClass("active");
+}
