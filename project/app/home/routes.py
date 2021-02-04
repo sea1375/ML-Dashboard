@@ -8,6 +8,7 @@ from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app import login_manager, graph_json_data
 from jinja2 import TemplateNotFound
+import time
 
 @blueprint.route('/index')
 @login_required
@@ -20,6 +21,9 @@ def route_template(template):
     print(template)
     try:
         if template == 'test':
+            for index in range(10):
+                print('waiting...')
+                time.sleep(3)
             return 'ok'
         if not template.endswith( '.html' ):
             template += '.html'
