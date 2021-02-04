@@ -8,6 +8,7 @@ var train_prefix = './graphs/',
     validata_batch_size = -1,
     nodes_max = 1000;
 var visualize_state = 'none';
+var animation_speed = parseInt($('#speed')[0].value, 10);
 
 function createAnychartData(dataFromChunkG) {
     var anychartData = {
@@ -140,7 +141,7 @@ async function visualize_graphs() {
             progressBar(i, graphs.length);
             let time = 0;
             while (true) {
-                if (time >= 3 && visualize_state == 'play') {
+                if (time >= animation_speed && visualize_state == 'play') {
                     break;
                 }
                 await sleep(1000);
@@ -212,6 +213,7 @@ function handleFileSelect(e) {
 $(function() {
     $('#file-input').click();
     $('#file-input').change(handleFileSelect);
+    $('#speed').change(changeAnimationSpeed);
 });
 
 function progressBar(progressVal, totalPercentageVal = 100) {
@@ -230,4 +232,20 @@ function progressBar(progressVal, totalPercentageVal = 100) {
         if (progress < 1) setTimeout(arguments.callee, 10);
     }, 10);
 
+}
+
+function changeAnimationSpeed() {
+    var value = parseInt($('#speed')[0].value, 10);
+    value = isNaN(value) ? 0 : value;
+    animation_speed = value;
+}
+
+function increaseSpeed() {
+    animation_speed++;
+    $('#speed')[0].value = animation_speed;
+}
+
+function decreaseSpeed() {
+    if (animation_speed > 0) animation_speed--;
+    $('#speed')[0].value = animation_speed;
 }
