@@ -148,6 +148,10 @@ async function visualize_graphs() {
                 time++;
             }
         }
+        visualize_state = 'none';
+        document.getElementsByClassName('play')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('stop')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('start')[0].style.visibility = 'visible';
     } catch (e) {
         console.log(e);
     }
@@ -219,7 +223,7 @@ $(function() {
 function progressBar(progressVal, totalPercentageVal = 100) {
     var strokeVal = (4.64 * 100) / totalPercentageVal;
     var x = document.querySelector('.progress-circle-prog');
-    x.style.strokeDasharray = progressVal * (strokeVal) + ' 999';
+    x.style.strokeDasharray = progressVal * (strokeVal) * 2 + ' 999';
     var el = document.querySelector('.progress-text');
     var from = $('.progress-text').data('progress');
     $('.progress-text').data('progress', progressVal);
@@ -236,7 +240,8 @@ function progressBar(progressVal, totalPercentageVal = 100) {
 
 function changeAnimationSpeed() {
     var value = parseInt($('#speed')[0].value, 10);
-    value = isNaN(value) ? 0 : value;
+    value = isNaN(value) ? 1 : value;
+    if (value < 1) value = 1;
     animation_speed = value;
 }
 
@@ -246,6 +251,6 @@ function increaseSpeed() {
 }
 
 function decreaseSpeed() {
-    if (animation_speed > 0) animation_speed--;
+    if (animation_speed > 1) animation_speed--;
     $('#speed')[0].value = animation_speed;
 }
