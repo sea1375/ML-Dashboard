@@ -6,10 +6,10 @@ import time
 import tensorflow as tf
 import numpy as np
 
-from graphsage.models import SampleAndAggregate, SAGEInfo, Node2VecModel
-from graphsage.minibatch import EdgeMinibatchIterator
-from graphsage.neigh_samplers import UniformNeighborSampler
-from graphsage.utils import load_data
+from app.graphsage.models import SampleAndAggregate, SAGEInfo, Node2VecModel
+from app.graphsage.minibatch import EdgeMinibatchIterator
+from app.graphsage.neigh_samplers import UniformNeighborSampler
+from app.graphsage.utils import load_data
 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 

@@ -3,8 +3,8 @@ from collections import namedtuple
 import tensorflow as tf
 import math
 
-import graphsage.layers as layers
-import graphsage.metrics as metrics
+import app.graphsage.layers as layers
+import app.graphsage.metrics as metrics
 
 from .prediction import BipartiteEdgePredLayer
 from .aggregators import MeanAggregator, MaxPoolingAggregator, MeanPoolingAggregator, SeqAggregator, GCNAggregator

@@ -1,8 +1,8 @@
 from __future__ import division
 from __future__ import print_function
 
-from graphsage.inits import zeros
-from graphsage.layers import Layer
+from app.graphsage.inits import zeros
+from app.graphsage.layers import Layer
 import tensorflow as tf
 
 flags = tf.app.flags

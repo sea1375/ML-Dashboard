@@ -7,17 +7,18 @@ import tensorflow as tf
 import numpy as np
 import sklearn
 from sklearn import metrics
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 import pickle
 
-from graphsage.supervised_models import SupervisedGraphsage,SupervisedGraphsagePlus
-from graphsage.models import SAGEInfo
-from graphsage.minibatch import NodeMinibatchIterator
-from graphsage.minibatch import GraphMinibatchIterator
-from graphsage.neigh_samplers import UniformNeighborSampler
-from graphsage.utils import load_data
-from graphsage.utils import load_data_chunks
-from graphsage.utils import load_graph_test
+from app.graphsage.supervised_models import SupervisedGraphsage,SupervisedGraphsagePlus
+from app.graphsage.models import SAGEInfo
+from app.graphsage.minibatch import NodeMinibatchIterator
+from app.graphsage.minibatch import GraphMinibatchIterator
+from app.graphsage.neigh_samplers import UniformNeighborSampler
+from app.graphsage.utils import load_data
+from app.graphsage.utils import load_data_chunks
+from app.graphsage.utils import load_graph_test
 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 
@@ -40,6 +41,7 @@ flags.DEFINE_string('train_prefix', '', 'prefix identifying training data. must 
 flags.DEFINE_boolean('train_chunks', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
 flags.DEFINE_boolean('train_mode', True, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
 flags.DEFINE_string('data_prefix', 'adpcicd', 'data prefix') #added by Amine Boukhtouta
+
 #flags.DEFINE_boolean('train_on_val_test', False, 'training on data considered for validation and testing') #added by Amine Boukhtouta
 flags.DEFINE_float('train_percentage', 0.8, 'Percentage of training graphs') #added by Amine
 flags.DEFINE_integer('nodes_max', 400, 'Maximum Number of Nodes') #added by Amine

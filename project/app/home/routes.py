@@ -22,7 +22,7 @@ def route_template(template):
     print(template)
     try:
         if template == 'test':
-            os.system("python app/home/test.py")
+            os.system("python -m app.graphsage.supervised_train --train_prefix app/graphs/ --data_prefix adpcicd --model gcn --max_degree 10 --epochs 30 --train_chunks True --train_percentage 0.8 --validate_batch_size -1 --nodes_max 1000")
             for index in range(10):
                 print('waiting...')
                 time.sleep(3)

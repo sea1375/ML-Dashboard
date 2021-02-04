@@ -1,10 +1,10 @@
 import tensorflow as tf
 import sys
 
-import graphsage.models as models
-import graphsage.layers as layers
-from graphsage.aggregators import MeanAggregator, MaxPoolingAggregator, MeanPoolingAggregator, SeqAggregator, GCNAggregator
-from graphsage.neigh_samplers import UniformNeighborSampler
+import app.graphsage.models as models
+import app.graphsage.layers as layers
+from app.graphsage.aggregators import MeanAggregator, MaxPoolingAggregator, MeanPoolingAggregator, SeqAggregator, GCNAggregator
+from app.graphsage.neigh_samplers import UniformNeighborSampler
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
