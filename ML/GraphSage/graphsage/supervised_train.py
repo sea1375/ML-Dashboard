@@ -41,6 +41,7 @@ flags.DEFINE_string('train_prefix', '', 'prefix identifying training data. must 
 flags.DEFINE_boolean('train_chunks', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
 flags.DEFINE_boolean('train_mode', True, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
 flags.DEFINE_string('data_prefix', 'adpcicd', 'data prefix') #added by Amine Boukhtouta
+
 #flags.DEFINE_boolean('train_on_val_test', False, 'training on data considered for validation and testing') #added by Amine Boukhtouta
 flags.DEFINE_float('train_percentage', 0.8, 'Percentage of training graphs') #added by Amine
 flags.DEFINE_integer('nodes_max', 400, 'Maximum Number of Nodes') #added by Amine

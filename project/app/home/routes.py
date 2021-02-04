@@ -2,13 +2,14 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import os
 from app.home import blueprint
 from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app import login_manager, graph_json_data
 from jinja2 import TemplateNotFound
 import time
+import test
 
 @blueprint.route('/index')
 @login_required
@@ -21,6 +22,7 @@ def route_template(template):
     print(template)
     try:
         if template == 'test':
+            os.system("python app/home/test.py")
             for index in range(10):
                 print('waiting...')
                 time.sleep(3)
