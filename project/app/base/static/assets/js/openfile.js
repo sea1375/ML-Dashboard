@@ -124,7 +124,6 @@ async function visualize_graphs() {
             chart.tooltip().positionMode("chart");
             chart.tooltip().anchor("left-top");
             chart.tooltip().position("left-top");
-            chart.tooltip().titleFormat("{%x}");
             chart.tooltip().format(function() {
                 if (this.type == 'node') {
                     let tooltip_id = "<span style='font-weight: bold;font-size: 16px;'>ID: " + this.id + "</span><br>";
@@ -138,6 +137,7 @@ async function visualize_graphs() {
                 }
             });
             chart.draw();
+            progressBar(i, graphs.length);
             let time = 0;
             while (true) {
                 if (time >= 3 && visualize_state == 'play') {
@@ -226,10 +226,8 @@ function progressBar(progressVal, totalPercentageVal = 100) {
     setTimeout(function() {
         var now = (new Date().getTime()) - start;
         var progress = now / 700;
-        el.innerHTML = progressVal / totalPercentageVal * 100 + '%';
+        el.innerHTML = progressVal;
         if (progress < 1) setTimeout(arguments.callee, 10);
     }, 10);
 
 }
-
-progressBar(10, 200);
