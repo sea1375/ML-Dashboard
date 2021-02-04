@@ -258,6 +258,19 @@ function decreaseSpeed() {
 function goToTrain() {
     $("#tabs-icons-text-1-tab").removeClass("active");
     $("#tabs-icons-text-2-tab").addClass("active");
+    $.ajax({
+        type: "GET",
+        url: "/test",
+        // data: {
+        //     data1: "hello",
+        //     data2: "world",
+        // },
+        success: callbackFunc
+    })
+}
+
+function callbackFunc() {
+    console.log("okay");
 }
 
 function goToAnalysis() {

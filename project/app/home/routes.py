@@ -17,17 +17,16 @@ def index():
 @blueprint.route('/<template>')
 @login_required
 def route_template(template):
-
+    print(template)
     try:
-
+        if template == 'test':
+            return 'ok'
         if not template.endswith( '.html' ):
             template += '.html'
-
         # Detect the current page
         segment = get_segment( request )
         # Serve the file (if exists) from app/templates/FILE.html
         if template == 'open.html':
-            print(len(graph_json_data))
             return render_template( template, segment=segment, graph_json_data = graph_json_data , number_of_graphs = len(graph_json_data))
         else:
             return render_template( template, segment=segment )
