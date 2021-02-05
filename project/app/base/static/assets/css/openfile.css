@@ -132,7 +132,7 @@
     }
 }
 
-.progress {
+.progress-circle {
     position: absolute;
     height: 300px;
     width: 300px;
@@ -246,4 +246,15 @@ select:focus {
     padding: 7px 10px;
     text-align: center;
     display: none;
+}
+.train-btn{
+    width: 100px;
+    margin: 10px auto;
+}
+.train-state {
+    padding-top: 25px !important;
+}
+.train-panel {
+    width: 34em;
+    height: 34em;
 }

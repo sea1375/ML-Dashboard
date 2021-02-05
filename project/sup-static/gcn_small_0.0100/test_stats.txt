@@ -1,0 +1,4 @@
+loss=1.33923 f1_micro=0.69831 f1_macro=0.60671 avg_time=0.22175
+name=chunk018 loss=1.31344 f1_micro=0.69469 f1_macro=0.60064 avg_time=0.20946
+name=chunk019 loss=1.36674 f1_micro=0.69848 f1_macro=0.60509 avg_time=0.22939
+name=chunk020 loss=1.33752 f1_micro=0.70175 f1_macro=0.61440 avg_time=0.22639

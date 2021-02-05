@@ -139,10 +139,10 @@ async function visualize_graphs() {
 
       var anychartData = createAnychartData(dataFromChunkG);
 
-      document.getElementById('wait1').innerHTML = '';
+      document.getElementById('graph').innerHTML = '';
 
       var chart = anychart.graph(anychartData);
-      chart.container('wait1');
+      chart.container('graph');
 
       var nodes = chart.nodes();
 
@@ -301,24 +301,25 @@ function decreaseSpeed() {
 function goToTrain() {
   $('#tabs-icons-text-1-tab').removeClass('active');
   $('#tabs-icons-text-2-tab').addClass('active');
-  train_state = true;
-  $.ajax({
-    type: 'GET',
-    url: '/test',
-    // data: {
-    //     data1: "hello",
-    //     data2: "world",
-    // },
-    success: callbackFunc
-  })
-}
-
-function callbackFunc() {
-  train_state == false;
-  console.log('okay');
 }
 
 function goToAnalysis() {
   $('#tabs-icons-text-2-tab').removeClass('active');
   $('#tabs-icons-text-3-tab').addClass('active');
+}
+
+function train() {
+  train_state = true;
+  $.ajax({
+    type: 'GET',
+    url: '/train',
+    // data: {
+    //     data1: "hello",
+    //     data2: "world",
+    // },
+    success: function (data) {
+      train_state = false;
+      console.log('end train')
+    }
+  })
 }

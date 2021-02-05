@@ -47,7 +47,7 @@
                         <div class="custom-file">
                           <label class="custom-file-label" for="file-input">
                             <p class="path"></p><input type="file" id="file-input"
-                                                    class="custom-file-input" style="display:none;">
+                                                       class="custom-file-input" style="display:none;">
                           </label>
                         </div>
                       </form>
@@ -145,10 +145,6 @@
                               </div>
                             </div>
                           </div>
-                          <!-- 							  <p class="mt-3 mb-0 text-sm">
-<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-<span class="text-nowrap">Since last month</span>
-</p> -->
                         </div>
                       </div>
                     </div>
@@ -185,7 +181,7 @@
                 <div class="col-lg-8">
                   <div class="card card-stats text-center">
                     <div class="card-body" style="height:30rem;">
-                      <div id="wait1">
+                      <div id="graph">
                       </div>
                     </div>
                   </div>
@@ -195,8 +191,7 @@
                     <div class="card-body" style="height:30rem; ">
                       <div class="row">
                         <div class="col-6">
-                          <div class="play-btn" onclick="visualize()">
-                          </div>
+                          <div class="play-btn" onclick="visualize()"></div>
                           <div class="start" onclick="visualize()"></div>
                           <div class="play" onclick="visualize()"></div>
                           <div class="stop" onclick="visualize()"></div>
@@ -211,8 +206,8 @@
                           </form>
                         </div>
                       </div>
-                      <div class="progress">
-                        <svg class="progress-circle" width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
+                      <div class="progress-circle">
+                        <svg width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
                           <circle class="progress-circle-back"
                                   cx="150" cy="150" r="140"></circle>
                           <circle class="progress-circle-prog"
@@ -233,94 +228,45 @@
               </a>
             </div>
             <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-
               <div class="row">
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-
-                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                      <div class="spinner-border text-primary" id="wait3" style="width: 6rem; height: 6rem;"
-                           role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
-
-                  </div>
+                <div class="col-lg-3" style="text-align: center">
+                  <button type="button" class="btn btn-success train-btn" onclick="train()">
+                    Train
+                  </button>
                 </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-
-                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                      <div class="spinner-border text-primary" id="wait4" style="width: 6rem; height: 6rem;"
-                           role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                <div class="col-lg-9">
+                  <div class="train-state">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%"></div>
                     </div>
-
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-
-                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                      <div class="spinner-border text-primary" id="wait5" style="width: 6rem; height: 6rem;"
-                           role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
-
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-4">
                   <div class="card card-stats text-center">
-
-                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                      <div class="spinner-border text-primary" id="wait6" style="width: 6rem; height: 6rem;"
-                           role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                    <div class="card-body train-panel">
                     </div>
-
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="card card-stats text-center">
-
-                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                      <div class="spinner-border text-primary" id="wait7" style="width: 6rem; height: 6rem;"
-                           role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                    <div class="card-body train-panel">
                     </div>
-
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="card card-stats text-center">
-
-                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                      <div class="spinner-border text-primary" id="wait8" style="width: 6rem; height: 6rem;"
-                           role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                    <div class="card-body train-panel">
                     </div>
-
                   </div>
                 </div>
               </div>
               <a href="#tabs-icons-text-3" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-3"
                  aria-selected="false">
-                <button type="button" class="btn btn-success" class="next0" style="float: right;" onclick="goToAnalysis()">
-                  Next
-                  Step
+                <button type="button" class="btn btn-success" class="next0" style="float: right;"
+                        onclick="goToAnalysis()">
+                  Next Step
                 </button>
               </a>
             </div>
@@ -359,9 +305,9 @@
                                 <div class="custom-file">
                                   <label class="custom-file-label" for="tests-input">
                                     <p class="path"></p><input type="file"
-                                                            id="tests-input" class="custom-file-input"
-                                                            style="display:none;" webkitdirectory
-                                                            directory>
+                                                               id="tests-input" class="custom-file-input"
+                                                               style="display:none;" webkitdirectory
+                                                               directory>
                                   </label>
                                 </div>
 
