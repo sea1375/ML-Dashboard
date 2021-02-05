@@ -7,6 +7,8 @@ var train_prefix = './graphs/',
   train_percentage = 0.8,
   validata_batch_size = -1,
   nodes_max = 1000;
+var open_state = false;
+
 var visualize_state = 'none';
 var animation_speed = parseInt($('#speed')[0].value, 10);
 var train_state = false;
@@ -251,6 +253,7 @@ function handleFileSelect(e) {
       }
       document.getElementById('path').innerHTML = '$Home/' + filename;
     }
+    open_state = true;
   } catch (e) {
     document.getElementById('open-json-alert').style.display = 'block';
     setTimeout(function () {
@@ -312,6 +315,13 @@ function goToAnalysis() {
 }
 
 function train() {
+  if(!open_state) {
+    document.getElementById('train-alert').style.display = 'block';
+    setTimeout(function () {
+      document.getElementById('train-alert').style.display = 'none';
+    }, 3000);
+    return;
+  }
   train_state = true;
   $.ajax({
     type: 'GET',
