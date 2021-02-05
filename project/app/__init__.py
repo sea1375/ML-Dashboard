@@ -20,7 +20,7 @@ from logging import basicConfig, DEBUG, getLogger, StreamHandler
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-graph_json_data  = []
+# graph_json_data  = []
 
 def register_extensions(app):
     db.init_app(app)
@@ -41,23 +41,23 @@ def configure_database(app):
     def shutdown_session(exception=None):
         db.session.remove()
 
-def read_chunks():
-    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-    NUMBER_OF_GRAPH = 1000
-    PADDING_SIZE = 3
-    try:
-        for index in range(NUMBER_OF_GRAPH):
-            url_string = str(index)
-            url_string = 'chunk' + '0'*(PADDING_SIZE - len(url_string)) + url_string
-            json_url = os.path.join(SITE_ROOT, 'graphs', url_string, 'adpcicd-G.json')
+# def read_chunks():
+#     SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+#     NUMBER_OF_GRAPH = 1000
+#     PADDING_SIZE = 3
+#     try:
+#         for index in range(NUMBER_OF_GRAPH):
+#             url_string = str(index)
+#             url_string = 'chunk' + '0'*(PADDING_SIZE - len(url_string)) + url_string
+#             json_url = os.path.join(SITE_ROOT, 'graphs', url_string, 'adpcicd-G.json')
 
-            if os.path.exists(json_url) == False:
-                break
+#             if os.path.exists(json_url) == False:
+#                 break
 
-            data = json.load(open(json_url))
-            graph_json_data.append(data)
-    except:
-        print('except')
+#             data = json.load(open(json_url))
+#             graph_json_data.append(data)
+#     except:
+#         print('except')
 
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
@@ -65,5 +65,5 @@ def create_app(config):
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
-    read_chunks()
+    # read_chunks()
     return app

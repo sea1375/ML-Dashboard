@@ -25,9 +25,6 @@
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                            <!-- 					<p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-					<p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.</p>
- -->
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="card">
@@ -957,78 +954,5 @@
 
 <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
 <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
-<script>
-    var graphs = [];
-    var number_of_graphs = parseInt('{{number_of_graphs}}');
-    console.log(number_of_graphs);
-    for (let i = 0; i < number_of_graphs; i++) {
-        switch (i) {
-            case 0:
-                graphs.push(JSON.parse(`{{graph_json_data[1] | tojson}}`));
-                break;
-            case 1:
-                graphs.push(JSON.parse(`{{graph_json_data[1] | tojson}}`));
-                break;
-            case 2:
-                graphs.push(JSON.parse(`{{graph_json_data[2] | tojson}}`));
-                break;
-            case 3:
-                graphs.push(JSON.parse(`{{graph_json_data[3] | tojson}}`));
-                break;
-            case 4:
-                graphs.push(JSON.parse(`{{graph_json_data[4] | tojson}}`));
-                break;
-            case 5:
-                graphs.push(JSON.parse(`{{graph_json_data[5] | tojson}}`));
-                break;
-            case 6:
-                graphs.push(JSON.parse(`{{graph_json_data[6] | tojson}}`));
-                break;
-            case 7:
-                graphs.push(JSON.parse(`{{graph_json_data[7] | tojson}}`));
-                break;
-            case 8:
-                graphs.push(JSON.parse(`{{graph_json_data[8] | tojson}}`));
-                break;
-            case 9:
-                graphs.push(JSON.parse(`{{graph_json_data[9] | tojson}}`));
-                break;
-            case 10:
-                graphs.push(JSON.parse(`{{graph_json_data[10] | tojson}}`));
-                break;
-            case 11:
-                graphs.push(JSON.parse(`{{graph_json_data[11] | tojson}}`));
-                break;
-            case 12:
-                graphs.push(JSON.parse(`{{graph_json_data[12] | tojson}}`));
-                break;
-            case 13:
-                graphs.push(JSON.parse(`{{graph_json_data[13] | tojson}}`));
-                break;
-            case 14:
-                graphs.push(JSON.parse(`{{graph_json_data[14] | tojson}}`));
-                break;
-            case 15:
-                graphs.push(JSON.parse(`{{graph_json_data[15] | tojson}}`));
-                break;
-            case 16:
-                graphs.push(JSON.parse(`{{graph_json_data[16] | tojson}}`));
-                break;
-            case 17:
-                graphs.push(JSON.parse(`{{graph_json_data[17] | tojson}}`));
-                break;
-            case 18:
-                graphs.push(JSON.parse(`{{graph_json_data[18] | tojson}}`));
-                break;
-            case 19:
-                graphs.push(JSON.parse(`{{graph_json_data[19] | tojson}}`));
-                break;
-            case 20:
-                graphs.push(JSON.parse(`{{graph_json_data[20] | tojson}}`));
-                break;
-        }
-    }
-    console.log(graphs);
-</script>
 <script src="/static/assets/js/openfile.js"></script>
 {% endblock javascripts %}

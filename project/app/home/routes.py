@@ -6,10 +6,9 @@ import os
 from app.home import blueprint
 from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
-from app import login_manager, graph_json_data
+from app import login_manager
 from jinja2 import TemplateNotFound
 import time
-import test
 
 @blueprint.route('/index')
 @login_required
@@ -24,18 +23,14 @@ def route_template(template):
         if template == 'test':
             os.system("python -m app.graphsage.supervised_train --train_prefix app/graphs/ --data_prefix adpcicd --model gcn --max_degree 10 --epochs 30 --train_chunks True --train_percentage 0.8 --validate_batch_size -1 --nodes_max 1000")
             return 'ok'
-        if template == 'test2':
-            return test.hello()
             
         if not template.endswith( '.html' ):
             template += '.html'
         # Detect the current page
         segment = get_segment( request )
         # Serve the file (if exists) from app/templates/FILE.html
-        if template == 'open.html':
-            return render_template( template, segment=segment, graph_json_data = graph_json_data , number_of_graphs = len(graph_json_data))
-        else:
-            return render_template( template, segment=segment )
+        return render_template( template, segment=segment )
+
         # if segment == 'new':
             # data={'projects': 'C:\\Users\\eaminbo\\Documents\\production\\ETS\\code\\Visualizer\\project\\app\\projects'}			
 

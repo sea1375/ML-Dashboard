@@ -10,6 +10,33 @@ var train_prefix = './graphs/',
 var visualize_state = 'none';
 var animation_speed = parseInt($('#speed')[0].value, 10);
 var train_state = false;
+var graphs = [];
+const NUMBER_OF_GRAPHS = 700;
+const DATA_PREFIX = 'adpcicd-G.json';
+var index = 0;
+
+window.readChunks = function() {
+    var json_url = '/static/graphs/chunk';
+    json_url += index.toString().padStart(3, '0');
+    json_url += '/' + DATA_PREFIX;
+
+    $.ajax({
+        url: json_url,
+        type: "GET",
+        statusCode: {
+            404: function() {
+                // not exist.
+
+            }
+        },
+        success: function(json) {
+            //code here
+            graphs.push(json);
+            index++;
+            if (index < NUMBER_OF_GRAPHS) readChunks();
+        }
+    });
+}
 
 function createAnychartData(dataFromChunkG) {
     var anychartData = {
@@ -217,6 +244,7 @@ function handleFileSelect(e) {
 }
 
 $(function() {
+    readChunks();
     $('#file-input').click();
     $('#file-input').change(handleFileSelect);
     $('#speed').change(changeAnimationSpeed);
