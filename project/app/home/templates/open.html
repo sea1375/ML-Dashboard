@@ -2,948 +2,1002 @@
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-<link rel="stylesheet" href="/static/assets/css/openfile.css" type="text/css"> {% endblock stylesheets %} {% block content %}
+<link rel="stylesheet" href="/static/assets/css/openfile.css"
+      type="text/css"> {% endblock stylesheets %} {% block content %}
 
 <!-- Header -->
 <div class="header bg-secondary pb-6">
-    <div class="container-fluid">
-        <div class="header-body">
-            <div class="nav-wrapper">
-                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-chart-bar-32 mr-2"></i>Visualize</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-button-power mr-2"></i>Train</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-curved-next mr-2"></i>Analysis</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="card shadow">
-                <div class="card-body">
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="row align-items-center">
-                                                <div class="col-8">
-                                                    <h3 class="mb-0">Open JSON file</h3>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="custom-file">
-                                                    <label class="custom-file-label" for="file-input">
-														<p id="path"></p><input type="file" id="file-input"
-															class="custom-file-input" style="display:none;">
-													</label>
-                                                </div>
-
-                                            </form>
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="card card-stats">
-                                                <!-- Card body -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of Nodes</h5>
-                                                            <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                                                <i class="ni ni-books"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 							  <p class="mt-3 mb-0 text-sm">
-								<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-								<span class="text-nowrap">Since last month</span>
-							  </p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card card-stats">
-                                                <!-- Card body -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of Services</h5>
-                                                            <span class="h2 font-weight-bold mb-0" id="servs">00</span>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
-                                                                <i class="ni ni-books"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 							  <p class="mt-3 mb-0 text-sm">
-								<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-								<span class="text-nowrap">Since last month</span>
-							  </p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card card-stats">
-                                                <!-- Card body -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of PoDs</h5>
-                                                            <span class="h2 font-weight-bold mb-0" id="pods">00</span>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
-                                                                <i class="ni ni-books"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 							  <p class="mt-3 mb-0 text-sm">
-								<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-								<span class="text-nowrap">Since last month</span>
-							  </p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="card card-stats">
-                                                <!-- Card body -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of External IPs</h5>
-                                                            <span class="h2 font-weight-bold mb-0" id="ips">00</span>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                                                                <i class="ni ni-books"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 							  <p class="mt-3 mb-0 text-sm">
-								<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-								<span class="text-nowrap">Since last month</span>
-							  </p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card card-stats">
-                                                <!-- Card body -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of Workers</h5>
-                                                            <span class="h2 font-weight-bold mb-0" id="workers">00</span>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                                                                <i class="ni ni-books"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 							  <p class="mt-3 mb-0 text-sm">
-								<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-								<span class="text-nowrap">Since last month</span>
-							  </p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card card-stats">
-                                                <!-- Card body -->
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h5 class="card-title text-uppercase text-muted mb-0">
-                                                                Management</h5>
-                                                            <span class="h2 font-weight-bold mb-0" id="man">00</span>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
-                                                                <i class="ni ni-books"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 							  <p class="mt-3 mb-0 text-sm">
-								<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-								<span class="text-nowrap">Since last month</span>
-							  </p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="card card-stats text-center">
-                                        <div class="card-body" style="height:30rem;">
-                                            <div id="wait1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-                                        <div class="card-body" style="height:30rem; ">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <div class="play-btn" onclick="visualize()">
-                                                    </div>
-                                                    <div class="start" onclick="visualize()"></div>
-                                                    <div class="play" onclick="visualize()"></div>
-                                                    <div class="stop" onclick="visualize()"></div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <form>
-                                                        <div class="speed-btn" id="decrease" onclick="decreaseSpeed()" value="Decrease Speed">-</div>
-                                                        <input type="number" id="speed" value="3" />
-                                                        <div class="speed-btn" id="increase" onclick="increaseSpeed()" value="Increase Speed">+</div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="progress">
-                                                <svg class="progress-circle" width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
-                                                    <circle class="progress-circle-back"
-                                                            cx="150" cy="150" r="140"></circle>
-                                                    <circle class="progress-circle-prog"
-                                                            cx="150" cy="150" r="140"></circle>
-                                                </svg>
-                                                <div class="progress-text" data-progress="0">0</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#tabs-icons-text-2" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><button type="button" class="btn btn-success" id="next0" style="float: right;" onclick="goToTrain()">Next
-								Step</button></a>
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="nav-wrapper">
+        <ul class="nav nav-pills nav-fill flex-column flex-md-row" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab"
+               href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i
+                class="ni ni-chart-bar-32 mr-2"></i>Visualize</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2"
+               role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i
+                class="ni ni-button-power mr-2"></i>Train</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3"
+               role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-curved-next mr-2"></i>Analysis</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel"
+                 aria-labelledby="tabs-icons-text-1-tab">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="row align-items-center">
+                        <div class="col-8">
+                          <h3 class="mb-0">Open JSON file</h3>
                         </div>
-                        <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-
-                                        <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem; 
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                                            <div class="spinner-border text-primary" id="wait3" style="width: 6rem; height: 6rem;" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-
-                                        <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem; 
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                                            <div class="spinner-border text-primary" id="wait4" style="width: 6rem; height: 6rem;" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-
-                                        <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem; 
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                                            <div class="spinner-border text-primary" id="wait5" style="width: 6rem; height: 6rem;" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-
-                                        <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem; 
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                                            <div class="spinner-border text-primary" id="wait6" style="width: 6rem; height: 6rem;" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-
-                                        <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem; 
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                                            <div class="spinner-border text-primary" id="wait7" style="width: 6rem; height: 6rem;" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card card-stats text-center">
-
-                                        <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem; 
-									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
-                                            <div class="spinner-border text-primary" id="wait8" style="width: 6rem; height: 6rem;" role="status">
-                                                <span class="sr-only">Loading...</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#tabs-icons-text-3" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><button type="button" class="btn btn-success" id="next0" style="float: right;" onclick="goToAnalysis()">Next
-								Step</button></a>
-                        </div>
-                        <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                            <!-- <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-				 -->
-                            <div class="nav-wrapper">
-                                <ul class="nav nav-pills nav-fill col-lg-4" id="tabs-icons-text" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link  active" id="tabs-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true" style="width: 235px;"><i
-												class="ni ni-button-play mr-2"></i>Additional Tests</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " id="tabs-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false" style="width: 235px;"><i class="ni ni-atom mr-2"></i>Analyze Results</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <div class="card">
-                                                        <div class="card-header">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-8">
-                                                                    <h3 class="mb-0">Open Test Folder</h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <form>
-                                                                <div class="custom-file">
-                                                                    <label class="custom-file-label" for="tests-input">
-																		<p id="path"></p><input type="file"
-																			id="tests-input" class="custom-file-input"
-																			style="display:none;" webkitdirectory
-																			directory>
-																	</label>
-                                                                </div>
-
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="row">
-                                                        <div class="card card-stats">
-                                                            <!-- Card body -->
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        <h5 class="card-title text-uppercase text-muted mb-0">
-                                                                            Number of graphs</h5>
-                                                                        <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
-                                                                    </div>
-                                                                    <div class="col-auto">
-                                                                        <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
-                                                                            <i class="ni ni-books"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card card-stats">
-                                                            <!-- Card body -->
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        <h5 class="card-title text-uppercase text-muted mb-0">
-                                                                            Number of nodes</h5>
-                                                                        <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
-                                                                    </div>
-                                                                    <div class="col-auto">
-                                                                        <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                                                            <i class="ni ni-books"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <!-- <div class="table-responsive" data-toggle="list" data-list-values='["name", "loss", "macro", "micro"]'> -->
-                                                <!-- 								<div id="datatable-component" class="tab-pane tab-example-result fade active show" role="tabpanel" aria-labelledby="datatable-component-tab">
- -->
-                                                <div class="table-responsive py-4" data-toggle="tags">
-                                                    <div id="datatable-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div id="datatable-basic_length" class="dataTables_length">
-                                                                    <label>Show
-																		<select class="form-control form-control-sm"
-																			name="datatable-basic_length"
-																			aria-controls="datatable-basic">
-																			<option value="10">10</option>
-																			<option value="25">25</option>
-																			<option value="50">50</option>
-																			<option value="100">100</option>
-																		</select>
-																		entries
-																	</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div id="datatable-basic_filter" class="dataTables_filter">
-                                                                    <label>
-																		Search:<input
-																			class="form-control form-control-sm"
-																			type="search" placeholder=""
-																			aria-controls="datatable-basic">
-																	</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <table class="table table-flush dataTable" id="datatable-basic" role="grid" aria-describedby="datatable-basic_info">
-                                                                    <thead class="thead-light">
-                                                                        <tr role="row">
-                                                                            <!-- 												<th scope="col" class="sort" data-sort="name">Graph Name</th>
-												<th scope="col" class="sort" data-sort="loss">Loss Value</th>
-												<th scope="col" class="sort" data-sort="macro">Macro F1 Score</th>
-												<th scope="col" class="sort" data-sort="micro">Micro F1 Score</th> -->
-                                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Graph Name: activate to sort column descending">
-                                                                                Graph Name</th>
-                                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Loss Value: activate to sort column descending">
-                                                                                Loss Value</th>
-                                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Macro F1 Score: activate to sort column descending">
-                                                                                Macro F1 Score</th>
-                                                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Micro F1 Score: activate to sort column descending">
-                                                                                Micro F1 Score</th>
-                                                                        </tr>
-                                                                    </thead>
-
-                                                                    <tbody>
-                                                                        <tr class="odd" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="even" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="odd" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="even" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="odd" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="even" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="odd" role="row">
-                                                                            <td class="sorting_1">
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="spinner-border text-primary" id="wait9" style="width: 1rem; height: 1rem;" role="status">
-                                                                                    <span class="sr-only">Loading...</span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div id="datatable-basic_paginate" class="dataTables_paginate paging_simple_numbers">
-                                                                    <ul class="pagination">
-                                                                        <li id="datatable-basic_previous" class="paginate_button page-item previous disabled">
-                                                                            <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="0" tabindex="0">
-                                                                                <i class="fas fa-angle-left"></i>
-                                                                            </a>
-                                                                        </li>
-                                                                        <li class="paginate_button page-item active">
-                                                                            <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="1" tabindex="0">
-																				1
-																			</a>
-                                                                        </li>
-                                                                        <li class="paginate_button page-item">
-                                                                            <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="2" tabindex="0">
-																				2
-																			</a>
-                                                                        </li>
-                                                                        <li id="datatable-basic_previous" class="paginate_button page-item next">
-                                                                            <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="3" tabindex="0">
-                                                                                <i class="fas fa-angle-right"></i>
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- 									<nav aria-label="tab_navigation" id="nav1">
-									  <ul class="pagination justify-content-end">
-										<li class="page-item disabled">
-										  <a class="page-link" href="#" tabindex="-1">
-											<i class="fa fa-angle-left"></i>
-											<span class="sr-only">Previous</span>
-										  </a>
-										</li>
-										<li class="page-item active"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">3</a></li>
-										<li class="page-item">
-										  <a class="page-link" href="#">
-											<i class="fa fa-angle-right"></i>
-											<span class="sr-only">Next</span>
-										  </a>
-										</li>
-									  </ul>
-									</nav> -->
-
-
-                                                    </div>
-                                                </div>
-                                                <!-- </div> -->
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="row">
-                                                        <div class="col-lg">
-                                                            <div class="card card-stats">
-                                                                <!-- Card body -->
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col">
-                                                                            <h5 class="card-title text-uppercase text-muted mb-0">
-                                                                                Graph Name</h5>
-                                                                            <span class="h2 font-weight-bold mb-0" id="nodes">ChunkXX</span>
-                                                                        </div>
-                                                                        <div class="col-auto">
-                                                                            <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
-                                                                                <i class="ni ni-books"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg">
-                                                            <div class="card card-stats">
-                                                                <!-- Card body -->
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col">
-                                                                            <h5 class="card-title text-uppercase text-muted mb-0">
-                                                                                Number of nodes</h5>
-                                                                            <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
-                                                                        </div>
-                                                                        <div class="col-auto">
-                                                                            <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
-                                                                                <i class="ni ni-books"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="card card-stats text-center">
-
-                                                            <div class="card-body" style="width: 45rem; height:28rem; padding-top: 11rem; 
-												padding-right: 12rem; padding-bottom: 11rem; padding-left: 12rem;">
-                                                                <div class="spinner-border text-primary" id="wait11" style="width: 6rem; height: 6rem;" role="status">
-                                                                    <span class="sr-only">Loading...</span>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="table-responsive" data-toggle="list" data-list-values='["nname", "loss", "macro", "micro"]'>
-                                                        <table class="table align-items-center table-flush">
-                                                            <thead class="thead-light">
-                                                                <tr>
-                                                                    <th scope="col" class="sort" data-sort="name">Node Name
-                                                                    </th>
-                                                                    <th scope="col" class="sort" data-sort="loss">Loss Value
-                                                                    </th>
-                                                                    <th scope="col" class="sort" data-sort="macro">Macro F1 Score</th>
-                                                                    <th scope="col" class="sort" data-sort="micro">Micro F1 Score</th>
-                                                                </tr>
-                                                            </thead>
-
-                                                            <tbody class="list">
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </th>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="spinner-border text-primary" id="wait10" style="width: 1rem; height: 1rem;" role="status">
-                                                                            <span class="sr-only">Loading...</span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <br>
-                                                    <nav aria-label="tab_navigation" id="nav2">
-                                                        <ul class="pagination justify-content-end">
-                                                            <li class="page-item disabled">
-                                                                <a class="page-link" href="#" tabindex="-1">
-                                                                    <i class="fa fa-angle-left"></i>
-                                                                    <span class="sr-only">Previous</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item">
-                                                                <a class="page-link" href="#">
-                                                                    <i class="fa fa-angle-right"></i>
-                                                                    <span class="sr-only">Next</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
+                      </div>
                     </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="custom-file">
+                          <label class="custom-file-label" for="file-input">
+                            <p class="path"></p><input type="file" id="file-input"
+                                                    class="custom-file-input" style="display:none;">
+                          </label>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Number of Nodes</h5>
+                              <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                <i class="ni ni-books"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Number of Services</h5>
+                              <span class="h2 font-weight-bold mb-0" id="servs">00</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
+                                <i class="ni ni-books"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Number of PoDs</h5>
+                              <span class="h2 font-weight-bold mb-0" id="pods">00</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                                <i class="ni ni-books"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Number of External IPs</h5>
+                              <span class="h2 font-weight-bold mb-0" id="ips">00</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                <i class="ni ni-books"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">Number of Workers</h5>
+                              <span class="h2 font-weight-bold mb-0" id="workers">00</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                <i class="ni ni-books"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- 							  <p class="mt-3 mb-0 text-sm">
+<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+<span class="text-nowrap">Since last month</span>
+</p> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                              <h5 class="card-title text-uppercase text-muted mb-0">
+                                Management</h5>
+                              <span class="h2 font-weight-bold mb-0" id="man">00</span>
+                            </div>
+                            <div class="col-auto">
+                              <div class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
+                                <i class="ni ni-books"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="alert alert-warning" id="json-load-alert">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="card card-stats text-center">
+                    <div class="card-body" style="height:30rem;">
+                      <div id="wait1">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
+                    <div class="card-body" style="height:30rem; ">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="play-btn" onclick="visualize()">
+                          </div>
+                          <div class="start" onclick="visualize()"></div>
+                          <div class="play" onclick="visualize()"></div>
+                          <div class="stop" onclick="visualize()"></div>
+                        </div>
+                        <div class="col-6">
+                          <form>
+                            <div class="speed-btn" id="decrease" onclick="decreaseSpeed()" value="Decrease Speed">-
+                            </div>
+                            <input type="number" id="speed" value="3"/>
+                            <div class="speed-btn" id="increase" onclick="increaseSpeed()" value="Increase Speed">+
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="progress">
+                        <svg class="progress-circle" width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
+                          <circle class="progress-circle-back"
+                                  cx="150" cy="150" r="140"></circle>
+                          <circle class="progress-circle-prog"
+                                  cx="150" cy="150" r="140"></circle>
+                        </svg>
+                        <div class="progress-text" data-progress="0">0</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="#tabs-icons-text-2" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-2"
+                 aria-selected="false">
+                <button type="button" class="btn btn-success" class="next0" style="float: right;" onclick="goToTrain()">
+                  Next
+                  Step
+                </button>
+              </a>
             </div>
-            <!--          <div class="row align-items-center py-4">
+            <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
 
-          </div> -->
-            <!-- Card stats -->
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
 
+                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
+									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
+                      <div class="spinner-border text-primary" id="wait3" style="width: 6rem; height: 6rem;"
+                           role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
+
+                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
+									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
+                      <div class="spinner-border text-primary" id="wait4" style="width: 6rem; height: 6rem;"
+                           role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
+
+                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
+									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
+                      <div class="spinner-border text-primary" id="wait5" style="width: 6rem; height: 6rem;"
+                           role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
+
+                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
+									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
+                      <div class="spinner-border text-primary" id="wait6" style="width: 6rem; height: 6rem;"
+                           role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
+
+                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
+									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
+                      <div class="spinner-border text-primary" id="wait7" style="width: 6rem; height: 6rem;"
+                           role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card card-stats text-center">
+
+                    <div class="card-body" style="width: 34rem; height:20rem; padding-top: 7rem;
+									padding-right: 12rem; padding-bottom: 7rem; padding-left: 8rem;">
+                      <div class="spinner-border text-primary" id="wait8" style="width: 6rem; height: 6rem;"
+                           role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <a href="#tabs-icons-text-3" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-3"
+                 aria-selected="false">
+                <button type="button" class="btn btn-success" class="next0" style="float: right;" onclick="goToAnalysis()">
+                  Next
+                  Step
+                </button>
+              </a>
+            </div>
+            <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+              <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill col-lg-4" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link  active" id="tabs-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab"
+                       aria-controls="tabs-icons-text-1" aria-selected="true" style="width: 235px;"><i
+                        class="ni ni-button-play mr-2"></i>Additional Tests</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " id="tabs-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab"
+                       aria-controls="tabs-icons-text-2" aria-selected="false" style="width: 235px;"><i
+                        class="ni ni-atom mr-2"></i>Analyze Results</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card shadow">
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel"
+                         aria-labelledby="tabs-icons-text-1-tab">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <div class="card">
+                            <div class="card-header">
+                              <div class="row align-items-center">
+                                <div class="col-8">
+                                  <h3 class="mb-0">Open Test Folder</h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card-body">
+                              <form>
+                                <div class="custom-file">
+                                  <label class="custom-file-label" for="tests-input">
+                                    <p class="path"></p><input type="file"
+                                                            id="tests-input" class="custom-file-input"
+                                                            style="display:none;" webkitdirectory
+                                                            directory>
+                                  </label>
+                                </div>
+
+                              </form>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="row">
+                            <div class="card card-stats">
+                              <!-- Card body -->
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                      Number of graphs</h5>
+                                    <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                  </div>
+                                  <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
+                                      <i class="ni ni-books"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="card card-stats">
+                              <!-- Card body -->
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                      Number of nodes</h5>
+                                    <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                  </div>
+                                  <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                      <i class="ni ni-books"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <!-- <div class="table-responsive" data-toggle="list" data-list-values='["name", "loss", "macro", "micro"]'> -->
+                        <!-- 								<div id="datatable-component" class="tab-pane tab-example-result fade active show" role="tabpanel" aria-labelledby="datatable-component-tab">
+-->
+                        <div class="table-responsive py-4" data-toggle="tags">
+                          <div id="datatable-basic_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div id="datatable-basic_length" class="dataTables_length">
+                                  <label>Show
+                                    <select class="form-control form-control-sm"
+                                            name="datatable-basic_length"
+                                            aria-controls="datatable-basic">
+                                      <option value="10">10</option>
+                                      <option value="25">25</option>
+                                      <option value="50">50</option>
+                                      <option value="100">100</option>
+                                    </select>
+                                    entries
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div id="datatable-basic_filter" class="dataTables_filter">
+                                  <label>
+                                    Search:<input
+                                      class="form-control form-control-sm"
+                                      type="search" placeholder=""
+                                      aria-controls="datatable-basic">
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <table class="table table-flush dataTable" id="datatable-basic" role="grid"
+                                       aria-describedby="datatable-basic_info">
+                                  <thead class="thead-light">
+                                  <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Graph Name: activate to sort column descending">
+                                      Graph Name
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Loss Value: activate to sort column descending">
+                                      Loss Value
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Macro F1 Score: activate to sort column descending">
+                                      Macro F1 Score
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable-basic" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Micro F1 Score: activate to sort column descending">
+                                      Micro F1 Score
+                                    </th>
+                                  </tr>
+                                  </thead>
+
+                                  <tbody>
+                                  <tr class="odd" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="even" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="odd" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="even" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="odd" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="even" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr class="odd" role="row">
+                                    <td class="sorting_1">
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="spinner-border text-primary" class="wait9"
+                                           style="width: 1rem; height: 1rem;" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div id="datatable-basic_paginate" class="dataTables_paginate paging_simple_numbers">
+                                  <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled">
+                                      <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="0"
+                                         tabindex="0">
+                                        <i class="fas fa-angle-left"></i>
+                                      </a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                      <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="1"
+                                         tabindex="0">
+                                        1
+                                      </a>
+                                    </li>
+                                    <li class="paginate_button page-item">
+                                      <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="2"
+                                         tabindex="0">
+                                        2
+                                      </a>
+                                    </li>
+                                    <li class="paginate_button page-item next">
+                                      <a class="page-link" href="#" aria-controls="datatable-basic" data-dt-idx="3"
+                                         tabindex="0">
+                                        <i class="fas fa-angle-right"></i>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="row">
+                            <div class="col-lg">
+                              <div class="card card-stats">
+                                <!-- Card body -->
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="card-title text-uppercase text-muted mb-0">
+                                        Graph Name</h5>
+                                      <span class="h2 font-weight-bold mb-0" class="nodes">ChunkXX</span>
+                                    </div>
+                                    <div class="col-auto">
+                                      <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                                        <i class="ni ni-books"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-lg">
+                              <div class="card card-stats">
+                                <!-- Card body -->
+                                <div class="card-body">
+                                  <div class="row">
+                                    <div class="col">
+                                      <h5 class="card-title text-uppercase text-muted mb-0">
+                                        Number of nodes</h5>
+                                      <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                    </div>
+                                    <div class="col-auto">
+                                      <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
+                                        <i class="ni ni-books"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="card card-stats text-center">
+
+                              <div class="card-body" style="width: 45rem; height:28rem; padding-top: 11rem;
+												padding-right: 12rem; padding-bottom: 11rem; padding-left: 12rem;">
+                                <div class="spinner-border text-primary" id="wait11" style="width: 6rem; height: 6rem;"
+                                     role="status">
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="table-responsive" data-toggle="list"
+                               data-list-values='["nname", "loss", "macro", "micro"]'>
+                            <table class="table align-items-center table-flush">
+                              <thead class="thead-light">
+                              <tr>
+                                <th scope="col" class="sort" data-sort="name">Node Name
+                                </th>
+                                <th scope="col" class="sort" data-sort="loss">Loss Value
+                                </th>
+                                <th scope="col" class="sort" data-sort="macro">Macro F1 Score</th>
+                                <th scope="col" class="sort" data-sort="micro">Micro F1 Score</th>
+                              </tr>
+                              </thead>
+
+                              <tbody class="list">
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th scope="row">
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </th>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="spinner-border text-primary" class="wait10"
+                                       style="width: 1rem; height: 1rem;" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <br>
+                          <nav aria-label="tab_navigation" id="nav2">
+                            <ul class="pagination justify-content-end">
+                              <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                  <i class="fa fa-angle-left"></i>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">3</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">
+                                  <i class="fa fa-angle-right"></i>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
         </div>
+      </div>
+
     </div>
+  </div>
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
 
 
-    {% include "includes/footer.html" %}
+  {% include "includes/footer.html" %}
 
 </div>
 
