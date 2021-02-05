@@ -9,6 +9,7 @@ var train_prefix = './graphs/',
     nodes_max = 1000;
 var visualize_state = 'none';
 var animation_speed = parseInt($('#speed')[0].value, 10);
+var train_state = false;
 
 function createAnychartData(dataFromChunkG) {
     var anychartData = {
@@ -185,6 +186,7 @@ function handleFileSelect(e) {
         return;
     }
     var file = files[0];
+    console.log(e.target.files);
     var reader = new FileReader();
     try {
         reader.addEventListener("load", e => {
@@ -218,6 +220,7 @@ $(function() {
     $('#file-input').click();
     $('#file-input').change(handleFileSelect);
     $('#speed').change(changeAnimationSpeed);
+    $('#next0').click(test);
 });
 
 function progressBar(progressVal, totalPercentageVal = 100) {
@@ -258,6 +261,7 @@ function decreaseSpeed() {
 function goToTrain() {
     $("#tabs-icons-text-1-tab").removeClass("active");
     $("#tabs-icons-text-2-tab").addClass("active");
+    train_state = true;
     $.ajax({
         type: "GET",
         url: "/test",
@@ -270,10 +274,31 @@ function goToTrain() {
 }
 
 function callbackFunc() {
+    train_state == false;
     console.log("okay");
 }
 
 function goToAnalysis() {
     $("#tabs-icons-text-2-tab").removeClass("active");
     $("#tabs-icons-text-3-tab").addClass("active");
+}
+
+function test() {
+    var flag = false;
+    $.ajax({
+        type: "GET",
+        url: "/test2",
+        // data: {
+        //     data1: "hello",
+        //     data2: "world",
+        // },
+        success: function(data) {
+            flag = true;
+            var $response = $(data);
+            console.log($response);
+        }
+    })
+    if (flag) {
+        console.log('hello, world');
+    }
 }
