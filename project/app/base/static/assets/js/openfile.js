@@ -220,7 +220,6 @@ $(function() {
     $('#file-input').click();
     $('#file-input').change(handleFileSelect);
     $('#speed').change(changeAnimationSpeed);
-    $('#next0').click(test);
 });
 
 function progressBar(progressVal, totalPercentageVal = 100) {
@@ -281,24 +280,4 @@ function callbackFunc() {
 function goToAnalysis() {
     $("#tabs-icons-text-2-tab").removeClass("active");
     $("#tabs-icons-text-3-tab").addClass("active");
-}
-
-function test() {
-    var flag = false;
-    $.ajax({
-        type: "GET",
-        url: "/test2",
-        // data: {
-        //     data1: "hello",
-        //     data2: "world",
-        // },
-        success: function(data) {
-            flag = true;
-            var $response = $(data);
-            console.log($response);
-        }
-    })
-    if (flag) {
-        console.log('hello, world');
-    }
 }
