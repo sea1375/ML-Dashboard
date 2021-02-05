@@ -252,7 +252,10 @@ function handleFileSelect(e) {
       document.getElementById('path').innerHTML = '$Home/' + filename;
     }
   } catch (e) {
-    alert('Please select right json file.');
+    document.getElementById('open-json-alert').style.display = 'block';
+    setTimeout(function () {
+      document.getElementById('open-json-alert').style.display = 'none';
+    }, 3000);
   }
 }
 
