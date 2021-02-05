@@ -21,7 +21,7 @@ def route_template(template):
     print(template)
     try:
         if template == 'test':
-            os.system("python -m app.graphsage.supervised_train --train_prefix app/graphs/ --data_prefix adpcicd --model gcn --max_degree 10 --epochs 30 --train_chunks True --train_percentage 0.8 --validate_batch_size -1 --nodes_max 1000")
+            os.system("python -m app.graphsage.supervised_train --train_prefix app/base/static/graphs --data_prefix adpcicd --model gcn --max_degree 10 --epochs 30 --train_chunks True --train_percentage 0.8 --validate_batch_size -1 --nodes_max 1000")
             return 'ok'
             
         if not template.endswith( '.html' ):

@@ -22,7 +22,6 @@ window.readChunks = async function () {
   var json_url = '/static/graphs/chunk';
   json_url += index.toString().padStart(3, '0');
   json_url += '/' + DATA_PREFIX;
-  await sleep(1000);
   $.ajax({
     url: json_url,
     type: 'GET',
