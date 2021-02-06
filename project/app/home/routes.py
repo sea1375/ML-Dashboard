@@ -43,7 +43,6 @@ def route_template(template):
             command = command + ' --validate_batch_size ' + validate_batch_size
             command = command + ' --nodes_max ' + nodes_max
 
-            print(command)
             os.system(command)
             return 'success'
             

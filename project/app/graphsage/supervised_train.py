@@ -7,9 +7,9 @@ import tensorflow as tf
 import numpy as np
 import sklearn
 from sklearn import metrics
-# from sklearn.externals import joblib
 import joblib
 import pickle
+import json
 
 from app.graphsage.supervised_models import SupervisedGraphsage,SupervisedGraphsagePlus
 from app.graphsage.models import SAGEInfo
@@ -642,7 +642,17 @@ def train_chunks(train_data, test_data=None):
     #val_adj_info = tf.assign(adj_info, minibatch.test_adj)
     #print(minibatch.train_instances)
     #print(len(minibatch.train_val_graphs))
-    #print(placeholders)	
+    #print(placeholders)
+
+#     ADDED BY YANA
+    train_costs=[]
+    train_f1_mics=[]
+    train_f1_macs=[]
+
+    val_costs=[]
+    val_f1_mics=[]
+    val_f1_macs=[]
+
     for epoch in range(FLAGS.epochs):
 
         cpt=0
@@ -672,20 +682,9 @@ def train_chunks(train_data, test_data=None):
                     feed_dict, labels = minibatch.next_minibatch_feed_dict(g.name)
                     feed_dict.update({placeholders['dropout']: FLAGS.dropout})
                     t = time.time()
-                    #print(model)					
-                    #print(merged)
-                    #print(model.opt_op)
-                    #print(model.loss)
-                    #print(model.preds[g.name])
-                    #print(feed_dict)
-                    #print(labels)					
-                    #input()				
-                    # Training step per training graph
-                    #print(sess.run([merged, model.opt_op, model.loss, model.preds[g.name]], feed_dict=feed_dict))
-                    #sys.exit(1)					
-                    #outs = sess.run([merged, model.opt_op, model.loss, model.preds[g.name]], feed_dict=feed_dict)
+
                     outs = sess.run([merged, model.opt_op, model.loss, model.preds], feed_dict=feed_dict)					
-                    #train_cost = outs[2]
+
                      					
                     train_cost.append(outs[2])					
                     #train_f1_mic, train_f1_mac = calc_f1(labels, outs[-1])
@@ -749,9 +748,30 @@ def train_chunks(train_data, test_data=None):
                 "val_f1_mic=", "{:.5f}".format(sum(val_f1_mic)/len(val_f1_mic)), 
                 "val_f1_mac=", "{:.5f}".format(sum(val_f1_mac)/len(val_f1_mac)), 
                 "time=", "{:.5f}".format(sum(duration)/len(duration)))
-				
 
-			
+#         ADDED BY YANA
+
+#         "{:.5f}".format(x)
+        train_costs.append("{:.5f}".format(sum(train_cost)/len(train_cost)))
+        train_f1_mics.append("{:.5f}".format(sum(train_f1_mic)/len(train_f1_mic))),
+        train_f1_macs.append("{:.5f}".format(sum(train_f1_mac)/len(train_f1_mac))),
+        val_costs.append("{:.5f}".format(sum(val_cost)/len(val_cost))),
+        val_f1_mics.append("{:.5f}".format(sum(val_f1_mic)/len(val_f1_mic))),
+        val_f1_macs.append("{:.5f}".format(sum(val_f1_mac)/len(val_f1_mac))),
+
+        train_result = {
+            "train_loss": train_costs,
+            "train_f1_mic": train_f1_mics,
+            "train_f1_mac": train_f1_macs,
+            "val_loss": val_costs,
+            "val_f1_mic": val_f1_mics,
+            "val_f1_mac": val_f1_macs,
+        }
+
+        path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result.txt"
+        with open(path, 'w+') as json_file:
+            json.dump(train_result, json_file)
+
     print("Optimization Finished!")
     print("Starting Testing")
     #sess.run(val_adj_info.op)
