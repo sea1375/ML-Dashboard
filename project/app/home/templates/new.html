@@ -93,11 +93,11 @@
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
               <div class="card-body" style="height:12rem;">
                 <div class="row">
-                  <div class="col-lg-1" style="vertical-align: middle;">
+                  <div class="col-lg-2" style="vertical-align: middle;">
                     <label for="spanscale3">Max degree:&nbsp;</label>
                     <!-- <text id="spanscale3" style="inline" contenteditable>10</text> -->
                   </div>
-                  <div class="col-lg-1" style="vertical-align: middle;">
+                  <div class="col-lg-2" style="vertical-align: middle;">
                     <input class="form-control" type="number" min="2" max="200" step="1" value="10" id="spanscale3"
                            oninput="scale3.value=spanscale3.value">
                   </div>
@@ -105,11 +105,11 @@
                     <input class="form-control" type="range" min="2" max="200" step="1" value="10" id="scale3"
                            oninput="spanscale3.value=scale3.value">
                   </div>
-                  <div class="col-lg-1" style="vertical-align: middle;">
+                  <div class="col-lg-2" style="vertical-align: middle;">
                     <label for="spanscale4">Max nodes:&nbsp;</label>
                     <!-- <text id="spanscale4" style="inline" contenteditable>700</text> -->
                   </div>
-                  <div class="col-lg-1" style="vertical-align: middle;">
+                  <div class="col-lg-2" style="vertical-align: middle;">
                     <input class="form-control" type="number" min="10" max="5000" step="1" value="700" id="spanscale4"
                            oninput="scale4.value=spanscale4.value">
                   </div>
@@ -118,34 +118,7 @@
                            oninput="spanscale4.value=scale4.value">
                   </div>
                 </div>
-                <div class="row" style="height:4rem;">
-
-                </div>
-                <!-- 						<script type="text/javascript">
-
-                            function saveFile(projs) {
-
-                              alert(projs);
-                              let project = {
-                                name: '',
-                                prefix: '',
-                                path: '',
-                                mode: '',
-                                algorithm: '',
-                                rate: 0.01,
-                                epochs: 30,
-                                percentage: 0.8,
-                                max_degree: 100,
-                                max_nodes: 1000
-                              };
-
-                               let d = JSON.stringify(project);
-                               alert(d);
-
-                            }
-                            </script> -->
-                <script src="/static/assets/js/parameters.js"></script>
-                <button type="button" class="btn btn-success" id="save" style="float: right;"
+                <button type="button" class="btn btn-success mt-5" id="save" style="float: right;"
                         onclick="saveFile(myVar,myVar1)">Save Project
                 </button>
 
@@ -171,7 +144,7 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-
+<script src="/static/assets/js/parameters.js"></script>
 <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
 <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
