@@ -257,6 +257,6 @@ select:focus {
     padding-top: 25px !important;
 }
 .train-panel {
-    width: 34em;
     height: 34em;
+    overflow-y: auto;
 }

@@ -349,45 +349,70 @@ async function train() {
     },
     success: function (data) {
       train_state = false;
-      console.log('end train')
+      document.getElementById('train-btn').innerHTML = 'Train';
     }
   })
   document.getElementById('train-btn').innerHTML = 'Training';
 
-  epoch_progress = 1;
-  readTrainResult(1);
+  await sleep(3000);
+  epoch_progress = 0;
+  readTrainResult();
 }
-
+function makeId(length) {
+  let result = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let charactersLength = characters.length;
+  for ( let i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 window.readTrainResult = function () {
-  if (epoch_progress > train_parameter.epochs) {
-    epoch_progress = 1;
+  if (epoch_progress >= train_parameter.epochs) {
+    epoch_progress = 0;
     return;
   }
   $.ajax({
-    url: '/static/assets/train_result/train_result_' + epoch_progress.toString().padStart(3, '0') + '.json',
+    url: '/static/assets/train_result/train_result.json?unique=' + makeId(20),
     type: 'GET',
     statusCode: {
       404: async function () {
-        await sleep(100);
-        readTrainResult();
+        // await sleep(100);
+        // readTrainResult();
       }
     },
     success: async function (data) {
-      console.log(data);
-      // console.log(JSON.parse(data));
-      // try {
-      //   if(train_result.train_loss.length < data.train_loss.length) {
-      //     train_result = data;
-      //     console.log(train_result);
-      //   }
-      // } catch (e) {
-      //   console.log(e);
-      // } finally {
-      //   epoch_progress = train_result.train_loss.length;
-      epoch_progress++;
-      await sleep(100);
+      if(epoch_progress < data.train_loss.length) {
+        let difference = data.train_loss.length - epoch_progress;
+        epoch_progress += difference;
+        train_result = data;
+        showTrainResult(difference);
+      }
+      await sleep(1000);
       readTrainResult();
-      // }
     }
   })
+}
+function showTrainResult(difference) {
+  document.getElementById("train_progress").style.width =
+    (epoch_progress / train_parameter.epochs * 100).toString() + '%';
+  for(let i = difference; i > 0; i--) {
+    let append_value = '<div class="d-flex justify-content-around mb-2">';
+    append_value += '<div class="p-1">' + train_result.train_loss[epoch_progress - i] + '</div>';
+    append_value += '<div class="p-1">' + train_result.val_loss[epoch_progress - i] + '</div>';
+    append_value += '</div>';
+    $('#train_loss').append(append_value);
+
+    append_value = '<div class="d-flex justify-content-around mb-2">';
+    append_value += '<div class="p-1">' + train_result.train_f1_mic[epoch_progress - i] + '</div>';
+    append_value += '<div class="p-1">' + train_result.val_f1_mic[epoch_progress - i] + '</div>';
+    append_value += '</div>';
+    $('#train_f1_mic').append(append_value);
+
+    append_value = '<div class="d-flex justify-content-around mb-2">';
+    append_value += '<div class="p-1">' + train_result.train_f1_mac[epoch_progress - i] + '</div>';
+    append_value += '<div class="p-1">' + train_result.val_f1_mac[epoch_progress - i] + '</div>';
+    append_value += '</div>';
+    $('#train_f1_mac').append(append_value);
+  }
 }

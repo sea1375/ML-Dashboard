@@ -242,7 +242,7 @@
                 <div class="col-lg-9">
                   <div class="train-state">
                     <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:0%"></div>
+                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="train_progress" style="width:0%"></div>
                     </div>
                   </div>
                 </div>
@@ -255,19 +255,31 @@
               <div class="row">
                 <div class="col-lg-4">
                   <div class="card card-stats text-center">
-                    <div class="card-body train-panel">
+                    <div class="card-body train-panel" id="train_loss">
+                      <div class="d-flex justify-content-around mb-3">
+                        <div class="p-1 bg-info text-white">Train Loss</div>
+                        <div class="p-1 bg-warning text-white">Value Loss</div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="card card-stats text-center">
-                    <div class="card-body train-panel">
+                    <div class="card-body train-panel" id="train_f1_mic">
+                      <div class="d-flex justify-content-around mb-3">
+                        <div class="p-1 bg-info text-white">Train F1 Mic</div>
+                        <div class="p-1 bg-warning text-white">Value F1 Mic</div>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="card card-stats text-center">
-                    <div class="card-body train-panel">
+                    <div class="card-body train-panel" id="train_f1_mac">
+                      <div class="d-flex justify-content-around mb-3">
+                        <div class="p-1 bg-info text-white">Train F1 Mac</div>
+                        <div class="p-1 bg-warning text-white">Value F1 Mac</div>
+                      </div>
                     </div>
                   </div>
                 </div>

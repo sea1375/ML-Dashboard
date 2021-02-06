@@ -767,10 +767,8 @@ def train_chunks(train_data, test_data=None):
             "val_f1_mic": val_f1_mics,
             "val_f1_mac": val_f1_macs,
         }
-        default_path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result_"
-        if epoch > 0:
-            os.remove(default_path + format(epoch, '03d') + ".json")
-        path =default_path + format(epoch + 1, '03d') + ".json"
+
+        path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result.json"
         with open(path, 'w+') as json_file:
             json.dump(train_result, json_file)
 
@@ -999,4 +997,17 @@ def main(argv=None):
                   "time=", "{:.5f}".format(duration))				
 				
 if __name__ == '__main__':
+    train_result = {
+        "train_loss": [],
+        "train_f1_mic": [],
+        "train_f1_mac": [],
+        "val_loss": [],
+        "val_f1_mic": [],
+        "val_f1_mac": [],
+    }
+
+    path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result.json"
+    with open(path, 'w+') as json_file:
+        json.dump(train_result, json_file)
+    print('----------------------------------------------')
     tf.app.run()
