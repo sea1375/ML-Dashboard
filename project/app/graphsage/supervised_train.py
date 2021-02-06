@@ -767,8 +767,10 @@ def train_chunks(train_data, test_data=None):
             "val_f1_mic": val_f1_mics,
             "val_f1_mac": val_f1_macs,
         }
-
-        path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result.txt"
+        default_path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result_"
+        if epoch > 0:
+            os.remove(default_path + format(epoch, '03d') + ".json")
+        path =default_path + format(epoch + 1, '03d') + ".json"
         with open(path, 'w+') as json_file:
             json.dump(train_result, json_file)
 

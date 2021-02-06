@@ -23,6 +23,15 @@ let chunk_load_state = false;
 let graphs = [];
 let index = 0;
 
+let epoch_progress = 0;
+let train_result = {
+  train_loss: [],
+  train_f1_mic: [],
+  train_f1_mac: [],
+  val_loss: [],
+  val_f1_mic: [],
+  val_f1_mac: [],
+}
 
 window.readChunks = async function () {
   let json_url = '/static/graphs/chunk';
@@ -236,11 +245,11 @@ function handleFileSelect(e) {
       // save the project parameters
       let projectData = JSON.parse(reader.result);
       train_parameter.model = projectData.algorithm;
-      train_parameter.max_degree = projectData.max_degree;
-      train_parameter.epochs = projectData.epochs;
+      train_parameter.max_degree = parseInt(projectData.max_degree);
+      train_parameter.epochs = parseInt(projectData.epochs);
       train_parameter.train_chunks = projectData.mode;
-      train_parameter.train_percentage = projectData.percentage;
-      train_parameter.nodes_max = projectData.max_nodes;
+      train_parameter.train_percentage = parseFloat(projectData.percentage);
+      train_parameter.nodes_max = parseInt(projectData.max_nodes);
     });
     reader.readAsText(file);
 
@@ -263,7 +272,7 @@ function handleFileSelect(e) {
 }
 
 $(function () {
-  readChunks();
+  readChunks().then(() => console.log('readChunks'));
   $('#file-input').click();
   $('#file-input').change(handleFileSelect);
   $('#speed').change(changeAnimationSpeed);
@@ -314,8 +323,8 @@ function goToAnalysis() {
   $('#tabs-icons-text-3-tab').addClass('active');
 }
 
-function train() {
-  if(!open_state) {
+async function train() {
+  if (!open_state) {
     document.getElementById('train-alert').style.display = 'block';
     setTimeout(function () {
       document.getElementById('train-alert').style.display = 'none';
@@ -341,6 +350,44 @@ function train() {
     success: function (data) {
       train_state = false;
       console.log('end train')
+    }
+  })
+  document.getElementById('train-btn').innerHTML = 'Training';
+
+  epoch_progress = 1;
+  readTrainResult(1);
+}
+
+window.readTrainResult = function () {
+  if (epoch_progress > train_parameter.epochs) {
+    epoch_progress = 1;
+    return;
+  }
+  $.ajax({
+    url: '/static/assets/train_result/train_result_' + epoch_progress.toString().padStart(3, '0') + '.json',
+    type: 'GET',
+    statusCode: {
+      404: async function () {
+        await sleep(100);
+        readTrainResult();
+      }
+    },
+    success: async function (data) {
+      console.log(data);
+      // console.log(JSON.parse(data));
+      // try {
+      //   if(train_result.train_loss.length < data.train_loss.length) {
+      //     train_result = data;
+      //     console.log(train_result);
+      //   }
+      // } catch (e) {
+      //   console.log(e);
+      // } finally {
+      //   epoch_progress = train_result.train_loss.length;
+      epoch_progress++;
+      await sleep(100);
+      readTrainResult();
+      // }
     }
   })
 }

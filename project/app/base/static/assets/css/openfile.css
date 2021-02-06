@@ -250,6 +250,8 @@ select:focus {
 .train-btn{
     width: 100px;
     margin: 10px auto;
+    padding-left: 0;
+    padding-right: 0;
 }
 .train-state {
     padding-top: 25px !important;
