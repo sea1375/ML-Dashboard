@@ -18,10 +18,33 @@ def index():
 @blueprint.route('/<template>')
 @login_required
 def route_template(template):
-    print(template)
     try:
         if template == 'train':
-            os.system("python -m app.graphsage.supervised_train --train_prefix app/base/static/graphs --data_prefix adpcicd --model gcn --max_degree 10 --epochs 30 --train_chunks True --train_percentage 0.8 --validate_batch_size -1 --nodes_max 1000")
+            file_name = request.args.get('file_name')
+            train_prefix = request.args.get('train_prefix')
+            data_prefix = request.args.get('data_prefix')
+            model = request.args.get('model')
+            max_degree = request.args.get('max_degree')
+            epochs = request.args.get('epochs')
+            train_chunks = request.args.get('train_chunks')
+            train_percentage = request.args.get('train_percentage')
+            validate_batch_size = request.args.get('validate_batch_size')
+            nodes_max = request.args.get('nodes_max')
+
+            command = 'python -m'
+            command = command + ' ' + file_name
+            command = command + ' --train_prefix ' + train_prefix
+            command = command + ' --data_prefix ' + data_prefix
+            command = command + ' --model ' + model
+            command = command + ' --max_degree ' + max_degree
+            command = command + ' --epochs ' + epochs
+            command = command + ' --train_chunks ' + train_chunks
+            command = command + ' --train_percentage ' + train_percentage
+            command = command + ' --validate_batch_size ' + validate_batch_size
+            command = command + ' --nodes_max ' + nodes_max
+
+            print(command)
+            os.system(command)
             return 'success'
             
         if not template.endswith( '.html' ):

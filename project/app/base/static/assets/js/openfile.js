@@ -35,7 +35,6 @@ window.readChunks = async function () {
       404: function () {
         // not exist.
         chunk_load_state = true;
-        console.log(graphs);
       }
     },
     success: function (json) {
@@ -135,7 +134,6 @@ async function visualize_graphs() {
             break;
         }
       }
-      console.log(numberOfExternalIPs);
       document.getElementById('nodes').innerHTML = numberOfNodes;
       document.getElementById('servs').innerHTML = numberOfServices;
       document.getElementById('pods').innerHTML = numberOfPods;
@@ -232,7 +230,6 @@ function handleFileSelect(e) {
     return;
   }
   let file = files[0];
-  console.log(e.target.files);
   let reader = new FileReader();
   try {
     reader.addEventListener('load', e => {
@@ -254,7 +251,7 @@ function handleFileSelect(e) {
       if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
         filename = filename.substring(1);
       }
-      document.getElementById('path').innerHTML = '$Home/' + filename;
+      document.getElementById('project_path').innerHTML = '$Home/' + filename;
     }
     open_state = true;
   } catch (e) {
@@ -329,10 +326,18 @@ function train() {
   $.ajax({
     type: 'GET',
     url: '/train',
-    // data: {
-    //     data1: "hello",
-    //     data2: "world",
-    // },
+    data: {
+      file_name: train_parameter.file_name,
+      train_prefix: train_parameter.train_prefix,
+      data_prefix: train_parameter.data_prefix,
+      model: train_parameter.model.toLowerCase(),
+      max_degree: train_parameter.max_degree.toString(),
+      epochs: train_parameter.epochs.toString(),
+      train_chunks: train_parameter.train_chunks.toString(),
+      train_percentage: train_parameter.train_percentage.toString(),
+      validate_batch_size: train_parameter.validate_batch_size.toString(),
+      nodes_max: train_parameter.nodes_max.toString(),
+    },
     success: function (data) {
       train_state = false;
       console.log('end train')
