@@ -47,9 +47,9 @@ function saveFile(projs,data) {
 
 	newLink.click();
 	/*reset inputs*/
-	document.getElementById("project")="";
-	document.getElementById("prefix")="";
-	document.getElementById("project")="";
+	// document.getElementById("project")="";
+	// document.getElementById("prefix")="";
+	// document.getElementById("project")="";
 
 } 
 

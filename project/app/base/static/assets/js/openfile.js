@@ -1,27 +1,31 @@
-var train_prefix = './graphs/',
-  data_prefix = 'adpcicd',
-  model = 'gcn',
-  max_degree = 10,
-  epochs = 30,
-  train_chunks = true,
-  train_percentage = 0.8,
-  validata_batch_size = -1,
-  nodes_max = 1000;
-var open_state = false;
+let train_parameter = {
+  file_name: 'app.graphsage.supervised_train',
+  train_prefix: 'app/base/static/graphs',
+  data_prefix: 'adpcicd',
+  model: 'gcn',
+  max_degree: 10,
+  epochs: 30,
+  train_chunks: true,
+  train_percentage: 0.8,
+  validate_batch_size: -1,
+  nodes_max: 1000,
+};
 
-var visualize_state = 'none';
-var animation_speed = parseInt($('#speed')[0].value, 10);
-var train_state = false;
+let open_state = false;
+
+let visualize_state = 'none';
+let animation_speed = parseInt($('#speed')[0].value, 10);
+let train_state = false;
 
 const NUMBER_OF_GRAPHS = 700;
 const DATA_PREFIX = 'adpcicd-G.json';
-var chunk_load_state = false;
-var graphs = [];
-var index = 0;
+let chunk_load_state = false;
+let graphs = [];
+let index = 0;
 
 
 window.readChunks = async function () {
-  var json_url = '/static/graphs/chunk';
+  let json_url = '/static/graphs/chunk';
   json_url += index.toString().padStart(3, '0');
   json_url += '/' + DATA_PREFIX;
   $.ajax({
@@ -44,7 +48,7 @@ window.readChunks = async function () {
 }
 
 function createAnychartData(dataFromChunkG) {
-  var anychartData = {
+  let anychartData = {
     nodes: [],
     edges: [],
   }
@@ -79,10 +83,10 @@ function createAnychartData(dataFromChunkG) {
   }
 
   for (let i = anychartData.nodes.length - 1; i >= 0; i--) {
-    var node = anychartData.nodes[i].id,
+    let node = anychartData.nodes[i].id,
       hasLink = false;
     for (let j = 0; j < anychartData.edges.length; j++) {
-      var source = anychartData.edges[j].from,
+      let source = anychartData.edges[j].from,
         target = anychartData.edges[j].to;
       if (node == source || node == target) {
         hasLink = true;
@@ -103,8 +107,8 @@ function sleep(ms) {
 async function visualize_graphs() {
   try {
     for (let i = 0; i < graphs.length; i++) {
-      var dataFromChunkG = graphs[i];
-      var numberOfNodes = 0,
+      let dataFromChunkG = graphs[i];
+      let numberOfNodes = 0,
         numberOfServices = 0,
         numberOfPods = 0,
         numberOfExternalIPs = 0,
@@ -139,14 +143,14 @@ async function visualize_graphs() {
       document.getElementById('workers').innerHTML = numberOfWorkers;
       document.getElementById('man').innerHTML = numberOfManagement;
 
-      var anychartData = createAnychartData(dataFromChunkG);
+      let anychartData = createAnychartData(dataFromChunkG);
 
       document.getElementById('graph').innerHTML = '';
 
-      var chart = anychart.graph(anychartData);
+      let chart = anychart.graph(anychartData);
       chart.container('graph');
 
-      var nodes = chart.nodes();
+      let nodes = chart.nodes();
 
       nodes.normal().shape('diamond');
 
@@ -223,31 +227,30 @@ async function visualize() {
 
 function handleFileSelect(e) {
 
-  var files = e.target.files;
+  let files = e.target.files;
   if (files.length < 1) {
     return;
   }
-  var file = files[0];
+  let file = files[0];
   console.log(e.target.files);
-  var reader = new FileReader();
+  let reader = new FileReader();
   try {
     reader.addEventListener('load', e => {
       // save the project parameters
-      var projectData = JSON.parse(reader.result);
-      model = projectData.algorithm;
-      max_degree = projectData.max_degree;
-      epochs = projectData.epochs;
-      train_chunks = projectData.mode;
-      train_percentage = projectData.percentage;
-      nodes_max = projectData.max_nodes;
-      // visualize the graphs
+      let projectData = JSON.parse(reader.result);
+      train_parameter.model = projectData.algorithm;
+      train_parameter.max_degree = projectData.max_degree;
+      train_parameter.epochs = projectData.epochs;
+      train_parameter.train_chunks = projectData.mode;
+      train_parameter.train_percentage = projectData.percentage;
+      train_parameter.nodes_max = projectData.max_nodes;
     });
     reader.readAsText(file);
 
-    var fullPath = document.getElementById('file-input').value;
+    let fullPath = document.getElementById('file-input').value;
     if (fullPath) {
-      var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
-      var filename = fullPath.substring(startIndex);
+      let startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+      let filename = fullPath.substring(startIndex);
       if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
         filename = filename.substring(1);
       }
@@ -270,17 +273,17 @@ $(function () {
 });
 
 function progressBar(progressVal, totalPercentageVal = 100) {
-  var strokeVal = (4.64 * 100) / totalPercentageVal;
-  var x = document.querySelector('.progress-circle-prog');
+  let strokeVal = (4.64 * 100) / totalPercentageVal;
+  let x = document.querySelector('.progress-circle-prog');
   x.style.strokeDasharray = progressVal * (strokeVal) * 2 + ' 999';
-  var el = document.querySelector('.progress-text');
-  var from = $('.progress-text').data('progress');
+  let el = document.querySelector('.progress-text');
+  let from = $('.progress-text').data('progress');
   $('.progress-text').data('progress', progressVal);
-  var start = new Date().getTime();
+  let start = new Date().getTime();
 
   setTimeout(function () {
-    var now = (new Date().getTime()) - start;
-    var progress = now / 700;
+    let now = (new Date().getTime()) - start;
+    let progress = now / 700;
     el.innerHTML = progressVal;
     if (progress < 1) setTimeout(arguments.callee, 10);
   }, 10);
@@ -288,7 +291,7 @@ function progressBar(progressVal, totalPercentageVal = 100) {
 }
 
 function changeAnimationSpeed() {
-  var value = parseInt($('#speed')[0].value, 10);
+  let value = parseInt($('#speed')[0].value, 10);
   value = isNaN(value) ? 1 : value;
   if (value < 1) value = 1;
   animation_speed = value;
