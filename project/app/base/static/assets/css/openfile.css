@@ -247,6 +247,7 @@ select:focus {
     text-align: center;
     display: none;
 }
+
 .train-btn{
     width: 100px;
     margin: 10px auto;
@@ -257,6 +258,11 @@ select:focus {
     padding-top: 25px !important;
 }
 .train-panel {
-    height: 34em;
+    height: 18em;
     overflow-y: auto;
+    padding: 0 !important;
+    margin: 0;
+}
+#graph {
+    height: 100%;
 }

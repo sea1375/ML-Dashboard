@@ -33,6 +33,9 @@ let train_result = {
   val_f1_mac: [],
 }
 
+let dataSet = [], chart = [], series = [],
+  drawPanel = ['train_loss', 'train_f1_mic', 'train_f1_mac', 'val_loss', 'val_f1_mic', 'val_f1_mac'];
+
 window.readChunks = async function () {
   let json_url = '/static/graphs/chunk';
   json_url += index.toString().padStart(3, '0');
@@ -250,6 +253,7 @@ function handleFileSelect(e) {
       train_parameter.train_chunks = projectData.mode;
       train_parameter.train_percentage = parseFloat(projectData.percentage);
       train_parameter.nodes_max = parseInt(projectData.max_nodes);
+      drawCharts();
     });
     reader.readAsText(file);
 
@@ -358,15 +362,17 @@ async function train() {
   epoch_progress = 0;
   readTrainResult();
 }
+
 function makeId(length) {
   let result = '';
   let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let charactersLength = characters.length;
-  for ( let i = 0; i < length; i++ ) {
+  for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
 }
+
 window.readTrainResult = function () {
   if (epoch_progress >= train_parameter.epochs) {
     epoch_progress = 0;
@@ -382,7 +388,7 @@ window.readTrainResult = function () {
       }
     },
     success: async function (data) {
-      if(epoch_progress < data.train_loss.length) {
+      if (epoch_progress < data.train_loss.length) {
         let difference = data.train_loss.length - epoch_progress;
         epoch_progress += difference;
         train_result = data;
@@ -393,26 +399,85 @@ window.readTrainResult = function () {
     }
   })
 }
+
 function showTrainResult(difference) {
-  document.getElementById("train_progress").style.width =
+  document.getElementById('train_progress').style.width =
     (epoch_progress / train_parameter.epochs * 100).toString() + '%';
-  for(let i = difference; i > 0; i--) {
-    let append_value = '<div class="d-flex justify-content-around mb-2">';
-    append_value += '<div class="p-1">' + train_result.train_loss[epoch_progress - i] + '</div>';
-    append_value += '<div class="p-1">' + train_result.val_loss[epoch_progress - i] + '</div>';
-    append_value += '</div>';
-    $('#train_loss').append(append_value);
 
-    append_value = '<div class="d-flex justify-content-around mb-2">';
-    append_value += '<div class="p-1">' + train_result.train_f1_mic[epoch_progress - i] + '</div>';
-    append_value += '<div class="p-1">' + train_result.val_f1_mic[epoch_progress - i] + '</div>';
-    append_value += '</div>';
-    $('#train_f1_mic').append(append_value);
+  for (let i = difference; i > 0; i--) {
+    for (let j = 0; j < dataSet.length; j++) {
+      let view = dataSet[j].mapAs();
+      view.set(
+        epoch_progress - i,
+        'value',
+        train_result[drawPanel[j]][epoch_progress - i],
+      );
+    }
+  }
+}
 
-    append_value = '<div class="d-flex justify-content-around mb-2">';
-    append_value += '<div class="p-1">' + train_result.train_f1_mac[epoch_progress - i] + '</div>';
-    append_value += '<div class="p-1">' + train_result.val_f1_mac[epoch_progress - i] + '</div>';
-    append_value += '</div>';
-    $('#train_f1_mac').append(append_value);
+function drawCharts() {
+  let defaultData = [];
+  for (let i = 0; i < parseInt(train_parameter.epochs); i++) {
+    defaultData.push({
+      x: (i + 1).toString(),
+      value: null,
+    });
+  }
+
+  for (let i = 0; i < drawPanel.length; i++) {
+    dataSet[i] = anychart.data.set(defaultData);
+    chart[i] = anychart.line();
+
+    let title = chart[i].title();
+    title.enabled(true);
+    title.text(drawPanel[i]);
+    title.hAlign('center');
+    title.fontColor('white');
+
+    let background = chart[i].background();
+    background.fill({
+      keys: ['#406181', '#6DA5DB'],
+      angle: 90
+    });
+
+    series[i] = chart[i].line(dataSet[i]);
+    series[i].stroke({color: '#BBDA00', dash: '4 3', thickness: 3});
+    series[i].hovered().stroke({color: '#BBDA00', dash: '4 3', thickness: 3});
+
+    let hoverMarkers = series[i].hovered().markers();
+    hoverMarkers.fill('darkred');
+    hoverMarkers.stroke('2 white');
+
+    // adjust tooltip
+    let tooltip = series[i].tooltip();
+    tooltip.format('{%value}');
+    tooltip.fontColor('white');
+
+    let tooltipBackground = series[i].tooltip().background();
+    tooltipBackground.fill('#406181');
+    tooltipBackground.stroke('white');
+    tooltipBackground.cornerType('round');
+    tooltipBackground.corners(4);
+
+    // adjust x axis
+    let xAxis = chart[i].xAxis();
+    xAxis.stroke('white');
+    let xLabels = xAxis.labels();
+    xLabels.fontColor('white');
+    xLabels.fontWeight(900);
+    xLabels.height(30);
+    xLabels.vAlign('middle');
+
+    // adjust y axis
+    chart[i].yAxis().labels().enabled(false);
+    chart[i].yScale().minimum(0);
+    if (drawPanel[i] == 'train_loss' || drawPanel[i] == 'val_loss') {
+      chart[i].yScale().maximum(5);
+    } else {
+      chart[i].yScale().maximum(1);
+    }
+
+    chart[i].container(drawPanel[i]).draw();
   }
 }
