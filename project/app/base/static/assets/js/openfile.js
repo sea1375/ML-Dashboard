@@ -426,48 +426,49 @@ function drawCharts() {
   }
 
   for (let i = 0; i < drawPanel.length; i++) {
+
+    anychart.theme('lightBlue');
     dataSet[i] = anychart.data.set(defaultData);
     chart[i] = anychart.line();
-
     let title = chart[i].title();
     title.enabled(true);
     title.text(drawPanel[i]);
-    title.hAlign('center');
-    title.fontColor('white');
+    // title.hAlign('center');
+    // title.fontColor('white');
 
-    let background = chart[i].background();
-    background.fill({
-      keys: ['#406181', '#6DA5DB'],
-      angle: 90
-    });
+    // let background = chart[i].background();
+    // background.fill({
+    //   keys: ['#406181', '#6DA5DB'],
+    //   angle: 90
+    // });
 
     series[i] = chart[i].line(dataSet[i]);
-    series[i].stroke({color: '#BBDA00', dash: '4 3', thickness: 3});
-    series[i].hovered().stroke({color: '#BBDA00', dash: '4 3', thickness: 3});
+    // series[i].stroke({color: '#BBDA00', dash: '4 3', thickness: 3});
+    // series[i].hovered().stroke({color: '#BBDA00', dash: '4 3', thickness: 3});
 
-    let hoverMarkers = series[i].hovered().markers();
-    hoverMarkers.fill('darkred');
-    hoverMarkers.stroke('2 white');
+    // let hoverMarkers = series[i].hovered().markers();
+    // hoverMarkers.fill('darkred');
+    // hoverMarkers.stroke('2 white');
 
     // adjust tooltip
     let tooltip = series[i].tooltip();
     tooltip.format('{%value}');
-    tooltip.fontColor('white');
+    // tooltip.fontColor('white');
 
-    let tooltipBackground = series[i].tooltip().background();
-    tooltipBackground.fill('#406181');
-    tooltipBackground.stroke('white');
-    tooltipBackground.cornerType('round');
-    tooltipBackground.corners(4);
+    // let tooltipBackground = series[i].tooltip().background();
+    // tooltipBackground.fill('#406181');
+    // tooltipBackground.stroke('white');
+    // tooltipBackground.cornerType('round');
+    // tooltipBackground.corners(4);
 
     // adjust x axis
-    let xAxis = chart[i].xAxis();
-    xAxis.stroke('white');
-    let xLabels = xAxis.labels();
-    xLabels.fontColor('white');
-    xLabels.fontWeight(900);
-    xLabels.height(30);
-    xLabels.vAlign('middle');
+    // let xAxis = chart[i].xAxis();
+    // xAxis.stroke('white');
+    // let xLabels = xAxis.labels();
+    // xLabels.fontColor('white');
+    // xLabels.fontWeight(900);
+    // xLabels.height(30);
+    // xLabels.vAlign('middle');
 
     // adjust y axis
     chart[i].yAxis().labels().enabled(false);
