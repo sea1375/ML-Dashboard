@@ -39,7 +39,7 @@ flags.DEFINE_string("model_size", "small", "Can be big or small; model specific 
 flags.DEFINE_string('train_prefix', '', 'prefix identifying training data. must be specified.')
 #flags.DEFINE_boolean('all_neighbors', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta, select all neighbors 
 flags.DEFINE_boolean('train_chunks', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
-flags.DEFINE_boolean('train_mode', True, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
+flags.DEFINE_boolean('train_mode', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
 flags.DEFINE_string('data_prefix', 'adpcicd', 'data prefix') #added by Amine Boukhtouta
 
 #flags.DEFINE_boolean('train_on_val_test', False, 'training on data considered for validation and testing') #added by Amine Boukhtouta

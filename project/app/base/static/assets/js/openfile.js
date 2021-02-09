@@ -388,6 +388,9 @@ window.readTrainResult = function () {
       }
     },
     success: async function (data) {
+      if(data.state == 'false') {
+        return;
+      }
       if (epoch_progress < data.train_loss.length) {
         let difference = data.train_loss.length - epoch_progress;
         epoch_progress += difference;

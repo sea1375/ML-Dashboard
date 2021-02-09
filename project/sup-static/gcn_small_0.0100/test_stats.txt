@@ -1,4 +1,4 @@
-loss=1.53510 f1_micro=0.63992 f1_macro=0.48878 avg_time=0.26834
-name=chunk018 loss=1.51431 f1_micro=0.64159 f1_macro=0.49116 avg_time=0.25731
-name=chunk019 loss=1.55354 f1_micro=0.63124 f1_macro=0.47712 avg_time=0.28843
-name=chunk020 loss=1.53744 f1_micro=0.64693 f1_macro=0.49805 avg_time=0.25927
+loss=1.53510 f1_micro=0.63992 f1_macro=0.48878 avg_time=0.21908
+name=chunk018 loss=1.51431 f1_micro=0.64159 f1_macro=0.49116 avg_time=0.22141
+name=chunk019 loss=1.55354 f1_micro=0.63124 f1_macro=0.47712 avg_time=0.22394
+name=chunk020 loss=1.53744 f1_micro=0.64693 f1_macro=0.49805 avg_time=0.21188

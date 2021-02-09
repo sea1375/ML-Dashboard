@@ -40,6 +40,8 @@ flags.DEFINE_string('train_prefix', '', 'prefix identifying training data. must 
 #flags.DEFINE_boolean('all_neighbors', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta, select all neighbors 
 flags.DEFINE_boolean('train_chunks', False, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
 flags.DEFINE_boolean('train_mode', True, 'train on chuncked data located under train_prefix') #added by Amine Boukhtouta
+flags.DEFINE_boolean('test_mode', True, 'test train') #added by Yana
+
 flags.DEFINE_string('data_prefix', 'adpcicd', 'data prefix') #added by Amine Boukhtouta
 
 #flags.DEFINE_boolean('train_on_val_test', False, 'training on data considered for validation and testing') #added by Amine Boukhtouta
@@ -760,6 +762,7 @@ def train_chunks(train_data, test_data=None):
         val_f1_macs.append("{:.5f}".format(sum(val_f1_mac)/len(val_f1_mac))),
 
         train_result = {
+            "state": "true",
             "train_loss": train_costs,
             "train_f1_mic": train_f1_mics,
             "train_f1_mac": train_f1_macs,
@@ -791,18 +794,39 @@ def train_chunks(train_data, test_data=None):
         res['f1_mic'].append(val_f1_mic)
         res['f1_mac'].append(val_f1_mac)
         res['duration'].append(duration)
-        cpt = cpt+1		
+        cpt = cpt+1
+
     avgs={}
-    with open(log_dir() + "test_stats.txt", "w") as fp:
-        for k,v in res.items():
-            if not isinstance(v[0], str):		
-                avgs[k] = sum(v)/ float(len(v))
-		
-        fp.write("loss={:.5f} f1_micro={:.5f} f1_macro={:.5f} avg_time={:.5f}".format(avgs['cost'], avgs["f1_mic"], avgs["f1_mac"], avgs["duration"]))
-        fp.write("\n")	
-        for i in range(0,cpt):
-            fp.write("name={:s} loss={:.5f} f1_micro={:.5f} f1_macro={:.5f} avg_time={:.5f}".format(res['name'][i], res['cost'][i], res["f1_mic"][i], res["f1_mac"][i], res["duration"][i]))
-            fp.write("\n")       		
+    for k,v in res.items():
+        if not isinstance(v[0], str):
+            avgs[k] = sum(v)/ float(len(v))
+
+    name_array = []
+    loss_array = []
+    f1_mic_array = []
+    f1_mac_array = []
+    for i in range(0,cpt):
+        name_array.append("{:s}".format(res['name'][i]))
+        loss_array.append("{:.5f}".format(res['cost'][i]))
+        f1_mic_array.append("{:.5f}".format(res["f1_mic"][i]))
+        f1_mac_array.append("{:.5f}".format(res["f1_mac"][i]))
+
+    graph_result = {
+        "avg_loss": "{:.5f}".format(avgs['cost']),
+        "avg_f1_mic": "{:.5f}".format(avgs['f1_mic']),
+        "avg_f1_mac": "{:.5f}".format(avgs['f1_mac']),
+        "graph": {
+            "name": name_array,
+            "loss": loss_array,
+            "f1_mic": f1_mic_array,
+            "f1_mac": f1_mac_array,
+        }
+    }
+
+    path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/graph_result.json"
+    with open(path, 'w+') as json_file:
+        json.dump(graph_result, json_file)
+
     print("time (Building+Training+Validation+Testing) =", "{:.5f}".format(time.time()-start))
     print('Saving model...')
     #print(sess.graph.get_collection())
@@ -952,7 +976,20 @@ def main(argv=None):
             train_data= load_data_chunks(FLAGS.train_prefix, log_dir()+"scaler.pkl", FLAGS.data_prefix, FLAGS.train_percentage, FLAGS.nodes_max)
             print("Done loading chunked training data..")
             train_chunks(train_data)
-    else: #we load a model and a scaler from a path to test additional data	
+    else: #we load a model and a scaler from a path to test additional data
+        train_result = {
+            "state": "false",
+            "train_loss": [],
+            "train_f1_mic": [],
+            "train_f1_mac": [],
+            "val_loss": [],
+            "val_f1_mic": [],
+            "val_f1_mac": [],
+        }
+
+        path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result.json"
+        with open(path, 'w+') as json_file:
+            json.dump(train_result, json_file)
         print("Loading model for additional testing")
         sess=tf.Session()		
         saver = tf.train.import_meta_graph(FLAGS.model_dir)
@@ -985,7 +1022,7 @@ def main(argv=None):
                   "loss=", "{:.5f}".format(loss),
                   "f1_micro=", "{:.5f}".format(mic),
                   "f1_macro=", "{:.5f}".format(mac),
-                  "time=", "{:.5f}".format(duration))				
+                  "time=", "{:.5f}".format(duration))
             else:
                 infos = build_input_incremental(test_data,params[1],params[3],params[0])			
                 loss, mic, mac, duration, label, preds=test_graph(test_data[0].name, sess, infos, gsage,t_test)
@@ -998,6 +1035,7 @@ def main(argv=None):
 				
 if __name__ == '__main__':
     train_result = {
+        "state": "true",
         "train_loss": [],
         "train_f1_mic": [],
         "train_f1_mac": [],
@@ -1009,5 +1047,4 @@ if __name__ == '__main__':
     path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/train_result.json"
     with open(path, 'w+') as json_file:
         json.dump(train_result, json_file)
-    print('----------------------------------------------')
     tf.app.run()
