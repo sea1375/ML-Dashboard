@@ -80,6 +80,8 @@ os.environ["CUDA_VISIBLE_DEVICES"]=str(FLAGS.gpu)
 
 GPU_MEM_FRACTION = 0.8
 
+node_result = [] #added by Yana
+
 def calc_f1(y_true, y_pred):
     if not FLAGS.sigmoid:
         y_true = np.argmax(y_true, axis=1)
@@ -147,13 +149,15 @@ def incremental_evaluate(sess, model, minibatch_iter, size, test=False):
 
 #added by Amine
 def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test=False):
+    global node_result
+
     t_test = time.time()
     finished = False
     val_losses = []
     val_preds = []
     labels = []
     iter_num = 0
-    finished = False
+
     while not finished:
         feed_dict_val, batch_labels, finished, _  = minibatch_iter.incremental_node_val_feed_dict(graph_id, size, iter_num, test=test)
         node_outs_val = sess.run([model.preds, model.loss], 
@@ -162,6 +166,16 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
         labels.append(batch_labels)
         val_losses.append(node_outs_val[1])
         iter_num += 1
+
+    if test == True:
+        node_result.append({
+            "graph_id": graph_id,
+            "predictions": val_preds,
+            "losses": val_losses,
+            "labels": labels,
+        })
+        print(node_result)
+
     val_preds = np.vstack(val_preds)
     labels = np.vstack(labels)
     f1_scores = calc_f1(labels, val_preds)
@@ -826,6 +840,13 @@ def train_chunks(train_data, test_data=None):
     path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/graph_result.json"
     with open(path, 'w+') as json_file:
         json.dump(graph_result, json_file)
+
+    nodes_result = {
+        "result": node_result
+    }
+    path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/nodes_result.json"
+    with open(path, 'w+') as json_file:
+        json.dump(nodes_result, json_file)
 
     print("time (Building+Training+Validation+Testing) =", "{:.5f}".format(time.time()-start))
     print('Saving model...')
