@@ -466,32 +466,48 @@ function showGraphResult() {
       }
     },
     success: function (data) {
-      let tbodyRef = document.getElementById('datatable-basic').getElementsByTagName('tbody')[0];
-      // average row
-      // let newRow = tbodyRef.insertRow();
-      // let newCell = newRow.insertCell();
-      //
-      // newCell.appendChild();
+      let tableRef = document.getElementById('datatable-basic').getElementsByTagName('tbody')[0];
+
       let row = '<tr>';
-      row += '<td></td>';
-      row += '<td><span class="badge badge-success">' + data.avg_loss + '</span></td>';
-      row += '<td><span class="badge badge-success">' + data.avg_f1_mac + '</span></td>';
-      row += '<td><span class="badge badge-success">' + data.avg_f1_mic + '</span></td>';
-      row += '<tr>';
+      row += '<th></th>';
+      row += '<th><span class="badge badge-success">' + data.avg_loss + '</span></th>';
+      row += '<th><span class="badge badge-success">' + data.avg_f1_mac + '</span></th>';
+      row += '<th><span class="badge badge-success">' + data.avg_f1_mic + '</span></th>';
+      row += '</tr>';
+      document.getElementsByClassName('average-value')[0].innerHTML = row;
+
+      row = '';
       for(let i = 0; i < data.graph.name.length; i++) {
         row += '<tr>';
         row += '<td>' + data.graph.name[i] + '</td>';
         row += '<td>' + data.graph.loss[i] + '</td>';
         row += '<td>' + data.graph.f1_mac[i] + '</td>';
         row += '<td>' + data.graph.f1_mic[i] + '</td>';
-        row += '<tr>';
+        row += '</tr>';
       }
-      tbodyRef.innerHTML = row;
+      tableRef.innerHTML = row;
+
+      $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function(){
+        $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function(){
+          $.getScript('/static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js', function(){
+            $.getScript('/static/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js', function(){
+              $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js', function(){
+                $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js', function(){
+                  $.getScript('/static/assets/vendor/datatables.net-select/js/dataTables.select.min.js', function(){
+                    console.log(document.getElementById('datatable-basic'));
+                    datatableBasic();
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
     }
   })
 }
 
-var DatatableBasic = (function () {
+function datatableBasic() {
 
   // Variables
 
@@ -530,5 +546,4 @@ var DatatableBasic = (function () {
   if ($dtBasic.length) {
     init($dtBasic);
   }
-
-})();
+}
