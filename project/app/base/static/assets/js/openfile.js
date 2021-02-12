@@ -547,3 +547,18 @@ function datatableBasic() {
     init($dtBasic);
   }
 }
+
+let tbody = document.getElementById('datatable-basic').getElementsByTagName("tbody")[0];
+tbody.onclick = function (e) {
+  let graphName = '';
+  let target = e.target;
+  while (target && target.nodeName !== "TR") {
+    target = target.parentNode;
+  }
+  if (target) {
+    let cells = target.getElementsByTagName("td");
+    graphName = cells[0].innerHTML;
+    $('#analysis-tab a[href="#tabs-text-2"]').tab('show');
+    console.log(graphName);
+  }
+};
