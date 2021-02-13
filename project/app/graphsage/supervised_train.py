@@ -158,23 +158,38 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
     labels = []
     iter_num = 0
 
+    predictions = []
+    losses = 0
+
     while not finished:
         feed_dict_val, batch_labels, finished, _  = minibatch_iter.incremental_node_val_feed_dict(graph_id, size, iter_num, test=test)
         node_outs_val = sess.run([model.preds, model.loss], 
                          feed_dict=feed_dict_val)
+
         val_preds.append(node_outs_val[0])
         labels.append(batch_labels)
         val_losses.append(node_outs_val[1])
         iter_num += 1
 
     if test == True:
+        node_index = 0
+        for node_out in node_outs_val[0]:
+            available_index = 0
+            for available in node_out:
+                if batch_labels[node_index][available_index] == 1:
+                    predictions.append(node_out[available_index])
+                    break
+                available_index += 1
+            node_index += 1
+        losses = "{:.5f}".format(node_outs_val[1])
+
         node_result.append({
             "graph_id": graph_id,
-            "predictions": val_preds,
-            "losses": val_losses,
-            "labels": labels,
+            "predictions": predictions,
+            "losses": losses,
         })
         print(node_result)
+        print('---------------------------')
 
     val_preds = np.vstack(val_preds)
     labels = np.vstack(labels)
