@@ -426,7 +426,7 @@
                                     <div class="col">
                                       <h5 class="card-title text-uppercase text-muted mb-0">
                                         Graph Name</h5>
-                                      <span class="h2 font-weight-bold mb-0" class="nodes">ChunkXX</span>
+                                      <span class="h2 font-weight-bold mb-0" class="nodes" id="graph-name">ChunkXX</span>
                                     </div>
                                     <div class="col-auto">
                                       <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
@@ -446,7 +446,7 @@
                                     <div class="col">
                                       <h5 class="card-title text-uppercase text-muted mb-0">
                                         Number of nodes</h5>
-                                      <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                      <span class="h2 font-weight-bold mb-0" class="nodes" id="node-number">00</span>
                                     </div>
                                     <div class="col-auto">
                                       <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
@@ -459,22 +459,19 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="card card-stats text-center">
-
-                              <div class="card-body" style="width: 45rem; height:28rem; padding-top: 11rem;
-												padding-right: 12rem; padding-bottom: 11rem; padding-left: 12rem;">
-                                <div class="spinner-border text-primary" id="wait11" style="width: 6rem; height: 6rem;"
-                                     role="status">
-                                  <span class="sr-only">Loading...</span>
+                            <div class="col-12">
+                              <div class="card card-stats text-center">
+                                <div class="card-body" style="height:30rem;">
+                                  <div id="single-graph">
+                                  </div>
                                 </div>
                               </div>
-
                             </div>
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="table-responsive" data-toggle="list"
-                               data-list-values='["nname", "loss", "macro", "micro"]'>
+                               data-list-values='["name", "loss", "macro", "micro"]'>
                             <table class="table align-items-center table-flush">
                               <thead class="thead-light">
                               <tr>

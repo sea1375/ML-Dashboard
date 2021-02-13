@@ -17,6 +17,7 @@ let visualize_state = 'none';
 let animation_speed = parseInt($('#speed')[0].value, 10);
 let train_state = false;
 
+let graphChartData = {};
 const NUMBER_OF_GRAPHS = 700;
 const DATA_PREFIX = 'adpcicd-G.json';
 let chunk_load_state = false;
@@ -111,6 +112,41 @@ function createAnychartData(dataFromChunkG) {
   return anychartData;
 }
 
+function drawAnychart(anychartData, containerID) {
+  document.getElementById(containerID).innerHTML = '';
+
+  let chart = anychart.graph(anychartData);
+  chart.container(containerID);
+  chart.background().fill(null);
+  chart.background().stroke(null);
+
+  let nodes = chart.nodes();
+
+  nodes.normal().shape('diamond');
+
+  nodes.normal().height(7);
+  nodes.hovered().height(10);
+  nodes.selected().height(10);
+
+  chart.tooltip().useHtml(true);
+  chart.tooltip().width(150);
+  chart.tooltip().positionMode('chart');
+  chart.tooltip().anchor('left-top');
+  chart.tooltip().position('left-top');
+  chart.tooltip().format(function () {
+    if (this.type == 'node') {
+      let tooltip_id = '<span style=\'font-weight: bold;font-size: 16px;\'>ID: ' + this.id + '</span><br>';
+      let tooltip_group = 'group: ' + this.getData('group') + '<br>';
+      let tooltip_type = 'type: ' + this.getData('type') + '<br>';
+      let tooltip_feature = 'feature: <br>';
+      for (let index = 0; index < this.getData("feature").length; index++) {
+        tooltip_feature += index + ' : ' + this.getData('feature')[index] + '<br>';
+      }
+      return '<div style=\'text-align: left\'>' + tooltip_id + tooltip_group + tooltip_type + tooltip_feature + '</div>';
+    }
+  });
+  chart.draw();
+}
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -155,37 +191,13 @@ async function visualize_graphs() {
 
       let anychartData = createAnychartData(dataFromChunkG);
 
-      document.getElementById('graph').innerHTML = '';
+      graphChartData[dataFromChunkG.graph.name] = {
+        numberOfNodes: numberOfNodes,
+        data: anychartData,
+      };
 
-      let chart = anychart.graph(anychartData);
-      chart.container('graph');
+      drawAnychart(anychartData, 'graph');
 
-      let nodes = chart.nodes();
-
-      nodes.normal().shape('diamond');
-
-      nodes.normal().height(7);
-      nodes.hovered().height(10);
-      nodes.selected().height(10);
-
-      chart.tooltip().useHtml(true);
-      chart.tooltip().width(150);
-      chart.tooltip().positionMode('chart');
-      chart.tooltip().anchor('left-top');
-      chart.tooltip().position('left-top');
-      chart.tooltip().format(function () {
-        if (this.type == 'node') {
-          let tooltip_id = '<span style=\'font-weight: bold;font-size: 16px;\'>ID: ' + this.id + '</span><br>';
-          let tooltip_group = 'group: ' + this.getData('group') + '<br>';
-          let tooltip_type = 'type: ' + this.getData('type') + '<br>';
-          let tooltip_feature = 'feature: <br>';
-          for (let index = 0; index < this.getData("feature").length; index++) {
-            tooltip_feature += index + ' : ' + this.getData('feature')[index] + '<br>';
-          }
-          return '<div style=\'text-align: left\'>' + tooltip_id + tooltip_group + tooltip_type + tooltip_feature + '</div>';
-        }
-      });
-      chart.draw();
       progressBar(i, graphs.length);
       let time = 0;
       while (true) {
@@ -523,7 +535,7 @@ function datatableBasic() {
     var options = {
       keys: !0,
       select: {
-        style: 'multi'
+        // style: 'multi'
       },
       language: {
         paginate: {
@@ -559,6 +571,9 @@ tbody.onclick = function (e) {
     let cells = target.getElementsByTagName("td");
     graphName = cells[0].innerHTML;
     $('#analysis-tab a[href="#tabs-text-2"]').tab('show');
-    console.log(graphName);
+    document.getElementById('graph-name').innerHTML = graphName;
+    document.getElementById('node-number').innerHTML = graphChartData[graphName].numberOfNodes;
+    drawAnychart(graphChartData[graphName].data, 'single-graph')
+    // console.log(graphName);
   }
 };

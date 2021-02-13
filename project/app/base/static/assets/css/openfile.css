@@ -266,6 +266,10 @@ select:focus {
 #graph {
     height: 100%;
 }
+#single-graph {
+    height: 100%;
+    width: 100%;
+}
 #cache-alert {
     font-size: 16px;
     padding: 1px 10px;
