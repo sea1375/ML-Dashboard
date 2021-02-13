@@ -17,7 +17,6 @@ let visualize_state = 'none';
 let animation_speed = parseInt($('#speed')[0].value, 10);
 let train_state = false;
 
-let graphChartData = {};
 const NUMBER_OF_GRAPHS = 700;
 const DATA_PREFIX = 'adpcicd-G.json';
 let chunk_load_state = false;
@@ -147,6 +146,7 @@ function drawAnychart(anychartData, containerID) {
   });
   chart.draw();
 }
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -190,11 +190,6 @@ async function visualize_graphs() {
       document.getElementById('man').innerHTML = numberOfManagement;
 
       let anychartData = createAnychartData(dataFromChunkG);
-
-      graphChartData[dataFromChunkG.graph.name] = {
-        numberOfNodes: numberOfNodes,
-        data: anychartData,
-      };
 
       drawAnychart(anychartData, 'graph');
 
@@ -401,7 +396,7 @@ window.readTrainResult = function () {
       }
     },
     success: async function (data) {
-      if(data.state == 'false') {
+      if (data.state == 'false') {
         return;
       }
       if (epoch_progress < data.train_loss.length) {
@@ -489,7 +484,7 @@ function showGraphResult() {
       document.getElementsByClassName('average-value')[0].innerHTML = row;
 
       row = '';
-      for(let i = 0; i < data.graph.name.length; i++) {
+      for (let i = 0; i < data.graph.name.length; i++) {
         row += '<tr>';
         row += '<td>' + data.graph.name[i] + '</td>';
         row += '<td>' + data.graph.loss[i] + '</td>';
@@ -499,13 +494,13 @@ function showGraphResult() {
       }
       tableRef.innerHTML = row;
 
-      $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function(){
-        $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function(){
-          $.getScript('/static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js', function(){
-            $.getScript('/static/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js', function(){
-              $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js', function(){
-                $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js', function(){
-                  $.getScript('/static/assets/vendor/datatables.net-select/js/dataTables.select.min.js', function(){
+      $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function () {
+        $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function () {
+          $.getScript('/static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js', function () {
+            $.getScript('/static/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js', function () {
+              $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js', function () {
+                $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js', function () {
+                  $.getScript('/static/assets/vendor/datatables.net-select/js/dataTables.select.min.js', function () {
                     console.log(document.getElementById('datatable-basic'));
                     datatableBasic();
                   });
@@ -560,20 +555,26 @@ function datatableBasic() {
   }
 }
 
-let tbody = document.getElementById('datatable-basic').getElementsByTagName("tbody")[0];
+let tbody = document.getElementById('datatable-basic').getElementsByTagName('tbody')[0];
 tbody.onclick = function (e) {
   let graphName = '';
   let target = e.target;
-  while (target && target.nodeName !== "TR") {
+  while (target && target.nodeName !== 'TR') {
     target = target.parentNode;
   }
   if (target) {
-    let cells = target.getElementsByTagName("td");
+    let cells = target.getElementsByTagName('td');
     graphName = cells[0].innerHTML;
     $('#analysis-tab a[href="#tabs-text-2"]').tab('show');
     document.getElementById('graph-name').innerHTML = graphName;
-    document.getElementById('node-number').innerHTML = graphChartData[graphName].numberOfNodes;
-    drawAnychart(graphChartData[graphName].data, 'single-graph')
-    // console.log(graphName);
+
+    for (let i = 0; i < graphs.length; i++) {
+      let dataFromChunkG = graphs[i];
+      if(dataFromChunkG.graph.name === graphName) {
+        document.getElementById('node-number').innerHTML = dataFromChunkG.nodes.length.toString();
+        drawAnychart(createAnychartData(dataFromChunkG), 'single-graph')
+        break;
+      }
+    }
   }
 };
