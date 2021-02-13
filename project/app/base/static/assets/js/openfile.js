@@ -605,7 +605,10 @@ tbody.onclick = async function (e) {
 };
 
 function drawNodeTable(graph_index) {
-  let tableRef = document.getElementById('datatable-nodes').getElementsByTagName('tbody')[0];
+  document.getElementById('datatable-panel').innerHTML = '<table class="table table-flush" id="datatable-nodes"></table>';
+  document.getElementById('datatable-nodes').innerHTML = '<thead class="thead-light"><tr><th>NODE</th><th>PREDICTION</th><th>LOSS</th></tr></thead><tbody></tbody>';
+
+  let tbodyRef = document.getElementById('datatable-nodes').getElementsByTagName('tbody')[0];
   let predictions = nodesData[graph_index].predictions;
   let row = '';
 
@@ -616,7 +619,7 @@ function drawNodeTable(graph_index) {
     row += '<td>' + nodesData[graph_index].losses + '</td>';
     row += '</tr>';
   }
-  tableRef.innerHTML = row;
+  tbodyRef.innerHTML = row;
 
   $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function () {
     $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function () {
