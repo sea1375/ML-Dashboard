@@ -177,7 +177,7 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
             available_index = 0
             for available in node_out:
                 if batch_labels[node_index][available_index] == 1:
-                    predictions.append(node_out[available_index])
+                    predictions.append("{:.5f}".format(node_out[available_index]))
                     break
                 available_index += 1
             node_index += 1
@@ -188,8 +188,6 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
             "predictions": predictions,
             "losses": losses,
         })
-        print(node_result)
-        print('---------------------------')
 
     val_preds = np.vstack(val_preds)
     labels = np.vstack(labels)
@@ -859,6 +857,7 @@ def train_chunks(train_data, test_data=None):
     nodes_result = {
         "result": node_result
     }
+    print(nodes_result)
     path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/nodes_result.json"
     with open(path, 'w+') as json_file:
         json.dump(nodes_result, json_file)

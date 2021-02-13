@@ -36,6 +36,8 @@ let train_result = {
 let dataSet = [], chart = [], series = [],
   drawPanel = ['train_loss', 'train_f1_mic', 'train_f1_mac', 'val_loss', 'val_f1_mic', 'val_f1_mac'];
 
+let nodesData = [], getNodes = false;
+
 window.readChunks = async function () {
   let json_url = '/static/graphs/chunk';
   json_url += index.toString().padStart(3, '0');
@@ -362,6 +364,7 @@ async function train() {
       train_state = false;
       document.getElementById('train-btn').innerHTML = 'Train';
       showGraphResult();
+      getNodesOfGraph();
     }
   })
   document.getElementById('train-btn').innerHTML = 'Training';
@@ -464,6 +467,23 @@ function drawCharts() {
   }
 }
 
+function getNodesOfGraph() {
+  $.ajax({
+    url: '/static/assets/train_result/nodes_result.json?unique=' + makeId(20),
+    type: 'GET',
+    statusCode: {
+      404: function () {
+      }
+    },
+    success: function (data) {
+      if(data) {
+        getNodes = true;
+        nodesData = data.result;
+      }
+    }
+  });
+}
+
 function showGraphResult() {
   $.ajax({
     url: '/static/assets/train_result/graph_result.json?unique=' + makeId(20),
@@ -518,16 +538,12 @@ function datatableBasic() {
 
   // Variables
 
-  var $dtBasic = $('#datatable-basic');
+  let $dtBasic = $('#datatable-basic');
 
   // Methods
 
   function init($this) {
-
-    // Basic options. For more options check out the Datatables Docs:
-    // https://datatables.net/manual/options
-
-    var options = {
+    let options = {
       keys: !0,
       select: {
         // style: 'multi'
@@ -541,8 +557,7 @@ function datatableBasic() {
     };
 
     // Init the datatable
-    console.log($this);
-    var table = $this.on('init.dt', function () {
+    let table = $this.on('init.dt', function () {
       $('div.dataTables_length select').removeClass('custom-select custom-select-sm');
 
     }).DataTable(options);
@@ -556,7 +571,7 @@ function datatableBasic() {
 }
 
 let tbody = document.getElementById('datatable-basic').getElementsByTagName('tbody')[0];
-tbody.onclick = function (e) {
+tbody.onclick = async function (e) {
   let graphName = '';
   let target = e.target;
   while (target && target.nodeName !== 'TR') {
@@ -571,10 +586,82 @@ tbody.onclick = function (e) {
     for (let i = 0; i < graphs.length; i++) {
       let dataFromChunkG = graphs[i];
       if(dataFromChunkG.graph.name === graphName) {
+        while(!getNodes) {
+          await sleep(10);
+        }
+        console.log(nodesData);
+        for(let j = 0; j < nodesData.length; j++) {
+          if(nodesData[j].graph_id === graphName) {
+            drawNodeTable(j);
+          }
+        }
         document.getElementById('node-number').innerHTML = dataFromChunkG.nodes.length.toString();
         drawAnychart(createAnychartData(dataFromChunkG), 'single-graph')
+
         break;
       }
     }
   }
 };
+
+function drawNodeTable(graph_index) {
+  let tableRef = document.getElementById('datatable-nodes').getElementsByTagName('tbody')[0];
+  let predictions = nodesData[graph_index].predictions;
+  let row = '';
+
+  for (let i = 0; i < predictions.length; i++) {
+    row += '<tr>';
+    row += '<td>' + (i+1).toString() + '</td>';
+    row += '<td>' + predictions[i] + '</td>';
+    row += '<td>' + nodesData[graph_index].losses + '</td>';
+    row += '</tr>';
+  }
+  tableRef.innerHTML = row;
+
+  $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function () {
+    $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function () {
+      $.getScript('/static/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js', function () {
+        $.getScript('/static/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js', function () {
+          $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js', function () {
+            $.getScript('/static/assets/vendor/datatables.net-buttons/js/buttons.print.min.js', function () {
+              $.getScript('/static/assets/vendor/datatables.net-select/js/dataTables.select.min.js', function () {
+                datatableNode();
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+}
+
+function datatableNode() {
+  let $dtBasic = $('#datatable-nodes');
+
+  function init($this) {
+    let options = {
+      keys: !0,
+      select: {
+        style: 'multi'
+      },
+      language: {
+        paginate: {
+          previous: '<i class=\'fas fa-angle-left\'>',
+          next: '<i class=\'fas fa-angle-right\'>'
+        }
+      },
+    };
+
+    // Init the datatable
+    let table = $this.on('init.dt', function () {
+      $('div.dataTables_length select').removeClass('custom-select custom-select-sm');
+
+    }).DataTable(options);
+  }
+
+  // Events
+
+  if ($dtBasic.length) {
+    init($dtBasic);
+  }
+}
