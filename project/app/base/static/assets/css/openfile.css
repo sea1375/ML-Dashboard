@@ -262,6 +262,7 @@ select:focus {
     overflow-y: auto;
     padding: 0 !important;
     margin: 0;
+    background-color: #172b4d;
 }
 #graph {
     height: 100%;

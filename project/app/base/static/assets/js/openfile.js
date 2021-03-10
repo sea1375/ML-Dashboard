@@ -91,7 +91,7 @@ function createAnychartData(dataFromChunkG) {
     });
   }
   for (let i = 0; i < dataFromChunkG.links.length; i++) {
-    if (dataFromChunkG.links[i].source.toString() == dataFromChunkG.links[i].target.toString()) {
+    if (dataFromChunkG.links[i].source.toString() === dataFromChunkG.links[i].target.toString()) {
       continue;
     }
     let isExistSourceNode = false,
@@ -119,7 +119,7 @@ function createAnychartData(dataFromChunkG) {
     for (let j = 0; j < anychartData.edges.length; j++) {
       let source = anychartData.edges[j].from,
         target = anychartData.edges[j].to;
-      if (node == source || node == target) {
+      if (node === source || node === target) {
         hasLink = true;
         break;
       }
@@ -312,7 +312,7 @@ $(function () {
 });
 
 function progressBar(progressVal, totalPercentageVal = 100) {
-  let strokeVal = (4.64 * 100) / totalPercentageVal;
+  let strokeVal = (4.6 * 100) / totalPercentageVal;
   let x = document.querySelector('.progress-circle-prog');
   x.style.strokeDasharray = progressVal * (strokeVal) * 2 + ' 999';
   let el = document.querySelector('.progress-text');
@@ -364,6 +364,7 @@ async function train() {
     return;
   }
   train_state = true;
+
   $.ajax({
     type: 'GET',
     url: '/train',
@@ -460,23 +461,35 @@ function drawCharts() {
 
   for (let i = 0; i < drawPanel.length; i++) {
 
-    anychart.theme('lightBlue');
+    // anychart.theme('lightBlue');
     dataSet[i] = anychart.data.set(defaultData);
     chart[i] = anychart.line();
+
     let title = chart[i].title();
     title.enabled(true);
     title.text(drawPanel[i]);
+    title.hAlign('center')
+    title.fontColor('white')
 
-    series[i] = chart[i].line(dataSet[i]);
+    let background = chart[i].background()
+    background.fill({
+      keys: ['#172b4d'],
+      angle: 90
+    })
+
+    // series[i] = chart[i].line(dataSet[i]);
+    series[i] = chart[i].line(dataSet[i])
+    series[i].stroke({color: '#5E72E4', thickness: 4});
+    series[i].hovered().stroke({color: '#5E72E4', thickness: 4});
 
     // adjust tooltip
     let tooltip = series[i].tooltip();
     tooltip.format('{%value}');
 
     // adjust y axis
-    chart[i].yAxis().labels().enabled(false);
+    // chart[i].yAxis().labels().enabled(false);
     chart[i].yScale().minimum(0);
-    if (drawPanel[i] == 'train_loss' || drawPanel[i] == 'val_loss') {
+    if (drawPanel[i] === 'train_loss' || drawPanel[i] === 'val_loss') {
       chart[i].yScale().maximum(5);
     } else {
       chart[i].yScale().maximum(1);
@@ -516,9 +529,9 @@ function showGraphResult() {
 
       let row = '<tr>';
       row += '<th></th>';
-      row += '<th><span class="badge badge-success">' + data.avg_loss + '</span></th>';
-      row += '<th><span class="badge badge-success">' + data.avg_f1_mac + '</span></th>';
-      row += '<th><span class="badge badge-success">' + data.avg_f1_mic + '</span></th>';
+      row += '<th><span class="bg-success">' + data.avg_loss + '</span></th>';
+      row += '<th><span class="bg-success">' + data.avg_f1_mac + '</span></th>';
+      row += '<th><span class="bg-success">' + data.avg_f1_mic + '</span></th>';
       row += '</tr>';
       document.getElementsByClassName('average-value')[0].innerHTML = row;
 
