@@ -19,30 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="740606dc-47c6-4ae1-8eec-fc371c543537" name="Default Changelist" comment="Data chunks">
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/checkpoint" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615345923.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615346225.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615346307.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615346680.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615347647.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615352389.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615353017.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615353064.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615353496.DESKTOP-I91R4T3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/model.cpkt.data-00000-of-00001" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/model.cpkt.index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/model.cpkt.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/params.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/scaler.pkl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sup-static/mean_small_0.0100/scaler.pkl" afterDir="false" />
+    <list default="true" id="740606dc-47c6-4ae1-8eec-fc371c543537" name="Default Changelist" comment="same as argon dashboard graph">
+      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615355784.DESKTOP-I91R4T3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615357342.DESKTOP-I91R4T3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615357689.DESKTOP-I91R4T3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615359577.DESKTOP-I91R4T3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615361834.DESKTOP-I91R4T3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615365440.DESKTOP-I91R4T3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/base/static/assets/css/openfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/base/static/assets/css/openfile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/base/static/assets/js/openfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/base/static/assets/js/openfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/base/static/assets/train_result/graph_result.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/base/static/assets/train_result/graph_result.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/base/static/assets/train_result/nodes_result.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/base/static/assets/train_result/nodes_result.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/base/static/assets/train_result/train_result.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/base/static/assets/train_result/train_result.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/graphsage/supervised_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/graphsage/supervised_train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/home/templates/open.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/templates/open.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615353496.DESKTOP-I91R4T3" beforeDir="false" afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/events.out.tfevents.1615353496.DESKTOP-I91R4T3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/model.cpkt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/sup-static/gcn_small_0.0100/model.cpkt.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +55,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Updevs/svn/managepictureday.com" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -79,8 +71,16 @@
       <workItem from="1615324994612" duration="1483000" />
       <workItem from="1615336440487" duration="268000" />
       <workItem from="1615336736126" duration="894000" />
-      <workItem from="1615338048249" duration="7289000" />
+      <workItem from="1615338048249" duration="15862000" />
     </task>
+    <task id="LOCAL-00001" summary="same as argon dashboard graph">
+      <created>1615353887294</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1615353887294</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -101,13 +101,18 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Data chunks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Data chunks" />
+    <MESSAGE value="same as argon dashboard graph" />
+    <option name="LAST_COMMIT_MESSAGE" value="same as argon dashboard graph" />
   </component>
   <component name="WindowStateProjectService">
     <state x="111" y="33" width="1176" height="544" key="DiffContextDialog" timestamp="1615346943626">
       <screen x="0" y="0" width="1360" height="728" />
     </state>
     <state x="111" y="33" width="1176" height="544" key="DiffContextDialog/0.0.1360.728@0.0.1360.728" timestamp="1615346943626" />
+    <state x="460" y="119" key="FileChooserDialogImpl" timestamp="1615359871491">
+      <screen x="0" y="0" width="1360" height="728" />
+    </state>
+    <state x="460" y="119" key="FileChooserDialogImpl/0.0.1360.728@0.0.1360.728" timestamp="1615359871491" />
     <state x="343" y="49" key="search.everywhere.popup" timestamp="1615284210442">
       <screen x="0" y="0" width="1360" height="728" />
     </state>

@@ -364,7 +364,7 @@
                                   <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">
                                       Number of graphs</h5>
-                                    <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                    <span class="h2 font-weight-bold mb-0 nodes" id="numberOfGraphs">00</span>
                                   </div>
                                   <div class="col-auto">
                                     <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
@@ -381,7 +381,7 @@
                                   <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">
                                       Number of nodes</h5>
-                                    <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                    <span class="h2 font-weight-bold mb-0 nodes" id="numberOfNodes">00</span>
                                   </div>
                                   <div class="col-auto">
                                     <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -473,18 +473,20 @@
                           </div>
                         </div>
                         <div class="col-lg-6">
+                          <div id="indexOfHighestPrediction" class="h3 font-weight-bold mb-0"></div>
                           <div class="table-responsive py-4" id="datatable-panel">
                             <table class="table table-flush" id="datatable-nodes">
                               <thead class="thead-light">
                               <tr>
                                 <th>NODE</th>
+                                <th>LABEL</th>
                                 <th>PREDICTION</th>
                                 <th>LOSS</th>
                               </tr>
                               </thead>
                               <tbody>
                               <tr>
-                                <td colspan="3">No available data</td>
+                                <td colspan="4">No available data</td>
                               </tr>
                               </tbody>
                             </table>

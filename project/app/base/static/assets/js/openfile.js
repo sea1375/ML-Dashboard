@@ -384,7 +384,7 @@ async function train() {
       train_state = false;
       document.getElementById('train-btn').innerHTML = 'Train';
       showGraphResult();
-      getNodesOfGraph();
+      // getNodesOfGraph();
     }
   })
   document.getElementById('train-btn').innerHTML = 'Training';
@@ -499,22 +499,22 @@ function drawCharts() {
   }
 }
 
-function getNodesOfGraph() {
-  $.ajax({
-    url: '/static/assets/train_result/nodes_result.json?unique=' + makeId(20),
-    type: 'GET',
-    statusCode: {
-      404: function () {
-      }
-    },
-    success: function (data) {
-      if (data) {
-        getNodes = true;
-        nodesData = data.result;
-      }
-    }
-  });
-}
+// function getNodesOfGraph() {
+//   $.ajax({
+//     url: '/static/assets/train_result/nodes_result.json?unique=' + makeId(20),
+//     type: 'GET',
+//     statusCode: {
+//       404: function () {
+//       }
+//     },
+//     success: function (data) {
+//       if (data) {
+//         getNodes = true;
+//         nodesData = data.result;
+//       }
+//     }
+//   });
+// }
 
 function showGraphResult() {
   $.ajax({
@@ -525,13 +525,25 @@ function showGraphResult() {
       }
     },
     success: function (data) {
+      nodesData = data.result
+
+      let numberOfGraphs = document.getElementById('numberOfGraphs')
+      let numberOfNodes = document.getElementById('numberOfNodes')
+      let number = 0
+      numberOfGraphs.textContent = ('00' + data.graph.name.length).slice(-2)
+
+      for (var i = 0; i < data.result.length; i++)
+        number += data.result[i].predictions.length
+      numberOfNodes.textContent = number.toString()
+
+      // table
       let tableRef = document.getElementById('datatable-basic').getElementsByTagName('tbody')[0];
 
       let row = '<tr>';
       row += '<th></th>';
-      row += '<th><span class="bg-success">' + data.avg_loss + '</span></th>';
-      row += '<th><span class="bg-success">' + data.avg_f1_mac + '</span></th>';
-      row += '<th><span class="bg-success">' + data.avg_f1_mic + '</span></th>';
+      row += '<th><span style="background-color: #5E72E4; font-size: 13px; color: white;">' + data.avg_loss + '</span></th>';
+      row += '<th><span style="background-color: #5E72E4; font-size: 13px; color: white;">' + data.avg_f1_mac + '</span></th>';
+      row += '<th><span style="background-color: #5E72E4; font-size: 13px; color: white;">' + data.avg_f1_mic + '</span></th>';
       row += '</tr>';
       document.getElementsByClassName('average-value')[0].innerHTML = row;
 
@@ -618,10 +630,6 @@ tbody.onclick = async function (e) {
     for (let i = 0; i < graphs.length; i++) {
       let dataFromChunkG = graphs[i];
       if (dataFromChunkG.graph.name === graphName) {
-        while (!getNodes) {
-          await sleep(10);
-        }
-        console.log(nodesData);
         for (let j = 0; j < nodesData.length; j++) {
           if (nodesData[j].graph_id === graphName) {
             drawNodeTable(j);
@@ -638,20 +646,31 @@ tbody.onclick = async function (e) {
 
 function drawNodeTable(graph_index) {
   document.getElementById('datatable-panel').innerHTML = '<table class="table table-flush" id="datatable-nodes"></table>';
-  document.getElementById('datatable-nodes').innerHTML = '<thead class="thead-light"><tr><th>NODE</th><th>PREDICTION</th><th>LOSS</th></tr></thead><tbody></tbody>';
+  document.getElementById('datatable-nodes').innerHTML = '<thead class="thead-light"><tr><th>NODE</th><th>LABEL</th><th>PREDICTION</th><th>LOSS</th></tr></thead><tbody></tbody>';
 
   let tbodyRef = document.getElementById('datatable-nodes').getElementsByTagName('tbody')[0];
-  let predictions = nodesData[graph_index].predictions;
+  let labels = nodesData[graph_index].labels
+  let predictions = nodesData[graph_index].predictions
+  let indexOfHighestPrediction = -1, valueOfHighestPrediction = -1
+
   let row = '';
 
   for (let i = 0; i < predictions.length; i++) {
     row += '<tr>';
     row += '<td>' + (i + 1).toString() + '</td>';
+    row += '<td>' + labels[i] + '</td>';
     row += '<td>' + predictions[i] + '</td>';
     row += '<td>' + nodesData[graph_index].losses + '</td>';
     row += '</tr>';
+    if (valueOfHighestPrediction < predictions[i]) {
+      valueOfHighestPrediction = predictions[i]
+      indexOfHighestPrediction = i
+    }
   }
   tbodyRef.innerHTML = row;
+  document.getElementById('indexOfHighestPrediction').innerHTML =
+    'The Index of Highest Prediction: ' + indexOfHighestPrediction + '<br>' +
+    'The Highest Prediction: ' + valueOfHighestPrediction
 
   $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function () {
     $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function () {

@@ -159,6 +159,7 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
     iter_num = 0
 
     predictions = []
+    label = []
     losses = 0
 
     while not finished:
@@ -178,6 +179,7 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
             for available in node_out:
                 if batch_labels[node_index][available_index] == 1:
                     predictions.append("{:.5f}".format(node_out[available_index]))
+                    label.append(str(available_index))
                     break
                 available_index += 1
             node_index += 1
@@ -185,6 +187,7 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
 
         node_result.append({
             "graph_id": graph_id,
+            "labels": label,
             "predictions": predictions,
             "losses": losses,
         })
@@ -847,13 +850,15 @@ def train_chunks(train_data, test_data=None):
             "loss": loss_array,
             "f1_mic": f1_mic_array,
             "f1_mac": f1_mac_array,
-        }
+        },
+        "result": node_result
     }
 
     path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/graph_result.json"
     with open(path, 'w+') as json_file:
         json.dump(graph_result, json_file)
 
+    """
     nodes_result = {
         "result": node_result
     }
@@ -861,6 +866,7 @@ def train_chunks(train_data, test_data=None):
     path = FLAGS.base_log_dir + "/app/base/static/assets/train_result/nodes_result.json"
     with open(path, 'w+') as json_file:
         json.dump(nodes_result, json_file)
+    """
 
     print("time (Building+Training+Validation+Testing) =", "{:.5f}".format(time.time()-start))
     print('Saving model...')
