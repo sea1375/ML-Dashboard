@@ -2,510 +2,496 @@
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-<link rel="stylesheet" href="/static/assets/css/openfile.css"
-      type="text/css"> {% endblock stylesheets %} {% block content %}
+<link rel="stylesheet" href="/static/assets/css/openfile.css" type="text/css"> {% endblock stylesheets %} {% block content %}
 
 <!-- Header -->
 <div class="header bg-secondary pb-6">
-  <div class="container-fluid">
-    <div class="header-body">
-      <div class="nav-wrapper">
-        <ul class="nav nav-pills nav-fill flex-column flex-md-row" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab"
-               href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i
                 class="ni ni-chart-bar-32 mr-2"></i>Visualize</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2"
-               role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i
                 class="ni ni-button-power mr-2"></i>Train</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3"
-               role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-curved-next mr-2"></i>Analysis</a>
-          </li>
-        </ul>
-      </div>
-      <div class="card shadow">
-        <div class="card-body">
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel"
-                 aria-labelledby="tabs-icons-text-1-tab">
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="card">
-                    <div class="card-header">
-                      <div class="row align-items-center">
-                        <div class="col-8">
-                          <h3 class="mb-0">Open JSON file</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <form>
-                        <div class="custom-file">
-                          <label class="custom-file-label" for="file-input">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-curved-next mr-2"></i>Analysis</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row align-items-center">
+                                                <div class="col-8">
+                                                    <h3 class="mb-0">Open JSON file</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="custom-file">
+                                                    <label class="custom-file-label" for="file-input">
                             <p id="project_path"></p><input type="file" id="file-input"
                                                             class="custom-file-input" style="display:none;">
                           </label>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-8">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Number of Nodes</h5>
-                              <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of Nodes</h5>
+                                                            <span class="h2 font-weight-bold mb-0" id="nodes">00</span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                                                <i class="ni ni-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of Services</h5>
+                                                            <span class="h2 font-weight-bold mb-0" id="servs">00</span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
+                                                                <i class="ni ni-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of PoDs</h5>
+                                                            <span class="h2 font-weight-bold mb-0" id="pods">00</span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                                                                <i class="ni ni-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of External IPs</h5>
+                                                            <span class="h2 font-weight-bold mb-0" id="ips">00</span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                                                <i class="ni ni-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">Number of Workers</h5>
+                                                            <span class="h2 font-weight-bold mb-0" id="workers">00</span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                                                <i class="ni ni-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="card card-stats">
+                                                <!-- Card body -->
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <h5 class="card-title text-uppercase text-muted mb-0">
+                                                                Management</h5>
+                                                            <span class="h2 font-weight-bold mb-0" id="man">00</span>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <div class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
+                                                                <i class="ni ni-books"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                              <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                <i class="ni ni-books"></i>
-                              </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-warning main-alert" id="open-json-alert">
+                                        The json file is not correct. Please check it.
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Number of Services</h5>
-                              <span class="h2 font-weight-bold mb-0" id="servs">00</span>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-warning main-alert" id="json-load-alert"></div>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                              <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
-                                <i class="ni ni-books"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Number of PoDs</h5>
-                              <span class="h2 font-weight-bold mb-0" id="pods">00</span>
-                            </div>
-                            <div class="col-auto">
-                              <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
-                                <i class="ni ni-books"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Number of External IPs</h5>
-                              <span class="h2 font-weight-bold mb-0" id="ips">00</span>
-                            </div>
-                            <div class="col-auto">
-                              <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                                <i class="ni ni-books"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">Number of Workers</h5>
-                              <span class="h2 font-weight-bold mb-0" id="workers">00</span>
-                            </div>
-                            <div class="col-auto">
-                              <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                                <i class="ni ni-books"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="card-title text-uppercase text-muted mb-0">
-                                Management</h5>
-                              <span class="h2 font-weight-bold mb-0" id="man">00</span>
-                            </div>
-                            <div class="col-auto">
-                              <div class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
-                                <i class="ni ni-books"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="alert alert-warning main-alert" id="open-json-alert">
-                    The json file is not correct. Please check it.
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="alert alert-warning main-alert" id="json-load-alert"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="card card-stats text-center">
-                    <div class="card-body" style="height:30rem;">
-                      <div id="graph">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body" style="height:30rem; ">
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="play-btn" onclick="visualize()"></div>
-                          <div class="start" onclick="visualize()"></div>
-                          <div class="play" onclick="visualize()"></div>
-                          <div class="stop" onclick="visualize()"></div>
-                        </div>
-                        <div class="col-6">
-                          <form>
-                            <div class="speed-btn" id="decrease" onclick="decreaseSpeed()" value="Decrease Speed">-
-                            </div>
-                            <input type="number" id="speed" value="3"/>
-                            <div class="speed-btn" id="increase" onclick="increaseSpeed()" value="Increase Speed">+
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="progress-circle">
-                        <svg width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body" style="height:30rem;">
+                                            <div id="graph">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body" style="height:30rem; ">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="play-btn" onclick="visualize()"></div>
+                                                    <div class="start" onclick="visualize()"></div>
+                                                    <div class="play" onclick="visualize()"></div>
+                                                    <div class="stop" onclick="visualize()"></div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <form>
+                                                        <div class="speed-btn" id="decrease" onclick="decreaseSpeed()" value="Decrease Speed">-
+                                                        </div>
+                                                        <input type="number" id="speed" value="3" />
+                                                        <div class="speed-btn" id="increase" onclick="increaseSpeed()" value="Increase Speed">+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="progress-circle">
+                                                <svg width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
                           <circle class="progress-circle-back"
                                   cx="150" cy="150" r="140"></circle>
                           <circle class="progress-circle-prog"
                                   cx="150" cy="150" r="140"></circle>
                         </svg>
-                        <div class="progress-text" data-progress="0">0</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a href="#tabs-icons-text-2" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-2"
-                 aria-selected="false">
-                <button type="button" class="btn btn-success" class="next0" style="float: right;" onclick="goToTrain()">
+                                                <div class="progress-text" data-progress="0">0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#tabs-icons-text-2" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">
+                                <button type="button" class="btn btn-success" class="next0" style="float: right;" onclick="goToTrain()">
                   Next
                   Step
                 </button>
-              </a>
-            </div>
-            <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-              <div class="row">
-                <div class="col-lg-3" style="text-align: center">
-                  <button type="button" class="btn btn-success train-btn" id="train-btn" onclick="train()">
+                            </a>
+                        </div>
+                        <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                            <div class="row">
+                                <div class="col-lg-3" style="text-align: center">
+                                    <button type="button" class="btn btn-success train-btn" id="train-btn" onclick="train()">
                     Train
                   </button>
-                </div>
-                <div class="col-lg-9">
-                  <div class="train-state">
-                    <div class="progress">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                           id="train_progress" style="width:0%"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="alert alert-info" id="cache-alert">Before starting training, please clear your browser
-                    cache to get the correct data.
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="alert alert-warning main-alert" id="train-alert">Please open your project.</div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body train-panel" id="train_loss">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body train-panel" id="train_f1_mic">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body train-panel" id="train_f1_mac">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body train-panel" id="val_loss">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body train-panel" id="val_f1_mic">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card card-stats text-center">
-                    <div class="card-body train-panel" id="val_f1_mac">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <a href="#tabs-icons-text-3" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-3"
-                 aria-selected="false">
-                <button type="button" class="btn btn-success" class="next0" style="float: right;"
-                        onclick="goToAnalysis()">
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="train-state">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="train_progress" style="width:0%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-info" id="cache-alert">Before starting training, please clear your browser cache to get the correct data.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-warning main-alert" id="train-alert">Please open your project.</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body train-panel" id="train_loss">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body train-panel" id="train_f1_mic">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body train-panel" id="train_f1_mac">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body train-panel" id="val_loss">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body train-panel" id="val_f1_mic">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card card-stats text-center">
+                                        <div class="card-body train-panel" id="val_f1_mac">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#tabs-icons-text-3" data-toggle="tab" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">
+                                <button type="button" class="btn btn-success" class="next0" style="float: right;" onclick="goToAnalysis()">
                   Next Step
                 </button>
-              </a>
-            </div>
-            <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-              <div class="nav-wrapper">
-                <ul class="nav nav-pills nav-fill col-lg-4" id="analysis-tab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link  active" id="tabs-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab"
-                       aria-controls="tabs-icons-text-1" aria-selected="true" style="width: 235px;"><i
+                            </a>
+                        </div>
+                        <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                            <div class="nav-wrapper">
+                                <ul class="nav nav-pills nav-fill col-lg-4" id="analysis-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link  active" id="tabs-1-tab" data-toggle="tab" href="#tabs-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true" style="width: 235px;"><i
                         class="ni ni-button-play mr-2"></i>Additional Tests</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link " id="tabs-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab"
-                       aria-controls="tabs-icons-text-2" aria-selected="false" style="width: 235px;"><i
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " id="tabs-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false" style="width: 235px;"><i
                         class="ni ni-atom mr-2"></i>Analyze Results</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="card shadow">
-                <div class="card-body">
-                  <div class="tab-content">
-                    <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel"
-                         aria-labelledby="tabs-icons-text-1-tab">
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="card">
-                            <div class="card-header">
-                              <div class="row align-items-center">
-                                <div class="col-8">
-                                  <h3 class="mb-0">Open Test Folder</h3>
-                                </div>
-                              </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="card-body">
-                              <form>
-                                <div class="custom-file">
-                                  <label class="custom-file-label" for="tests-input">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-8">
+                                                                    <h3 class="mb-0">Open Test Folder</h3>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <form>
+                                                                <div class="custom-file">
+                                                                    <label class="custom-file-label" for="tests-input">
                                     <p class="path"></p><input type="file"
                                                                id="tests-input" class="custom-file-input"
                                                                style="display:none;" webkitdirectory
                                                                directory>
                                   </label>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
 
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="row">
-                            <div class="card card-stats">
-                              <!-- Card body -->
-                              <div class="card-body">
-                                <div class="row">
-                                  <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">
-                                      Number of graphs</h5>
-                                    <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
-                                  </div>
-                                  <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
-                                      <i class="ni ni-books"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="card card-stats">
-                              <!-- Card body -->
-                              <div class="card-body">
-                                <div class="row">
-                                  <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">
-                                      Number of nodes</h5>
-                                    <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
-                                  </div>
-                                  <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                      <i class="ni ni-books"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="table-responsive py-4">
-                          <table class="table table-flush" id="datatable-basic">
-                            <thead class="thead-light">
-                            <tr>
-                              <th>GRAPH NAME</th>
-                              <th>LOSS VALUE</th>
-                              <th>MACRO F1 SCORE</th>
-                              <th>MICRO F1 SCORE</th>
-                            </tr>
-                            </thead>
-                            <thead class="average-value">
-                            </thead>
-                            <tbody>
-                            <tr>
-                              <td colspan="4">No available data</td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="row">
-                            <div class="col-lg">
-                              <div class="card card-stats">
-                                <!-- Card body -->
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="card-title text-uppercase text-muted mb-0">
-                                        Graph Name</h5>
-                                      <span class="h2 font-weight-bold mb-0" class="nodes"
-                                            id="graph-name">ChunkXX</span>
-                                    </div>
-                                    <div class="col-auto">
-                                      <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
-                                        <i class="ni ni-books"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="row">
+                                                        <div class="card card-stats">
+                                                            <!-- Card body -->
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <h5 class="card-title text-uppercase text-muted mb-0">
+                                                                            Number of graphs</h5>
+                                                                        <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <div class="icon icon-shape bg-gradient-pink text-white rounded-circle shadow">
+                                                                            <i class="ni ni-books"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card card-stats">
+                                                            <!-- Card body -->
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <h5 class="card-title text-uppercase text-muted mb-0">
+                                                                            Number of nodes</h5>
+                                                                        <span class="h2 font-weight-bold mb-0" class="nodes">00</span>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                                                            <i class="ni ni-books"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="table-responsive py-4">
+                                                    <table class="table table-flush" id="datatable-basic">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th>GRAPH NAME</th>
+                                                                <th>LOSS VALUE</th>
+                                                                <th>MACRO F1 SCORE</th>
+                                                                <th>MICRO F1 SCORE</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <thead class="average-value">
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="4">No available data</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-lg">
+                                                            <div class="card card-stats">
+                                                                <!-- Card body -->
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col">
+                                                                            <h5 class="card-title text-uppercase text-muted mb-0">
+                                                                                Graph Name</h5>
+                                                                            <span class="h2 font-weight-bold mb-0" class="nodes" id="graph-name">ChunkXX</span>
+                                                                        </div>
+                                                                        <div class="col-auto">
+                                                                            <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                                                                                <i class="ni ni-books"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
-                            <div class="col-lg">
-                              <div class="card card-stats">
-                                <!-- Card body -->
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="card-title text-uppercase text-muted mb-0">
-                                        Number of nodes</h5>
-                                      <span class="h2 font-weight-bold mb-0" class="nodes" id="node-number">00</span>
+                                                        <div class="col-lg">
+                                                            <div class="card card-stats">
+                                                                <!-- Card body -->
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col">
+                                                                            <h5 class="card-title text-uppercase text-muted mb-0">
+                                                                                Number of nodes</h5>
+                                                                            <span class="h2 font-weight-bold mb-0" class="nodes" id="node-number">00</span>
+                                                                        </div>
+                                                                        <div class="col-auto">
+                                                                            <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
+                                                                                <i class="ni ni-books"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="card card-stats text-center">
+                                                                <div class="card-body" style="height:30rem;">
+                                                                    <div id="single-graph">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="table-responsive py-4" id="datatable-panel">
+                                                        <table class="table table-flush" id="datatable-nodes">
+                                                            <thead class="thead-light">
+                                                                <tr>
+                                                                    <th>NODE</th>
+                                                                    <th>PREDICTION</th>
+                                                                    <th>LOSS</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td colspan="3">No available data</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                      <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
-                                        <i class="ni ni-books"></i>
-                                      </div>
-                                    </div>
-                                  </div>
                                 </div>
-                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-12">
-                              <div class="card card-stats text-center">
-                                <div class="card-body" style="height:30rem;">
-                                  <div id="single-graph">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                         </div>
-                        <div class="col-lg-6">
-                          <div class="table-responsive py-4" id="datatable-panel">
-                            <table class="table table-flush" id="datatable-nodes">
-                              <thead class="thead-light">
-                              <tr>
-                                <th>NODE</th>
-                                <th>PREDICTION</th>
-                                <th>LOSS</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                <td colspan="3">No available data</td>
-                              </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
+        </div>
     </div>
-  </div>
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
 
 
-  {% include "includes/footer.html" %}
+    {% include "includes/footer.html" %}
 
 </div>
 

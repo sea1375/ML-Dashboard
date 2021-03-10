@@ -33,10 +33,13 @@ let train_result = {
   val_f1_mac: [],
 }
 
-let dataSet = [], chart = [], series = [],
+let dataSet = [],
+  chart = [],
+  series = [],
   drawPanel = ['train_loss', 'train_f1_mic', 'train_f1_mac', 'val_loss', 'val_f1_mic', 'val_f1_mac'];
 
-let nodesData = [], getNodes = false;
+let nodesData = [],
+  getNodes = false;
 
 window.readChunks = async function () {
   let json_url = '/static/graphs/chunk';
@@ -66,7 +69,9 @@ function createAnychartData(dataFromChunkG) {
     edges: [],
   }
   for (let i = 0; i < dataFromChunkG.nodes.length; i++) {
+    console.log(dataFromChunkG.nodes[i])
     anychartData.nodes.push({
+      name: dataFromChunkG.nodes[i].name.toString(),
       id: dataFromChunkG.nodes[i].id.toString(),
       group: dataFromChunkG.nodes[i].group,
       feature: dataFromChunkG.nodes[i].feature,
@@ -89,6 +94,19 @@ function createAnychartData(dataFromChunkG) {
     if (dataFromChunkG.links[i].source.toString() == dataFromChunkG.links[i].target.toString()) {
       continue;
     }
+    let isExistSourceNode = false,
+      isExistTargetNode = false
+    for (let j = 0; j < dataFromChunkG.nodes.length; j++) {
+      if (dataFromChunkG.nodes[j].id.toString() === dataFromChunkG.links[i].source.toString()) {
+        isExistSourceNode = true
+      } else if (dataFromChunkG.nodes[j].id.toString() === dataFromChunkG.links[i].target.toString()) {
+        isExistTargetNode = true
+      }
+      if (isExistSourceNode && isExistTargetNode) {
+        break
+      }
+    }
+    if (!isExistSourceNode || !isExistTargetNode) continue
     anychartData.edges.push({
       from: dataFromChunkG.links[i].source.toString(),
       to: dataFromChunkG.links[i].target.toString()
@@ -110,6 +128,7 @@ function createAnychartData(dataFromChunkG) {
       anychartData.nodes.splice(i, 1);
     }
   }
+  console.log(anychartData)
   return anychartData;
 }
 
@@ -136,14 +155,15 @@ function drawAnychart(anychartData, containerID) {
   chart.tooltip().position('left-top');
   chart.tooltip().format(function () {
     if (this.type == 'node') {
-      let tooltip_id = '<span style=\'font-weight: bold;font-size: 16px;\'>ID: ' + this.id + '</span><br>';
+      let tooltip_name = '<span style=\'font-weight: bold;font-size: 16px;\'>Name: ' + this.getData('name') + '</span><br>';
+      let tooltip_id = 'ID: ' + this.id + '<br>';
       let tooltip_group = 'group: ' + this.getData('group') + '<br>';
       let tooltip_type = 'type: ' + this.getData('type') + '<br>';
-      let tooltip_feature = 'feature: <br>';
-      for (let index = 0; index < this.getData("feature").length; index++) {
+      let tooltip_feature = 'fea: <br>';
+      for (let index = 0; index < this.getData('feature').length; index++) {
         tooltip_feature += index + ' : ' + this.getData('feature')[index] + '<br>';
       }
-      return '<div style=\'text-align: left\'>' + tooltip_id + tooltip_group + tooltip_type + tooltip_feature + '</div>';
+      return '<div style=\'text-align: left\'>' + tooltip_name + tooltip_id + tooltip_group + tooltip_type + tooltip_feature + '</div>';
     }
   });
   chart.draw();
@@ -194,7 +214,7 @@ async function visualize_graphs() {
       let anychartData = createAnychartData(dataFromChunkG);
 
       drawAnychart(anychartData, 'graph');
-
+      console.log('drawAnychart')
       progressBar(i, graphs.length);
       let time = 0;
       while (true) {
@@ -306,7 +326,6 @@ function progressBar(progressVal, totalPercentageVal = 100) {
     el.innerHTML = progressVal;
     if (progress < 1) setTimeout(arguments.callee, 10);
   }, 10);
-
 }
 
 function changeAnimationSpeed() {
@@ -476,7 +495,7 @@ function getNodesOfGraph() {
       }
     },
     success: function (data) {
-      if(data) {
+      if (data) {
         getNodes = true;
         nodesData = data.result;
       }
@@ -585,13 +604,13 @@ tbody.onclick = async function (e) {
 
     for (let i = 0; i < graphs.length; i++) {
       let dataFromChunkG = graphs[i];
-      if(dataFromChunkG.graph.name === graphName) {
-        while(!getNodes) {
+      if (dataFromChunkG.graph.name === graphName) {
+        while (!getNodes) {
           await sleep(10);
         }
         console.log(nodesData);
-        for(let j = 0; j < nodesData.length; j++) {
-          if(nodesData[j].graph_id === graphName) {
+        for (let j = 0; j < nodesData.length; j++) {
+          if (nodesData[j].graph_id === graphName) {
             drawNodeTable(j);
           }
         }
@@ -614,7 +633,7 @@ function drawNodeTable(graph_index) {
 
   for (let i = 0; i < predictions.length; i++) {
     row += '<tr>';
-    row += '<td>' + (i+1).toString() + '</td>';
+    row += '<td>' + (i + 1).toString() + '</td>';
     row += '<td>' + predictions[i] + '</td>';
     row += '<td>' + nodesData[graph_index].losses + '</td>';
     row += '</tr>';
