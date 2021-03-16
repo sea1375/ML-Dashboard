@@ -41,6 +41,9 @@ let dataSet = [],
 let nodesData = [],
   getNodes = false;
 
+let selected_graph_index // index of graphs
+let graph_index // index of nodesData
+
 window.readChunks = async function () {
   let json_url = '/static/graphs/chunk';
   json_url += index.toString().padStart(3, '0');
@@ -527,6 +530,7 @@ function showGraphResult() {
     },
     success: function (data) {
       nodesData = data.result
+      processNodesData() // add nodeID from graph
 
       let numberOfGraphs = document.getElementById('numberOfGraphs')
       let numberOfNodes = document.getElementById('numberOfNodes')
@@ -631,47 +635,53 @@ tbody.onclick = async function (e) {
     for (let i = 0; i < graphs.length; i++) {
       let dataFromChunkG = graphs[i];
       if (dataFromChunkG.graph.name === graphName) {
+        selected_graph_index = i
         for (let j = 0; j < nodesData.length; j++) {
           if (nodesData[j].graph_id === graphName) {
-            drawNodeTable(j);
+            graph_index = j
+            drawNodeTable();
           }
         }
         document.getElementById('node-number').innerHTML = dataFromChunkG.nodes.length.toString();
         drawAnychart(createAnychartData(dataFromChunkG), 'single-graph')
 
-        break;
+        break
       }
     }
   }
 };
 
-function drawNodeTable(graph_index) {
-  document.getElementById('datatable-panel').innerHTML = '<table class="table table-flush" id="datatable-nodes"></table>';
-  document.getElementById('datatable-nodes').innerHTML = '<thead class="thead-light"><tr><th>NODE</th><th>LABEL</th><th>PREDICTION</th><th>LOSS</th></tr></thead><tbody></tbody>';
+function drawNodeTable() {
 
   let tbodyRef = document.getElementById('datatable-nodes').getElementsByTagName('tbody')[0];
   let labels = nodesData[graph_index].labels
   let predictions = nodesData[graph_index].predictions
-  let indexOfHighestPrediction = -1, valueOfHighestPrediction = -1
+  let prediction_indexes = nodesData[graph_index].prediction_indexes
+  // let indexOfHighestPrediction = -1, valueOfHighestPrediction = -1
 
   let row = '';
 
   for (let i = 0; i < predictions.length; i++) {
     row += '<tr>';
     row += '<td>' + (i + 1).toString() + '</td>';
+    row += '<td>' + graphs[selected_graph_index].nodes[i].id + '</td>';
     row += '<td>' + labels[i] + '</td>';
     row += '<td>' + predictions[i] + '</td>';
-    row += '<td>' + nodesData[graph_index].losses + '</td>';
+    row += '<td>' + prediction_indexes[i] + '</td>';
+    // row += '<td>' + nodesData[graph_index].losses + '</td>';
     row += '</tr>';
-    if (valueOfHighestPrediction < predictions[i]) {
-      valueOfHighestPrediction = predictions[i]
-      indexOfHighestPrediction = i
-    }
+    // if (valueOfHighestPrediction < predictions[i]) {
+    //   valueOfHighestPrediction = predictions[i]
+    //   indexOfHighestPrediction = i
+    // }
   }
   tbodyRef.innerHTML = row;
-  document.getElementById('indexOfHighestPrediction').innerHTML =
-    'The Index of Highest Prediction: ' + indexOfHighestPrediction + '<br>' +
-    'The Highest Prediction: ' + valueOfHighestPrediction
+
+  document.getElementById('graph-loss').textContent = nodesData[graph_index].losses
+
+  // document.getElementById('indexOfHighestPrediction').innerHTML =
+  //   'The Index of Highest Prediction: ' + indexOfHighestPrediction + '<br>' +
+  //   'The Highest Prediction: ' + valueOfHighestPrediction
 
   $.getScript('/static/assets/vendor/datatables.net/js/jquery.dataTables.min.js', function () {
     $.getScript('/static/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js', function () {
@@ -697,7 +707,7 @@ function datatableNode() {
     let options = {
       keys: !0,
       select: {
-        style: 'multi'
+        // style: 'multi'
       },
       language: {
         paginate: {
@@ -718,5 +728,148 @@ function datatableNode() {
 
   if ($dtBasic.length) {
     init($dtBasic);
+  }
+}
+
+let tbodyNodes = document.getElementById('datatable-nodes').getElementsByTagName('tbody')[0];
+tbodyNodes.onclick = async function (e) {
+  console.log('click')
+  let target = e.target;
+  while (target && target.nodeName !== 'TR') {
+    target = target.parentNode;
+  }
+  console.log(target)
+  if (target) {
+    let cells = target.getElementsByTagName('td');
+    let dataFromChunkG = graphs[selected_graph_index]
+    let nodes = []
+    let edges = []
+
+    let nodeID = cells[1].innerHTML
+    // Selected node to nodes
+    for (let i = 0; i < dataFromChunkG.nodes.length; i++) {
+      let node = dataFromChunkG.nodes[i]
+      if (node.id.toString() === nodeID.toString()) {
+        nodes.push(node)
+        break
+      }
+    }
+    // links included selected node to edges
+    for (let i = 0; i < dataFromChunkG.links.length; i++) {
+      let link = dataFromChunkG.links[i]
+      if (link.target.toString() === nodeID.toString()) {
+        edges.push({
+          from: nodeID.toString(),
+          to: link.source.toString()
+        })
+      } else if(link.source.toString() === nodeID.toString()) {
+        edges.push({
+          from: nodeID.toString(),
+          to: link.target.toString()
+        })
+      }
+    }
+    // connected nodes to nodes
+    for (let i = 0; i < edges.length; i++) {
+      for (let j = 0; j < dataFromChunkG.nodes.length; j++) {
+        let node = dataFromChunkG.nodes[j]
+        if (node.id.toString() === edges[i].to) {
+          nodes.push(node)
+          break
+        }
+      }
+    }
+    console.log('nodes')
+    console.log(nodes)
+    console.log(edges)
+
+    drawAnychart(createSubGraphAnyChartData(nodes, edges), 'sub-graph')
+
+    if (cells[2].innerHTML === cells[4].innerHTML) {
+      let wellPredicted = document.getElementById('well-predicted')
+      wellPredicted.classList.remove('bg-gradient-cyan')
+      wellPredicted.classList.remove('bg-primary')
+      wellPredicted.classList.add('bg-success')
+      wellPredicted.innerHTML = '<h5 style="color: white">Well</h5>'
+    } else {
+      let wellPredicted = document.getElementById('well-predicted')
+      wellPredicted.classList.remove('bg-gradient-cyan')
+      wellPredicted.classList.remove('bg-success')
+      wellPredicted.classList.add('bg-primary')
+      wellPredicted.innerHTML = '<h5 style="color: white">Not<br>Well</h5>'
+    }
+
+    getPercentage(nodes)
+  }
+}
+
+function createSubGraphAnyChartData(nodes, edges) {
+  let anychartData = {
+    nodes: [],
+    edges: edges,
+  }
+  for (let i = 0; i < nodes.length; i++) {
+    anychartData.nodes.push({
+      // name: dataFromChunkG.nodes[i].name.toString(),
+      name: '',
+      id: nodes[i].id.toString(),
+      group: nodes[i].group,
+      feature: nodes[i].feature,
+      type: nodes[i].typ,
+      normal: {
+        fill: nodes[i].color.toString(),
+        stroke: null,
+      },
+      hovered: {
+        fill: 'white',
+        stroke: `3 ${nodes[i].color.toString()}`,
+      },
+      selected: {
+        fill: nodes[i].color.toString(),
+        stroke: '3 #333333',
+      }
+    });
+  }
+  return anychartData;
+}
+
+function getPercentage(nodes) {
+  let connectedNodesCount = nodes.length - 1
+  let wellNotPredicted = 0
+  let percentage = null
+
+  for (let i = 1; i < nodes.length; i++) {
+    for (let j = 0; j < nodesData[graph_index].nodes.length; j++) {
+      if (nodes[i].id === nodesData[graph_index].nodes[j]) {
+        if (nodesData[graph_index].labels[j] !== nodesData[graph_index].prediction_indexes[j]) { // Well predicted
+          wellNotPredicted++
+        }
+        break
+      }
+    }
+  }
+
+  if (connectedNodesCount !== 0) {
+    percentage = Math.floor(wellNotPredicted * 10000 / connectedNodesCount) / 100
+  }
+
+  if (percentage === null) {
+    document.getElementById('percentage').textContent = 'None'
+  } else {
+    document.getElementById('percentage').textContent = percentage + '%'
+  }
+}
+
+function processNodesData() { // nodeID from graphs
+  for (let i = 0; i < nodesData.length; i++) {
+    nodesData[i]['nodes'] = []
+    for (let j = 0; j < graphs.length; j++) {
+      if(nodesData[i].graph_id.toString() === graphs[j].graph.name) {
+        for (let nodeIndex = 0; nodeIndex < graphs[j].nodes.length; nodeIndex++) {
+          nodesData[i]['nodes'].push(graphs[j].nodes[nodeIndex].id)
+        }
+        break
+      }
+    }
   }
 }

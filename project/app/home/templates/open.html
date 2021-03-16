@@ -417,45 +417,96 @@
                       </div>
                     </div>
                     <div class="tab-pane fade" id="tabs-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="row">
-                            <div class="col-lg">
-                              <div class="card card-stats">
-                                <!-- Card body -->
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="card-title text-uppercase text-muted mb-0">
-                                        Graph Name</h5>
-                                      <span class="h2 font-weight-bold mb-0" class="nodes"
-                                            id="graph-name">ChunkXX</span>
-                                    </div>
-                                    <div class="col-auto">
-                                      <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
-                                        <i class="ni ni-books"></i>
-                                      </div>
+                      <div>
+                        <div class="row">
+                          <div class="col-lg">
+                            <div class="card card-stats">
+                              <!-- Card body -->
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                      Graph Name</h5>
+                                    <span class="h2 font-weight-bold mb-0" class="nodes"
+                                          id="graph-name">ChunkXX</span>
+                                  </div>
+                                  <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                                      <i class="ni ni-books"></i>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-
-                            <div class="col-lg">
-                              <div class="card card-stats">
-                                <!-- Card body -->
-                                <div class="card-body">
-                                  <div class="row">
-                                    <div class="col">
-                                      <h5 class="card-title text-uppercase text-muted mb-0">
-                                        Number of nodes</h5>
-                                      <span class="h2 font-weight-bold mb-0" class="nodes" id="node-number">00</span>
+                          </div>
+                          <div class="col-lg">
+                            <div class="card card-stats">
+                              <!-- Card body -->
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                      Number of nodes</h5>
+                                    <span class="h2 font-weight-bold mb-0" class="nodes" id="node-number">00</span>
+                                  </div>
+                                  <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
+                                      <i class="ni ni-books"></i>
                                     </div>
-                                    <div class="col-auto">
-                                      <div class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
-                                        <i class="ni ni-books"></i>
-                                      </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg">
+                            <div class="card card-stats">
+                              <!-- Card body -->
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                      LOSS VALUE</h5>
+                                    <span class="h2 font-weight-bold mb-0" class="nodes"
+                                          id="graph-loss">00</span>
+                                  </div>
+                                  <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
+                                      <i class="ni ni-books"></i>
                                     </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-lg">
+                            <div class="card card-stats">
+                              <!-- Card body -->
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                      The percentage of bad nodes</h5>
+                                    <span class="h2 font-weight-bold mb-0" class="nodes" id="percentage">0.00%</span>
+                                  </div>
+                                  <div class="col-auto">
+                                    <div id="well-predicted"
+                                         class="icon icon-shape bg-gradient-cyan text-white rounded-circle shadow">
+                                      <i class="ni ni-books"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card card-stats text-center">
+                                <div class="card-body" style="height:20rem;">
+                                  <div id="single-graph">
                                   </div>
                                 </div>
                               </div>
@@ -464,8 +515,8 @@
                           <div class="row">
                             <div class="col-12">
                               <div class="card card-stats text-center">
-                                <div class="card-body" style="height:30rem;">
-                                  <div id="single-graph">
+                                <div class="card-body" style="height:20rem;">
+                                  <div id="sub-graph">
                                   </div>
                                 </div>
                               </div>
@@ -473,15 +524,16 @@
                           </div>
                         </div>
                         <div class="col-lg-6">
-                          <div id="indexOfHighestPrediction" class="h3 font-weight-bold mb-0"></div>
+<!--                          <div id="indexOfHighestPrediction" class="h3 font-weight-bold mb-0"></div>-->
                           <div class="table-responsive py-4" id="datatable-panel">
                             <table class="table table-flush" id="datatable-nodes">
                               <thead class="thead-light">
                               <tr>
+                                <th>NO</th>
                                 <th>NODE</th>
                                 <th>LABEL</th>
                                 <th>PREDICTION</th>
-                                <th>LOSS</th>
+                                <th>PRE_INDEX</th>
                               </tr>
                               </thead>
                               <tbody>
