@@ -71,7 +71,8 @@ function createAnychartData(dataFromChunkG) {
   for (let i = 0; i < dataFromChunkG.nodes.length; i++) {
     console.log(dataFromChunkG.nodes[i])
     anychartData.nodes.push({
-      name: dataFromChunkG.nodes[i].name.toString(),
+      // name: dataFromChunkG.nodes[i].name.toString(),
+      name: '',
       id: dataFromChunkG.nodes[i].id.toString(),
       group: dataFromChunkG.nodes[i].group,
       feature: dataFromChunkG.nodes[i].feature,
@@ -305,7 +306,7 @@ function handleFileSelect(e) {
 }
 
 $(function () {
-  readChunks().then(() => console.log('readChunks'));
+  readChunks().then(() => console.log('read'));
   $('#file-input').click();
   $('#file-input').change(handleFileSelect);
   $('#speed').change(changeAnimationSpeed);

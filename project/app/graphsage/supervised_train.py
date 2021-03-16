@@ -159,6 +159,7 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
     iter_num = 0
 
     predictions = []
+    prediction_indexes = []
     label = []
     losses = 0
 
@@ -176,12 +177,17 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
         node_index = 0
         for node_out in node_outs_val[0]:
             available_index = 0
+            prediction_index = -1
+            prediction_max = -1
             for available in node_out:
                 if batch_labels[node_index][available_index] == 1:
                     predictions.append("{:.5f}".format(node_out[available_index]))
                     label.append(str(available_index))
-                    break
+                if prediction_max < node_out[available_index]:
+                    prediction_index = available_index
+                    prediction_max = node_out[available_index]
                 available_index += 1
+            prediction_indexes.append(str(prediction_index))
             node_index += 1
         losses = "{:.5f}".format(node_outs_val[1])
 
@@ -189,6 +195,7 @@ def incremental_evaluate_graph(sess, model, minibatch_iter, graph_id, size, test
             "graph_id": graph_id,
             "labels": label,
             "predictions": predictions,
+            "prediction_indexes": prediction_indexes,
             "losses": losses,
         })
 
